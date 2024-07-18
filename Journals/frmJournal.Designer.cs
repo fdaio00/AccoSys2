@@ -88,6 +88,7 @@
             this.txtTotalCredit = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.ckbIsPost = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -100,6 +101,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.ckbIsPost);
             this.groupBox1.Controls.Add(this.dtpJournalDate);
             this.groupBox1.Controls.Add(this.button3);
             this.groupBox1.Controls.Add(this.button4);
@@ -136,7 +138,7 @@
             this.button3.Location = new System.Drawing.Point(37, 43);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(72, 67);
-            this.button3.TabIndex = 25;
+            this.button3.TabIndex = 4;
             this.button3.UseVisualStyleBackColor = false;
             // 
             // button4
@@ -146,7 +148,7 @@
             this.button4.Location = new System.Drawing.Point(115, 43);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(72, 67);
-            this.button4.TabIndex = 24;
+            this.button4.TabIndex = 3;
             this.button4.UseVisualStyleBackColor = false;
             // 
             // button2
@@ -156,7 +158,7 @@
             this.button2.Location = new System.Drawing.Point(477, 43);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(72, 67);
-            this.button2.TabIndex = 23;
+            this.button2.TabIndex = 1;
             this.button2.UseVisualStyleBackColor = false;
             // 
             // button1
@@ -166,13 +168,14 @@
             this.button1.Location = new System.Drawing.Point(399, 43);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(72, 67);
-            this.button1.TabIndex = 22;
+            this.button1.TabIndex = 2;
             this.button1.UseVisualStyleBackColor = false;
             // 
             // textBox11
             // 
             this.textBox11.Location = new System.Drawing.Point(193, 65);
             this.textBox11.Name = "textBox11";
+            this.textBox11.ReadOnly = true;
             this.textBox11.Size = new System.Drawing.Size(200, 25);
             this.textBox11.TabIndex = 21;
             // 
@@ -209,6 +212,7 @@
             // rbGeneral
             // 
             this.rbGeneral.AutoSize = true;
+            this.rbGeneral.Checked = true;
             this.rbGeneral.Location = new System.Drawing.Point(135, 16);
             this.rbGeneral.Name = "rbGeneral";
             this.rbGeneral.Size = new System.Drawing.Size(51, 22);
@@ -232,7 +236,7 @@
             this.txtHeadDetails.Location = new System.Drawing.Point(982, 85);
             this.txtHeadDetails.Name = "txtHeadDetails";
             this.txtHeadDetails.Size = new System.Drawing.Size(412, 25);
-            this.txtHeadDetails.TabIndex = 3;
+            this.txtHeadDetails.TabIndex = 0;
             this.txtHeadDetails.Enter += new System.EventHandler(this.EnteringTextBox);
             this.txtHeadDetails.Leave += new System.EventHandler(this.LeaveTextBox);
             // 
@@ -249,6 +253,7 @@
             // 
             this.txtJournalID.Location = new System.Drawing.Point(1130, 35);
             this.txtJournalID.Name = "txtJournalID";
+            this.txtJournalID.ReadOnly = true;
             this.txtJournalID.Size = new System.Drawing.Size(264, 25);
             this.txtJournalID.TabIndex = 1;
             this.txtJournalID.Enter += new System.EventHandler(this.EnteringTextBox);
@@ -293,7 +298,7 @@
             this.btnEnterJournalDetails.Location = new System.Drawing.Point(37, 37);
             this.btnEnterJournalDetails.Name = "btnEnterJournalDetails";
             this.btnEnterJournalDetails.Size = new System.Drawing.Size(72, 50);
-            this.btnEnterJournalDetails.TabIndex = 27;
+            this.btnEnterJournalDetails.TabIndex = 6;
             this.btnEnterJournalDetails.Text = "إدخال";
             this.btnEnterJournalDetails.UseVisualStyleBackColor = false;
             this.btnEnterJournalDetails.Click += new System.EventHandler(this.btnEnterJournalDetails_Click);
@@ -301,11 +306,12 @@
             // cbCurrency
             // 
             this.cbCurrency.BackColor = System.Drawing.SystemColors.Window;
+            this.cbCurrency.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCurrency.FormattingEnabled = true;
             this.cbCurrency.Location = new System.Drawing.Point(499, 51);
             this.cbCurrency.Name = "cbCurrency";
             this.cbCurrency.Size = new System.Drawing.Size(148, 25);
-            this.cbCurrency.TabIndex = 21;
+            this.cbCurrency.TabIndex = 4;
             this.cbCurrency.SelectedIndexChanged += new System.EventHandler(this.cbCurrency_SelectedIndexChanged);
             this.cbCurrency.SelectedValueChanged += new System.EventHandler(this.cbCurrency_SelectedIndexChanged);
             this.cbCurrency.DragDrop += new System.Windows.Forms.DragEventHandler(this.cbCurrency_DragDrop);
@@ -313,17 +319,16 @@
             this.cbCurrency.DragLeave += new System.EventHandler(this.cbCurrency_DragLeave);
             this.cbCurrency.Enter += new System.EventHandler(this.cbCurrency_Enter);
             this.cbCurrency.Leave += new System.EventHandler(this.cbCurrency_Leave);
-            this.cbCurrency.Validating += new System.ComponentModel.CancelEventHandler(this.txtBox_Validating);
             // 
             // txtCredit
             // 
             this.txtCredit.Location = new System.Drawing.Point(668, 51);
             this.txtCredit.Name = "txtCredit";
             this.txtCredit.Size = new System.Drawing.Size(148, 25);
-            this.txtCredit.TabIndex = 20;
+            this.txtCredit.TabIndex = 3;
             this.txtCredit.Enter += new System.EventHandler(this.EnteringTextBox);
             this.txtCredit.Leave += new System.EventHandler(this.LeaveTextBox);
-            this.txtCredit.Validating += new System.ComponentModel.CancelEventHandler(this.txtBox_Validating);
+            this.txtCredit.Validating += new System.ComponentModel.CancelEventHandler(this.txtMoneyinsertingValues_Validating);
             // 
             // label11
             // 
@@ -339,7 +344,7 @@
             this.txtDetails.Location = new System.Drawing.Point(138, 51);
             this.txtDetails.Name = "txtDetails";
             this.txtDetails.Size = new System.Drawing.Size(183, 25);
-            this.txtDetails.TabIndex = 18;
+            this.txtDetails.TabIndex = 5;
             this.txtDetails.Enter += new System.EventHandler(this.EnteringTextBox);
             this.txtDetails.Leave += new System.EventHandler(this.LeaveTextBox);
             this.txtDetails.Validating += new System.ComponentModel.CancelEventHandler(this.txtBox_Validating);
@@ -357,12 +362,13 @@
             // 
             this.txtExchange.Location = new System.Drawing.Point(338, 51);
             this.txtExchange.Name = "txtExchange";
+            this.txtExchange.ReadOnly = true;
             this.txtExchange.Size = new System.Drawing.Size(148, 25);
             this.txtExchange.TabIndex = 16;
-            this.txtExchange.Text = "000";
+            this.txtExchange.Text = "0.0";
             this.txtExchange.Enter += new System.EventHandler(this.EnteringTextBox);
             this.txtExchange.Leave += new System.EventHandler(this.LeaveTextBox);
-            this.txtExchange.Validating += new System.ComponentModel.CancelEventHandler(this.txtBox_Validating);
+            this.txtExchange.Validating += new System.ComponentModel.CancelEventHandler(this.txtMoneyinsertingValues_Validating);
             // 
             // label10
             // 
@@ -387,10 +393,10 @@
             this.txtDebit.Location = new System.Drawing.Point(833, 51);
             this.txtDebit.Name = "txtDebit";
             this.txtDebit.Size = new System.Drawing.Size(132, 25);
-            this.txtDebit.TabIndex = 12;
+            this.txtDebit.TabIndex = 2;
             this.txtDebit.Enter += new System.EventHandler(this.EnteringTextBox);
             this.txtDebit.Leave += new System.EventHandler(this.LeaveTextBox);
-            this.txtDebit.Validating += new System.ComponentModel.CancelEventHandler(this.txtBox_Validating);
+            this.txtDebit.Validating += new System.ComponentModel.CancelEventHandler(this.txtMoneyinsertingValues_Validating);
             // 
             // label8
             // 
@@ -406,7 +412,7 @@
             this.txtAccountName.Location = new System.Drawing.Point(982, 51);
             this.txtAccountName.Name = "txtAccountName";
             this.txtAccountName.Size = new System.Drawing.Size(318, 25);
-            this.txtAccountName.TabIndex = 10;
+            this.txtAccountName.TabIndex = 1;
             this.txtAccountName.Enter += new System.EventHandler(this.EnteringTextBox);
             this.txtAccountName.Leave += new System.EventHandler(this.LeaveTextBox);
             this.txtAccountName.Validating += new System.ComponentModel.CancelEventHandler(this.txtBox_Validating);
@@ -425,7 +431,7 @@
             this.txtAccountNo.Location = new System.Drawing.Point(1317, 51);
             this.txtAccountNo.Name = "txtAccountNo";
             this.txtAccountNo.Size = new System.Drawing.Size(148, 25);
-            this.txtAccountNo.TabIndex = 8;
+            this.txtAccountNo.TabIndex = 0;
             this.txtAccountNo.TextChanged += new System.EventHandler(this.txtAccountNo_TextChanged);
             this.txtAccountNo.Enter += new System.EventHandler(this.EnteringTextBox);
             this.txtAccountNo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAccountNo_KeyPress);
@@ -611,7 +617,7 @@
             this.btnExit.Location = new System.Drawing.Point(19, 24);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(90, 59);
-            this.btnExit.TabIndex = 11;
+            this.btnExit.TabIndex = 6;
             this.btnExit.Text = "خروج";
             this.btnExit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnExit.UseVisualStyleBackColor = false;
@@ -626,7 +632,7 @@
             this.btnDelete.Location = new System.Drawing.Point(175, 24);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(90, 59);
-            this.btnDelete.TabIndex = 10;
+            this.btnDelete.TabIndex = 5;
             this.btnDelete.Text = "حذف";
             this.btnDelete.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnDelete.UseVisualStyleBackColor = false;
@@ -640,7 +646,7 @@
             this.btnSave.Location = new System.Drawing.Point(331, 24);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(90, 59);
-            this.btnSave.TabIndex = 9;
+            this.btnSave.TabIndex = 4;
             this.btnSave.Text = "حفظ";
             this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSave.UseVisualStyleBackColor = false;
@@ -653,17 +659,19 @@
             this.btnNew.Location = new System.Drawing.Point(487, 24);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(90, 59);
-            this.btnNew.TabIndex = 8;
+            this.btnNew.TabIndex = 3;
             this.btnNew.Text = "جديد";
             this.btnNew.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnNew.UseVisualStyleBackColor = false;
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // txtDifferentBetweenDebitAndCredit
             // 
             this.txtDifferentBetweenDebitAndCredit.Location = new System.Drawing.Point(704, 42);
             this.txtDifferentBetweenDebitAndCredit.Name = "txtDifferentBetweenDebitAndCredit";
+            this.txtDifferentBetweenDebitAndCredit.ReadOnly = true;
             this.txtDifferentBetweenDebitAndCredit.Size = new System.Drawing.Size(167, 25);
-            this.txtDifferentBetweenDebitAndCredit.TabIndex = 7;
+            this.txtDifferentBetweenDebitAndCredit.TabIndex = 2;
             this.txtDifferentBetweenDebitAndCredit.Text = "0.00";
             this.txtDifferentBetweenDebitAndCredit.Enter += new System.EventHandler(this.EnteringTextBox);
             this.txtDifferentBetweenDebitAndCredit.Leave += new System.EventHandler(this.LeaveTextBox);
@@ -681,8 +689,9 @@
             // 
             this.txtTotalDebit.Location = new System.Drawing.Point(1192, 42);
             this.txtTotalDebit.Name = "txtTotalDebit";
+            this.txtTotalDebit.ReadOnly = true;
             this.txtTotalDebit.Size = new System.Drawing.Size(167, 25);
-            this.txtTotalDebit.TabIndex = 5;
+            this.txtTotalDebit.TabIndex = 0;
             this.txtTotalDebit.Text = "0.00";
             this.txtTotalDebit.Enter += new System.EventHandler(this.EnteringTextBox);
             this.txtTotalDebit.Leave += new System.EventHandler(this.LeaveTextBox);
@@ -700,8 +709,9 @@
             // 
             this.txtTotalCredit.Location = new System.Drawing.Point(951, 42);
             this.txtTotalCredit.Name = "txtTotalCredit";
+            this.txtTotalCredit.ReadOnly = true;
             this.txtTotalCredit.Size = new System.Drawing.Size(167, 25);
-            this.txtTotalCredit.TabIndex = 3;
+            this.txtTotalCredit.TabIndex = 1;
             this.txtTotalCredit.Text = "0.00";
             this.txtTotalCredit.Enter += new System.EventHandler(this.EnteringTextBox);
             this.txtTotalCredit.Leave += new System.EventHandler(this.LeaveTextBox);
@@ -719,10 +729,23 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // ckbIsPost
+            // 
+            this.ckbIsPost.AutoSize = true;
+            this.ckbIsPost.Checked = true;
+            this.ckbIsPost.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ckbIsPost.Location = new System.Drawing.Point(620, 30);
+            this.ckbIsPost.Name = "ckbIsPost";
+            this.ckbIsPost.Size = new System.Drawing.Size(65, 22);
+            this.ckbIsPost.TabIndex = 27;
+            this.ckbIsPost.Text = "مرحل";
+            this.ckbIsPost.UseVisualStyleBackColor = true;
+            // 
             // frmJournal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.ClientSize = new System.Drawing.Size(1495, 675);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
@@ -816,5 +839,6 @@
         private System.Windows.Forms.ContextMenuStrip cmsJournalDetails;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.CheckBox ckbIsPost;
     }
 }

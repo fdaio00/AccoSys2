@@ -9,7 +9,7 @@
       <Value Profile="(Default)">AccountingDB</Value>
     </Setting>
     <Setting Name="Server" Type="System.String" Scope="User">
-      <Value Profile="(Default)">DESKTOP-PN0QPMJ\MSSQLSERVER2</Value>
+      <Value Profile="(Default)">FEDAA\MSSQLSERVER2</Value>
     </Setting>
     <Setting Name="UserID" Type="System.String" Scope="User">
       <Value Profile="(Default)">aa</Value>

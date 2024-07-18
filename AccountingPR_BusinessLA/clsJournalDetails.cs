@@ -133,4 +133,11 @@ public class clsJournalDetails
             return null;
         }
     }
+
+
+
+    public async static Task<int> GetLastJournalNumber()
+    {
+        return await clsJournalDetailsData.GetLastJournalNumber();
+    }
 }

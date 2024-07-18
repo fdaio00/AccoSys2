@@ -49,7 +49,7 @@ namespace AccountingPR.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("DESKTOP-PN0QPMJ\\MSSQLSERVER2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("FEDAA\\MSSQLSERVER2")]
         public string Server {
             get {
                 return ((string)(this["Server"]));

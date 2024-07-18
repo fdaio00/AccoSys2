@@ -4,15 +4,15 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 
-public static class clsJournalDetailsData
+public static class clsJournalHeadersData
 {
-    public static async Task<DataTable> GetAllJournalDetailsAsync()
+    public static async Task<DataTable> GetAllJournalHeadersAsync()
     {
         DataTable dt = new DataTable();
 
         using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
         {
-            using (SqlCommand command = new SqlCommand("SP_GetAllJournalDetails", connection))
+            using (SqlCommand command = new SqlCommand("SP_GetAllJournalHeaders", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
 
@@ -33,32 +33,39 @@ public static class clsJournalDetailsData
         return dt;
     }
 
-    public static async Task<int> AddNewJournalDetailAsync(
-        int AccountID,
-        decimal AccountDebit,
-        decimal AccountCredit,
+    public static async Task<int> AddNewJournalHeaderAsync(
+        DateTime JouDate,
         string JouNote,
-        int AccountCurrencyID,
-        int JouID)
+        int JouTypeID,
+        bool JouIsPost,
+        decimal TotalDebit,
+        decimal TotalCredit,
+        decimal TotalBalance,
+        int AddedByUserID,
+        DateTime AddDate)
     {
-        int journalDetailID = -1;
+        int journalHeaderID = -1;
 
         using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
         {
-            using (SqlCommand command = new SqlCommand("SP_AddJournalDetail", connection))
+            using (SqlCommand command = new SqlCommand("SP_AddJournalHeader", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@AccountID", (object)AccountID ?? DBNull.Value);
-                command.Parameters.AddWithValue("@AccountDebit", (object)AccountDebit ?? DBNull.Value);
-                command.Parameters.AddWithValue("@AccountCredit", (object)AccountCredit ?? DBNull.Value);
+                command.Parameters.AddWithValue("@JouDate", (object)JouDate ?? DBNull.Value);
                 command.Parameters.AddWithValue("@JouNote", (object)JouNote ?? DBNull.Value);
-                command.Parameters.AddWithValue("@AccountCurrencyID", (object)AccountCurrencyID ?? DBNull.Value);
-                command.Parameters.AddWithValue("@JouID", (object)JouID ?? DBNull.Value);
+                command.Parameters.AddWithValue("@JouTypeID", (object)JouTypeID ?? DBNull.Value);
+                command.Parameters.AddWithValue("@JouIsPost", (object)JouIsPost ?? DBNull.Value);
+                command.Parameters.AddWithValue("@TotalDebit", (object)TotalDebit ?? DBNull.Value);
+                command.Parameters.AddWithValue("@TotalCredit", (object)TotalCredit ?? DBNull.Value);
+                command.Parameters.AddWithValue("@TotalBalance", (object)TotalBalance ?? DBNull.Value);
+                command.Parameters.AddWithValue("@AddedByUserID", (object)AddedByUserID ?? DBNull.Value);
+                command.Parameters.AddWithValue("@AddDate", (object)AddDate ?? DBNull.Value);
+
 
                 try
                 {
                     await connection.OpenAsync();
-                    journalDetailID = Convert.ToInt32(await command.ExecuteScalarAsync());
+                    journalHeaderID = Convert.ToInt32(await command.ExecuteScalarAsync());
                 }
                 catch (Exception ex)
                 {
@@ -71,32 +78,38 @@ public static class clsJournalDetailsData
             }
         }
 
-        return journalDetailID;
+        return journalHeaderID;
     }
 
-    public static async Task<bool> UpdateJournalDetailAsync(
-        int JouDetalisID,
-        int AccountID,
-        decimal AccountDebit,
-        decimal AccountCredit,
+    public static async Task<bool> UpdateJournalHeaderAsync(
+        int JouID,
+        DateTime JouDate,
         string JouNote,
-        int AccountCurrencyID,
-        int JouID)
+        int JouTypeID,
+        bool JouIsPost,
+        decimal TotalDebit,
+        decimal TotalCredit,
+        decimal TotalBalance,
+        int? EditedByUserID,
+        DateTime? EditDate)
     {
         bool success = false;
 
         using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
         {
-            using (SqlCommand command = new SqlCommand("SP_UpdateJournalDetail", connection))
+            using (SqlCommand command = new SqlCommand("SP_UpdateJournalHeader", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@JouDetalisID", JouDetalisID);
-                command.Parameters.AddWithValue("@AccountID", (object)AccountID ?? DBNull.Value);
-                command.Parameters.AddWithValue("@AccountDebit", (object)AccountDebit ?? DBNull.Value);
-                command.Parameters.AddWithValue("@AccountCredit", (object)AccountCredit ?? DBNull.Value);
+                command.Parameters.AddWithValue("@JouID", JouID);
+                command.Parameters.AddWithValue("@JouDate", (object)JouDate ?? DBNull.Value);
                 command.Parameters.AddWithValue("@JouNote", (object)JouNote ?? DBNull.Value);
-                command.Parameters.AddWithValue("@AccountCurrencyID", (object)AccountCurrencyID ?? DBNull.Value);
-                command.Parameters.AddWithValue("@JouID", (object)JouID ?? DBNull.Value);
+                command.Parameters.AddWithValue("@JouTypeID", (object)JouTypeID ?? DBNull.Value);
+                command.Parameters.AddWithValue("@JouIsPost", (object)JouIsPost ?? DBNull.Value);
+                command.Parameters.AddWithValue("@TotalDebit", (object)TotalDebit ?? DBNull.Value);
+                command.Parameters.AddWithValue("@TotalCredit", (object)TotalCredit ?? DBNull.Value);
+                command.Parameters.AddWithValue("@TotalBalance", (object)TotalBalance ?? DBNull.Value);
+                command.Parameters.AddWithValue("@EditedByUserID", (object)EditedByUserID ?? DBNull.Value);
+                command.Parameters.AddWithValue("@EditDate", (object)EditDate ?? DBNull.Value);
 
                 try
                 {
@@ -114,16 +127,16 @@ public static class clsJournalDetailsData
         return success;
     }
 
-    public static async Task<bool> DeleteJournalDetailAsync(int JouDetalisID)
+    public static async Task<bool> DeleteJournalHeaderAsync(int JouID)
     {
         bool success = false;
 
         using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
         {
-            using (SqlCommand command = new SqlCommand("SP_DeleteJournalDetail", connection))
+            using (SqlCommand command = new SqlCommand("SP_DeleteJournalHeader", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@JouDetalisID", JouDetalisID);
+                command.Parameters.AddWithValue("@JouID", JouID);
 
                 try
                 {
@@ -141,23 +154,28 @@ public static class clsJournalDetailsData
         return success;
     }
 
-    public static bool FindJournalDetailByID(
-        int JouDetalisID,
-        ref int? AccountIDRef,
-        ref decimal? AccountDebitRef,
-        ref decimal? AccountCreditRef,
+    public static bool FindJournalHeaderByID(
+        int JouID,
+        ref DateTime? JouDateRef,
         ref string JouNoteRef,
-        ref int? AccountCurrencyIDRef,
-        ref int? JouIDRef)
+        ref int? JouTypeIDRef,
+        ref bool? JouIsPostRef,
+        ref decimal? TotalDebitRef,
+        ref decimal? TotalCreditRef,
+        ref decimal? TotalBalanceRef,
+        ref int? AddedByUserIDRef,
+        ref DateTime? AddDateRef,
+        ref int? EditedByUserIDRef,
+        ref DateTime? EditDateRef)
     {
         bool isFound = false;
 
         using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
         {
-            using (SqlCommand command = new SqlCommand("SP_GetJournalDetailByID", connection))
+            using (SqlCommand command = new SqlCommand("SP_GetJournalHeaderByID", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@JouDetalisID", JouDetalisID);
+                command.Parameters.AddWithValue("@JouID", JouID);
 
                 try
                 {
@@ -166,12 +184,17 @@ public static class clsJournalDetailsData
                     if (reader.Read())
                     {
                         isFound = true;
-                        AccountIDRef = reader["AccountID"] != DBNull.Value ? Convert.ToInt32(reader["AccountID"]) : -1;
-                        AccountDebitRef = reader["AccountDebit"] != DBNull.Value ? Convert.ToDecimal(reader["AccountDebit"]) : 0;
-                        AccountCreditRef = reader["AccountCredit"] != DBNull.Value ? Convert.ToDecimal(reader["AccountCredit"]) : 0;
+                        JouDateRef = reader["JouDate"] != DBNull.Value ? Convert.ToDateTime(reader["JouDate"]) : (DateTime?)null;
                         JouNoteRef = reader["JouNote"] != DBNull.Value ? Convert.ToString(reader["JouNote"]) : null;
-                        AccountCurrencyIDRef = reader["CurrencyID"] != DBNull.Value ? Convert.ToInt32(reader["CurrencyID"]) : 0;
-                        JouIDRef = reader["JouID"] != DBNull.Value ? Convert.ToInt32(reader["JouID"]) : 0;
+                        JouTypeIDRef = reader["JouTypeID"] != DBNull.Value ? Convert.ToInt32(reader["JouTypeID"]) : (int?)null;
+                        JouIsPostRef = reader["JouIsPost"] != DBNull.Value ? Convert.ToBoolean(reader["JouIsPost"]) : (bool?)null;
+                        TotalDebitRef = reader["TotalDebit"] != DBNull.Value ? Convert.ToDecimal(reader["TotalDebit"]) : (decimal?)null;
+                        TotalCreditRef = reader["TotalCredit"] != DBNull.Value ? Convert.ToDecimal(reader["TotalCredit"]) : (decimal?)null;
+                        TotalBalanceRef = reader["TotalBalance"] != DBNull.Value ? Convert.ToDecimal(reader["TotalBalance"]) : (decimal?)null;
+                        AddedByUserIDRef = reader["AddedByUserID"] != DBNull.Value ? Convert.ToInt32(reader["AddedByUserID"]) : (int?)null;
+                        AddDateRef = reader["AddDate"] != DBNull.Value ? Convert.ToDateTime(reader["AddDate"]) : (DateTime?)null;
+                        EditedByUserIDRef = reader["EditedByUserID"] != DBNull.Value ? Convert.ToInt32(reader["EditedByUserID"]) : (int?)null;
+                        EditDateRef = reader["EditDate"] != DBNull.Value ? Convert.ToDateTime(reader["EditDate"]) : (DateTime?)null;
                     }
                     reader.Close();
                 }
@@ -195,13 +218,10 @@ public static class clsJournalDetailsData
                 command.CommandType = CommandType.StoredProcedure;
                 SqlParameter countOutput = new SqlParameter("@Count", SqlDbType.Int)
                 {
-
                     Direction = ParameterDirection.Output,
                 };
 
                 command.Parameters.Add(countOutput);
-
-
 
                 try
                 {
@@ -218,7 +238,6 @@ public static class clsJournalDetailsData
                 }
             }
         }
-        return Count  ;
+        return Count;
     }
 }
-    

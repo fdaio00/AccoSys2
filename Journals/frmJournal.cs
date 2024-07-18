@@ -17,6 +17,9 @@ namespace AccountingPR.Journals
         DataTable _dtCurrencyType;
         clsCurrency _Currency;
         List<int> _AccountsList = new List<int>(); 
+
+        enum enJournalType { General =1 ,Reversed = 2, Circular =3, Paused = 4};
+        enJournalType JournalType = enJournalType.General; 
         public frmJournal()
         {
             InitializeComponent();
@@ -203,7 +206,9 @@ namespace AccountingPR.Journals
             }
 
             txtTotalDebit.Text = TotalDebit.ToString("0.0"); 
-            txtTotalCredit.Text = TotalCredit.ToString("0.0"); 
+            txtTotalCredit.Text = TotalCredit.ToString("0.0");
+
+            _CalculateDifferenceBetweenDebitAndCredit();
         }
         private void btnEnterJournalDetails_Click(object sender, EventArgs e)
         {
@@ -214,7 +219,6 @@ namespace AccountingPR.Journals
             }
             _EnteringRow();
             _CalculatingTotalDebitAndCredit();
-            _CalculateDifferenceBetweenDebitAndCredit();
             
  
         }
@@ -271,7 +275,9 @@ namespace AccountingPR.Journals
             temp.BackColor = Color.White;
             
         }
-
+        void _ClearAllRowsInDataGridView()
+        {
+        }
         private void txtBox_Validating(object sender, CancelEventArgs e)
         {
             TextBox Temp = (TextBox)sender; 
@@ -286,6 +292,38 @@ namespace AccountingPR.Journals
                 errorProvider1.SetError(Temp,null);
 
             }
+        }
+
+        private void txtMoneyinsertingValues_Validating(object sender, CancelEventArgs e)
+        {
+            TextBox Temp = (TextBox)sender;
+            if (string.IsNullOrEmpty(Temp.Text.Trim()))
+            {
+                e.Cancel = true;
+                errorProvider1.SetError(Temp, "هذا الحقل لا يجب ان يكون فارغا");
+
+            }
+            else if (Convert.ToSingle( Temp.Text.Trim())  <= 0.00 )
+            {
+                e.Cancel = true;
+                errorProvider1.SetError(Temp, "هذا الحقل يجب أن تكون قيمته اكبر من الصفر");
+
+            }
+            else
+            {
+                errorProvider1.SetError(Temp, null);
+
+            }
+        }
+
+        private  async void btnNew_Click(object sender, EventArgs e)
+        {
+            _ClearTextBoxesAfterInsertingDataToDGV();
+            dgvJournals.Rows.Clear();
+            _CalculatingTotalDebitAndCredit();
+
+           int LastNumber =  await (clsJournalDetails.GetLastJournalNumber());
+            txtJournalID.Text = LastNumber.ToString();
         }
     }
 }
