@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{345C0D15-7604-44B8-9F54-A026753F8AF2}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>AccountingPR</RootNamespace>
+    <AssemblyName>AccountingPR</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Toaster.NET, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Toaster.NET.1.0.0\lib\net40\Toaster.NET.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccountingDBDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AccountingDBDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\frmListAccounts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Accounts\frmListAccounts.Designer.cs">
+      <DependentUpon>frmListAccounts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\frmListBanksCashes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Accounts\frmListBanksCashes.Designer.cs">
+      <DependentUpon>frmListBanksCashes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\frmSearchAccount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Accounts\frmSearchAccount.Designer.cs">
+      <DependentUpon>frmSearchAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cashes\frmListCashes.cs" />
+    <Compile Include="Cashes\frmListCashes.Designer.cs">
+      <DependentUpon>frmListCashes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Company\CustomControl1.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Company\CustomControl1.Designer.cs">
+      <DependentUpon>CustomControl1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Company\frmCompanyInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Company\frmCompanyInfo.Designer.cs">
+      <DependentUpon>frmCompanyInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ctrlTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ctrlTextBox.Designer.cs">
+      <DependentUpon>ctrlTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Currencies\frmListCurrencies.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Currencies\frmListCurrencies.Designer.cs">
+      <DependentUpon>frmListCurrencies.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMain.Designer.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Global\clsGlobal.cs" />
+    <Compile Include="Global\clsUtil.cs" />
+    <Compile Include="Global\ToastHelper.cs" />
+    <Compile Include="Journals\frmJournal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Journals\frmJournal.Designer.cs">
+      <DependentUpon>frmJournal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login\clsConfigManager.cs" />
+    <Compile Include="Login\frmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\frmLogin.Designer.cs">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="System Settings\frmConnectionFormat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="System Settings\frmConnectionFormat.Designer.cs">
+      <DependentUpon>frmConnectionFormat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="myToast.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="myToast.Designer.cs">
+      <DependentUpon>myToast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Users\frmListUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Users\frmListUsers.Designer.cs">
+      <DependentUpon>frmListUsers.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Accounts\frmListAccounts.resx">
+      <DependentUpon>frmListAccounts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Accounts\frmListBanksCashes.resx">
+      <DependentUpon>frmListBanksCashes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Accounts\frmSearchAccount.resx">
+      <DependentUpon>frmSearchAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cashes\frmListCashes.resx">
+      <DependentUpon>frmListCashes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\frmCompanyInfo.resx">
+      <DependentUpon>frmCompanyInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ctrlTextBox.resx">
+      <DependentUpon>ctrlTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Currencies\frmListCurrencies.resx">
+      <DependentUpon>frmListCurrencies.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMain.resx">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Journals\frmJournal.resx">
+      <DependentUpon>frmJournal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\frmLogin.resx">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="System Settings\frmConnectionFormat.resx">
+      <DependentUpon>frmConnectionFormat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="myToast.resx">
+      <DependentUpon>myToast.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Users\frmListUsers.resx">
+      <DependentUpon>frmListUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="AccountingDBDataSet.xsc">
+      <DependentUpon>AccountingDBDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="AccountingDBDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AccountingDBDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="AccountingDBDataSet.xss">
+      <DependentUpon>AccountingDBDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="app.manifest" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="AccountingPR_BusinessLA\Accounting_BL.csproj">
+      <Project>{e77c3b54-6613-4d2c-803f-777feb9b98ee}</Project>
+      <Name>Accounting_BL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\136-1364506_transparent-report-icon-png-report-magnifying-glass-icon.png" />
+    <None Include="Resources\add.png" />
+    <None Include="Resources\arrow_left.png" />
+    <None Include="Resources\arrow_left2.png" />
+    <None Include="Resources\arrow_right.png" />
+    <None Include="Resources\arrow_right2.png" />
+    <None Include="Resources\1488160809.png" />
+    <Content Include="Resources\back~1.png" />
+    <Content Include="Resources\bank.png" />
+    <Content Include="Resources\calculator.png" />
+    <None Include="Resources\check_mark.png" />
+    <None Include="Resources\check_mark1.png" />
+    <None Include="Resources\close.png" />
+    <Content Include="Resources\companies.png" />
+    <None Include="Resources\cross.png" />
+    <None Include="Resources\delete.png" />
+    <None Include="Resources\diskette.png" />
+    <None Include="Resources\delete1.png" />
+    <Content Include="Resources\document.png" />
+    <Content Include="Resources\document1.png" />
+    <Content Include="Resources\document2.png" />
+    <Content Include="Resources\document3.png" />
+    <None Include="Resources\door.png" />
+    <None Include="Resources\document4.png" />
+    <Content Include="Resources\download.png" />
+    <None Include="Resources\edit.png" />
+    <Content Include="Resources\gear.png" />
+    <Content Include="Resources\help.png" />
+    <None Include="Resources\info.png" />
+    <None Include="Resources\info1.png" />
+    <None Include="Resources\images.png" />
+    <Content Include="Resources\network.png" />
+    <Content Include="Resources\out-icon-34622.jpg" />
+    <Content Include="Resources\report.png" />
+    <Content Include="Resources\safety_box_open.png" />
+    <Content Include="Resources\sign_out.png" />
+    <Content Include="Resources\user.png" />
+    <Content Include="Resources\user1.png" />
+    <Content Include="Resources\user2.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
