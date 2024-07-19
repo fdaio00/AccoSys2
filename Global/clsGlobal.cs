@@ -66,7 +66,7 @@ namespace AccountingPR.Global
             return successed;
         }
 
-        
+        public static clsUser CurrentUser; 
         static public void SetErrorLoggingEvent(string exMessage)
         {
 

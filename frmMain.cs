@@ -1,4 +1,5 @@
-﻿using AccountingPR.Accounts;
+﻿using AccoSys;
+using AccountingPR.Accounts;
 using AccountingPR.Bank;
 using AccountingPR.Company;
 using AccountingPR.Currencies;
@@ -92,6 +93,17 @@ namespace AccountingPR
         {
             frmJournal frm = new frmJournal();
             frm.ShowDialog();
+        }
+
+        private void tesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmTest frm = new frmTest();
+            frm.ShowDialog();
+        }
+
+        private void عبدالباسطToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            myToast.ShowToast("عبد الباسط");
         }
     }
 }

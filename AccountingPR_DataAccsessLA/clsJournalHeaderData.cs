@@ -33,7 +33,8 @@ public static class clsJournalHeadersData
         return dt;
     }
 
-    public static async Task<int> AddNewJournalHeaderAsync(
+    public static async Task<bool> AddNewJournalHeaderAsync(
+        int JouID ,
         DateTime JouDate,
         string JouNote,
         int JouTypeID,
@@ -44,13 +45,14 @@ public static class clsJournalHeadersData
         int AddedByUserID,
         DateTime AddDate)
     {
-        int journalHeaderID = -1;
+        bool Succes = false; 
 
         using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
         {
             using (SqlCommand command = new SqlCommand("SP_AddJournalHeader", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@JouID", (object)JouID ?? DBNull.Value);
                 command.Parameters.AddWithValue("@JouDate", (object)JouDate ?? DBNull.Value);
                 command.Parameters.AddWithValue("@JouNote", (object)JouNote ?? DBNull.Value);
                 command.Parameters.AddWithValue("@JouTypeID", (object)JouTypeID ?? DBNull.Value);
@@ -65,20 +67,17 @@ public static class clsJournalHeadersData
                 try
                 {
                     await connection.OpenAsync();
-                    journalHeaderID = Convert.ToInt32(await command.ExecuteScalarAsync());
+                    await command.ExecuteScalarAsync();
+                    Succes = true; 
                 }
                 catch (Exception ex)
                 {
                     clsDataAccessSettings.SetErrorLoggingEvent(ex.Message);
                 }
-                finally
-                {
-                    connection.Close();
-                }
             }
         }
 
-        return journalHeaderID;
+        return Succes;
     }
 
     public static async Task<bool> UpdateJournalHeaderAsync(

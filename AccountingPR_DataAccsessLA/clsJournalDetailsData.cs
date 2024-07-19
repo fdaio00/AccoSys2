@@ -45,9 +45,14 @@ public static class clsJournalDetailsData
 
         using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
         {
-            using (SqlCommand command = new SqlCommand("SP_AddJournalDetail", connection))
+            using (SqlCommand command = new SqlCommand("SP_AddJournalDetails", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
+                SqlParameter idOutput = new SqlParameter("@JouDetailsID", SqlDbType.Int)
+                {
+                    Direction = ParameterDirection.Output
+                };
+                command.Parameters.Add(idOutput);
                 command.Parameters.AddWithValue("@AccountID", (object)AccountID ?? DBNull.Value);
                 command.Parameters.AddWithValue("@AccountDebit", (object)AccountDebit ?? DBNull.Value);
                 command.Parameters.AddWithValue("@AccountCredit", (object)AccountCredit ?? DBNull.Value);
@@ -58,16 +63,15 @@ public static class clsJournalDetailsData
                 try
                 {
                     await connection.OpenAsync();
-                    journalDetailID = Convert.ToInt32(await command.ExecuteScalarAsync());
+                    await command.ExecuteNonQueryAsync();
+                    if (idOutput != null)
+                        journalDetailID = Convert.ToInt32(idOutput.Value);
                 }
                 catch (Exception ex)
                 {
                     clsDataAccessSettings.SetErrorLoggingEvent(ex.Message);
                 }
-                finally
-                {
-                    connection.Close();
-                }
+              
             }
         }
 
@@ -87,7 +91,7 @@ public static class clsJournalDetailsData
 
         using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
         {
-            using (SqlCommand command = new SqlCommand("SP_UpdateJournalDetail", connection))
+            using (SqlCommand command = new SqlCommand("SP_UpdateJournalDetails", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@JouDetalisID", JouDetalisID);

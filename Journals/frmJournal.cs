@@ -1,10 +1,12 @@
 ﻿using AccountingPR.Accounts;
+using AccountingPR.Global;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,10 +18,15 @@ namespace AccountingPR.Journals
         clsAccount _Account;
         DataTable _dtCurrencyType;
         clsCurrency _Currency;
-        List<int> _AccountsList = new List<int>(); 
+        List<int> _AccountsList = new List<int>();
+        clsJournalHeaders _JournalHeaders;
+        int? _JournalCount = null;
 
-        enum enJournalType { General =1 ,Reversed = 2, Circular =3, Paused = 4};
-        enJournalType JournalType = enJournalType.General; 
+        enum enMdoe { AddNew , Update };
+        enMdoe _Mode = enMdoe.AddNew;
+        private clsJournalDetails _JournalDetails;
+
+        enum enJournalType { General =1 ,Reversed = 2, Circular =3, Closed = 4};
         public frmJournal()
         {
             InitializeComponent();
@@ -131,7 +138,7 @@ namespace AccountingPR.Journals
         }
         void _ClearTextBoxesAfterInsertingDataToDGV()
         {
-            txtJournalID.Clear();
+            //txtJournalID.Clear();
                 txtAccountNo.Clear();
                 txtAccountName.Clear();
                 txtDebit.Clear();
@@ -140,7 +147,7 @@ namespace AccountingPR.Journals
                 txtCredit.Text="0.00"; 
                 txtExchange.Clear();
                 txtDetails.Clear();
-            txtAccountNo.Focus();
+            //txtAccountNo.Focus();
             _Account = null; 
             _Currency = null;
             cbCurrency.SelectedIndex = cbCurrency.FindString("الريال اليمني");
@@ -208,7 +215,7 @@ namespace AccountingPR.Journals
             txtTotalDebit.Text = TotalDebit.ToString("0.0"); 
             txtTotalCredit.Text = TotalCredit.ToString("0.0");
 
-            _CalculateDifferenceBetweenDebitAndCredit();
+            _CalculateTotalBalance();
         }
         private void btnEnterJournalDetails_Click(object sender, EventArgs e)
         {
@@ -223,9 +230,9 @@ namespace AccountingPR.Journals
  
         }
 
-        private void _CalculateDifferenceBetweenDebitAndCredit()
+        private void _CalculateTotalBalance()
         {
-          txtDifferentBetweenDebitAndCredit.Text =  ( Convert.ToSingle(txtTotalDebit.Text) -
+          txtBalance.Text =  ( Convert.ToSingle(txtTotalDebit.Text) -
             Convert.ToSingle(txtTotalCredit.Text)).ToString("0.00");
         }
 
@@ -242,7 +249,7 @@ namespace AccountingPR.Journals
             }
             dgvJournals.Rows.RemoveAt(dgvJournals.CurrentRow.Index);
             _CalculatingTotalDebitAndCredit();
-            _CalculateDifferenceBetweenDebitAndCredit();
+            _CalculateTotalBalance();
         }
 
         private void dgvJournals_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -275,9 +282,7 @@ namespace AccountingPR.Journals
             temp.BackColor = Color.White;
             
         }
-        void _ClearAllRowsInDataGridView()
-        {
-        }
+ 
         private void txtBox_Validating(object sender, CancelEventArgs e)
         {
             TextBox Temp = (TextBox)sender; 
@@ -321,9 +326,115 @@ namespace AccountingPR.Journals
             _ClearTextBoxesAfterInsertingDataToDGV();
             dgvJournals.Rows.Clear();
             _CalculatingTotalDebitAndCredit();
+            btnSave.Enabled = true; 
+            _JournalCount =  await (clsJournalDetails.GetLastJournalNumber());
+            txtJournalID.Text = _JournalCount.ToString();
+            _JournalHeaders = new clsJournalHeaders();
+            txtHeadNote.Focus();
+        }
 
-           int LastNumber =  await (clsJournalDetails.GetLastJournalNumber());
-            txtJournalID.Text = LastNumber.ToString();
+       async Task<bool> _SaveJournalDetails()
+        {
+            bool sucsess = true;
+
+            try
+            {
+                for(int i =0; i <dgvJournals.Rows.Count; i++)
+                {
+                    if(dgvJournals.Rows.Count>0)
+                    {
+                        if(_Mode==enMdoe.AddNew)
+                        {
+                            _JournalDetails = new clsJournalDetails();
+                        }
+                        else
+                        {
+
+                        }
+
+                        _JournalDetails.AccountCurrencyID = Convert.ToInt32(dgvJournals.Rows[i].Cells[5].Value);
+                        _JournalDetails.AccountCredit = Convert.ToInt32(dgvJournals.Rows[i].Cells[4].Value);
+                        _JournalDetails.AccountDebit = Convert.ToInt32(dgvJournals.Rows[i].Cells[3].Value);
+                        _JournalDetails.AccountID = Convert.ToInt32(dgvJournals.Rows[i].Cells[1].Value);
+                        _JournalDetails.JouID = Convert.ToInt32(dgvJournals.Rows[i].Cells[0].Value);
+                        _JournalDetails.JouNote = Convert.ToString(dgvJournals.Rows[i].Cells[8].Value);
+
+                        if(!await _JournalDetails.SaveAsync())
+                        {
+                            return false; 
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                clsGlobal.SetErrorLoggingEvent(ex.Message);
+                sucsess = false; 
+            }
+
+
+            return sucsess; 
+        }
+        async Task<bool> _SaveJournalHeader()
+        {
+            bool IsFound = false ; 
+            _JournalHeaders.TotalCredit = Convert.ToDecimal(txtTotalCredit.Text);
+            _JournalHeaders.TotalBalance = Convert.ToDecimal(txtBalance.Text);
+            _JournalHeaders.JouNote = txtHeadNote.Text.Trim() ;
+            _JournalHeaders.AddedByUserID = clsGlobal.CurrentUser.UserID;
+            _JournalHeaders.AddDate = DateTime.Now;
+            _JournalHeaders.JouDate = dtpJournalDate.Value;
+            if(rbClosed.Checked)
+            {
+
+            _JournalHeaders.JouTypeID = Convert.ToInt32(enJournalType.Closed);
+            }
+            if(rbGeneral.Checked)
+            {
+                _JournalHeaders.JouTypeID = Convert.ToInt32(enJournalType.General);
+
+            }
+            _JournalHeaders.JouIsPost = ckbIsPost.Checked;
+            _JournalHeaders.JouID = _JournalCount??-1;
+            _JournalHeaders.TotalDebit =  Convert.ToDecimal(txtTotalDebit.Text);
+
+            if(await _JournalHeaders.SaveAsync())
+            {
+                IsFound = true; 
+            }
+
+            return IsFound; 
+
+
+         
+        }
+        private async void btnSave_Click(object sender, EventArgs e)
+        {
+            //if(!this.ValidateChildren())
+            //{
+            //    myToast.ShowToast("يحب عليك ادخال الفراغات المطلوبة", ToastTypeIcon.Warning);
+            //    return;
+            //}
+            
+            if(await _SaveJournalHeader())
+            {
+                if(await _SaveJournalDetails())
+                {
+                  myToast.ShowToast("تم حفظ جميع السجلات بنجاح", ToastTypeIcon.Success);
+
+                }
+                else
+                {
+                    myToast.ShowToast("لم يتم حفظ بعض السجلات , حدث خطأ ما ", ToastTypeIcon.Error);
+
+                }
+            }
+            else
+            {
+                myToast.ShowToast("لم يتم الحفظ , حدث خطأ ما ", ToastTypeIcon.Error);
+
+            }
         }
     }
 }

@@ -47,6 +47,7 @@ namespace AccountingPR.Login
                     clsGlobal.SaveCredintail("", "");
                 }
 
+                clsGlobal.CurrentUser = LoggedUser;
                 frmMain frm = new frmMain();
                 this.Hide();
                 frm.Show();

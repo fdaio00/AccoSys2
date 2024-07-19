@@ -1,6 +1,6 @@
 ﻿namespace AccoSys
 {
-    partial class Form1
+    partial class frmTest
     {
         /// <summary>
         /// Required designer variable.
@@ -28,78 +28,82 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button1 = new System.Windows.Forms.Button();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmTest));
+            this.ribbon1 = new System.Windows.Forms.Ribbon();
+            this.ribbonTab1 = new System.Windows.Forms.RibbonTab();
+            this.ribbonPanel1 = new System.Windows.Forms.RibbonPanel();
+            this.ribbonPanel2 = new System.Windows.Forms.RibbonPanel();
+            this.ribbonButton1 = new System.Windows.Forms.RibbonButton();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // ribbon1
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2});
-            this.dataGridView1.Location = new System.Drawing.Point(313, 164);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(290, 138);
-            this.dataGridView1.TabIndex = 0;
+            this.ribbon1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.ribbon1.Location = new System.Drawing.Point(0, 0);
+            this.ribbon1.Minimized = false;
+            this.ribbon1.Name = "ribbon1";
             // 
-            // Column1
             // 
-            this.Column1.HeaderText = "Column1";
-            this.Column1.MinimumWidth = 6;
-            this.Column1.Name = "Column1";
-            this.Column1.Width = 125;
             // 
-            // Column2
+            this.ribbon1.OrbDropDown.BorderRoundness = 8;
+            this.ribbon1.OrbDropDown.Location = new System.Drawing.Point(0, 0);
+            this.ribbon1.OrbDropDown.Name = "";
+            this.ribbon1.OrbDropDown.Size = new System.Drawing.Size(527, 72);
+            this.ribbon1.OrbDropDown.TabIndex = 0;
             // 
-            this.Column2.HeaderText = "Column2";
-            this.Column2.MinimumWidth = 6;
-            this.Column2.Name = "Column2";
-            this.Column2.Width = 125;
             // 
-            // button1
             // 
-            this.button1.Location = new System.Drawing.Point(529, 325);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.ribbon1.QuickAccessToolbar.Items.Add(this.ribbonButton1);
+            this.ribbon1.RibbonTabFont = new System.Drawing.Font("Trebuchet MS", 9F);
+            this.ribbon1.Size = new System.Drawing.Size(800, 90);
+            this.ribbon1.TabIndex = 0;
+            this.ribbon1.Tabs.Add(this.ribbonTab1);
+            this.ribbon1.Text = "صهيب";
+            // 
+            // ribbonTab1
+            // 
+            this.ribbonTab1.Name = "ribbonTab1";
+            this.ribbonTab1.Panels.Add(this.ribbonPanel1);
+            this.ribbonTab1.Panels.Add(this.ribbonPanel2);
+            this.ribbonTab1.Text = "صهيب";
+            // 
+            // ribbonPanel1
+            // 
+            this.ribbonPanel1.Name = "ribbonPanel1";
+            this.ribbonPanel1.Text = "اويس";
+            // 
+            // ribbonPanel2
+            // 
+            this.ribbonPanel2.Name = "ribbonPanel2";
+            this.ribbonPanel2.Text = "اياس";
+            // 
+            // ribbonButton1
+            // 
+            this.ribbonButton1.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton1.Image")));
+            this.ribbonButton1.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton1.LargeImage")));
+            this.ribbonButton1.MaxSizeMode = System.Windows.Forms.RibbonElementSizeMode.Compact;
+            this.ribbonButton1.Name = "ribbonButton1";
+            this.ribbonButton1.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton1.SmallImage")));
+            this.ribbonButton1.Text = "ribbonButton1";
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(668, 56);
+            this.textBox1.Location = new System.Drawing.Point(428, 154);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 22);
-            this.textBox1.TabIndex = 2;
+            this.textBox1.TabIndex = 1;
             // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(547, 56);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 22);
-            this.textBox2.TabIndex = 3;
-            // 
-            // Form1
+            // frmTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.dataGridView1);
-            this.Name = "Form1";
+            this.Controls.Add(this.ribbon1);
+            this.KeyPreview = true;
+            this.Name = "frmTest";
             this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -135,12 +139,12 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel lblUser;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Ribbon ribbon1;
+        private System.Windows.Forms.RibbonTab ribbonTab1;
+        private System.Windows.Forms.RibbonPanel ribbonPanel1;
+        private System.Windows.Forms.RibbonPanel ribbonPanel2;
+        private System.Windows.Forms.RibbonButton ribbonButton1;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
     }
 }
 

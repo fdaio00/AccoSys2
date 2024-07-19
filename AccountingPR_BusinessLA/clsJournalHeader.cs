@@ -68,7 +68,7 @@ public class clsJournalHeaders
 
     private async Task<bool> _AddNewJournalHeaderAsync()
     {
-        this.JouID = await clsJournalHeadersData.AddNewJournalHeaderAsync(
+       return await clsJournalHeadersData.AddNewJournalHeaderAsync(this.JouID,
             this.JouDate.HasValue ? this.JouDate.Value : default(DateTime),
             this.JouNote,
             this.JouTypeID.HasValue ? this.JouTypeID.Value : default(int),
@@ -79,7 +79,7 @@ public class clsJournalHeaders
             this.AddedByUserID.HasValue ? this.AddedByUserID.Value : default(int),
             this.AddDate.HasValue ? this.AddDate.Value : default(DateTime)
 );
-        return (this.JouID > 0);
+        
     }
 
     private async Task<bool> _UpdateJournalHeaderAsync()

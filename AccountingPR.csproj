@@ -36,8 +36,14 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MdiTabControl">
+      <HintPath>..\..\smart_t\smart_t\MdiTabControl.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.Ribbon">
+      <HintPath>..\..\smart_t\smart_t\System.Windows.Forms.Ribbon.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,11 +58,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountingDBDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AccountingDBDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Accounts\frmListAccounts.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,11 +104,11 @@
     <Compile Include="Currencies\frmListCurrencies.Designer.cs">
       <DependentUpon>frmListCurrencies.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="frmTest.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="frmTest.Designer.cs">
+      <DependentUpon>frmTest.cs</DependentUpon>
     </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
@@ -172,8 +173,8 @@
     <EmbeddedResource Include="Currencies\frmListCurrencies.resx">
       <DependentUpon>frmListCurrencies.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="frmTest.resx">
+      <DependentUpon>frmTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
@@ -203,17 +204,6 @@
     <EmbeddedResource Include="Users\frmListUsers.resx">
       <DependentUpon>frmListUsers.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="AccountingDBDataSet.xsc">
-      <DependentUpon>AccountingDBDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="AccountingDBDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>AccountingDBDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="AccountingDBDataSet.xss">
-      <DependentUpon>AccountingDBDataSet.xsd</DependentUpon>
-    </None>
     <None Include="app.manifest" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
