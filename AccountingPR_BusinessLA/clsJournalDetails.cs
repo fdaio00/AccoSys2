@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 
 public class clsJournalDetails
@@ -15,6 +16,8 @@ public class clsJournalDetails
     public int? AccountCurrencyID { get; set; }
     public int? JouID { get; set; }
 
+    public float ? CurrentExchange { get; set;  }
+
     public clsJournalDetails()
     {
         this.JouDetalisID = -1;
@@ -24,6 +27,7 @@ public class clsJournalDetails
         this.JouNote = null;
         this.AccountCurrencyID = null;
         this.JouID = null;
+        this.CurrentExchange = null;
         _Mode = enMode.AddNew;
     }
 
@@ -34,7 +38,7 @@ public class clsJournalDetails
         decimal? AccountCredit,
         string JouNote,
         int? AccountCurrencyID,
-        int? JouID)
+        int? JouID,float? CurrecntExchange)
     {
         this.JouDetalisID = JouDetalisID;
         this.AccountID = AccountID;
@@ -43,6 +47,7 @@ public class clsJournalDetails
         this.JouNote = JouNote;
         this.AccountCurrencyID = AccountCurrencyID;
         this.JouID = JouID;
+        this.CurrentExchange = CurrentExchange; 
         _Mode = enMode.Update;
     }
 
@@ -54,10 +59,14 @@ public class clsJournalDetails
             this.AccountCredit.HasValue ? this.AccountCredit.Value : default(decimal),
             this.JouNote,
             this.AccountCurrencyID.HasValue ? this.AccountCurrencyID.Value : default(int),
-            this.JouID.HasValue ? this.JouID.Value : default(int));
+            this.JouID.HasValue ? this.JouID.Value : default(int),
+            this.CurrentExchange .HasValue ?this.CurrentExchange.Value:default(int));
         return (this.JouDetalisID > 0);
     }
-
+    public static async Task<DataTable> GetAllJournalDetailsByJouHeaderIDAsync(int JournalHeaderID)
+    {
+        return await clsJournalDetailsData.GetAllJournalDetailsByJouHeaderIDAsync(JournalHeaderID);
+    }
     private async Task<bool> _UpdateJournalDetailAsync()
     {
         return await clsJournalDetailsData.UpdateJournalDetailAsync(
@@ -67,7 +76,8 @@ public class clsJournalDetails
             this.AccountCredit.HasValue ? this.AccountCredit.Value : default(decimal),
             this.JouNote,
             this.AccountCurrencyID.HasValue ? this.AccountCurrencyID.Value : default(int),
-            this.JouID.HasValue ? this.JouID.Value : default(int));
+            this.JouID.HasValue ? this.JouID.Value : default(int),
+           this.CurrentExchange.HasValue ? this.CurrentExchange.Value : default(int));
     }
 
     public async Task<bool> SaveAsync()
@@ -107,6 +117,7 @@ public class clsJournalDetails
         string JouNote = null;
         int? AccountCurrencyID = null;
         int? JouID = null;
+        float ?CurrentExchange =null;
 
         bool isJournalDetailFound = clsJournalDetailsData.FindJournalDetailByID(
             JouDetalisID,
@@ -115,7 +126,8 @@ public class clsJournalDetails
             ref AccountCredit,
             ref JouNote,
             ref AccountCurrencyID,
-            ref JouID);
+            ref JouID,
+            ref CurrentExchange);
 
         if (isJournalDetailFound)
         {
@@ -126,7 +138,8 @@ public class clsJournalDetails
                 AccountCredit,
                 JouNote,
                 AccountCurrencyID,
-                JouID);
+                JouID,
+                CurrentExchange);
         }
         else
         {
@@ -139,5 +152,13 @@ public class clsJournalDetails
     public async static Task<int> GetLastJournalNumber()
     {
         return await clsJournalDetailsData.GetLastJournalNumber();
+
     }
+
+
+    public static async Task<bool> CheckJournalDetailsIDExists(int JouDetalisID)
+    {
+        return await clsJournalDetailsData.CheckJournalDetailsIDExists(JouDetalisID);
+    }
+
 }

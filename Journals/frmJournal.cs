@@ -99,8 +99,6 @@ namespace AccountingPR.Journals
             _FillCurrecnyTypesComboBox();
         }
 
-        
-
         private void cbCurrency_SelectedIndexChanged(object sender, EventArgs e)
         {
              _Currency = clsCurrency.GetCurrencyByName(cbCurrency.SelectedItem.ToString());
@@ -191,6 +189,8 @@ namespace AccountingPR.Journals
                     txtDetails.Text,
                     TotalDebit,
                     TotalCredit);
+
+
                 _AccountsList.Add(Convert.ToInt32(txtAccountNo.Text)); 
                 _ClearTextBoxesAfterInsertingDataToDGV();
             }
@@ -343,12 +343,13 @@ namespace AccountingPR.Journals
                 {
                     if(dgvJournals.Rows.Count>0)
                     {
-                        if(_Mode==enMdoe.AddNew)
+                        if (await clsJournalDetails.CheckJournalDetailsIDExists(Convert.ToInt32(dgvJournals.Rows[i].Cells[11].Value)))
                         {
-                            _JournalDetails = new clsJournalDetails();
+                            _JournalDetails = clsJournalDetails.GetJournalDetailByID(Convert.ToInt32(dgvJournals.Rows[i].Cells[11].Value));
                         }
                         else
                         {
+                            _JournalDetails = new clsJournalDetails();
 
                         }
 
@@ -358,6 +359,8 @@ namespace AccountingPR.Journals
                         _JournalDetails.AccountID = Convert.ToInt32(dgvJournals.Rows[i].Cells[1].Value);
                         _JournalDetails.JouID = Convert.ToInt32(dgvJournals.Rows[i].Cells[0].Value);
                         _JournalDetails.JouNote = Convert.ToString(dgvJournals.Rows[i].Cells[8].Value);
+                        _JournalDetails.CurrentExchange = Convert.ToSingle(dgvJournals.Rows[i].Cells[7].Value);
+                        
 
                         if(!await _JournalDetails.SaveAsync())
                         {
@@ -435,6 +438,101 @@ namespace AccountingPR.Journals
                 myToast.ShowToast("لم يتم الحفظ , حدث خطأ ما ", ToastTypeIcon.Error);
 
             }
+        }
+
+        private void txtSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+      
+        void _LoadJournalHeaderInfo()
+        {
+            _JournalHeaders = clsJournalHeaders.GetJournalHeaderByID(Convert.ToInt32(txtSearch.Text.Trim()));
+            _ClearTextBoxesAfterInsertingDataToDGV();
+            txtJournalID.Clear();
+            txtHeadNote.Clear();
+            dgvJournals.Rows.Clear();
+            if (_JournalHeaders == null)
+            {
+                myToast.ShowToast("لا يوجد قيد بهذا الرقم", ToastTypeIcon.Information);
+                txtSearch.Focus();
+                return;
+            }
+            txtJournalID.Text = _JournalHeaders.JouID.ToString();
+            dtpJournalDate  .Value = _JournalHeaders.JouDate.Value;
+            txtHeadNote.Text = _JournalHeaders.JouNote.ToString();
+            ckbIsPost.Checked = _JournalHeaders.JouIsPost??false;
+            if(_JournalHeaders.JouTypeID == (int)enJournalType.Closed)
+            {
+                rbClosed.Checked = true;
+                rbGeneral.Checked = false;
+
+            }
+            if (_JournalHeaders.JouTypeID == (int)enJournalType.General)
+            {
+                rbGeneral.Checked = true;
+                rbClosed.Checked = false;
+
+            }
+            txtBalance.Text = _JournalHeaders.TotalBalance.ToString();
+            txtTotalDebit.Text = _JournalHeaders.TotalDebit.ToString();
+            txtTotalCredit.Text = _JournalHeaders.TotalCredit.ToString();
+
+            _LoadJournalDetailsToDataGridView();
+              
+
+            
+
+
+        }
+
+        private async void _LoadJournalDetailsToDataGridView()
+        {
+            DataTable  dt = await clsJournalDetails.GetAllJournalDetailsByJouHeaderIDAsync(Convert.ToInt32(txtJournalID.Text.Trim()));
+            if(dt.Rows.Count > 0)
+            {
+                dgvJournals.Rows.Clear();
+                dgvJournals.RowCount = dt.Rows.Count;
+                int j = 0; 
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+
+    
+          
+                    dgvJournals.Rows[j].Cells[0].Value = dt.Rows[i][0].ToString();
+                    dgvJournals.Rows[j].Cells[1].Value = dt.Rows[i][1].ToString();
+                    dgvJournals.Rows[j].Cells[2].Value = dt.Rows[i][2].ToString();
+                    dgvJournals.Rows[j].Cells[3].Value = dt.Rows[i][3].ToString();
+                    dgvJournals.Rows[j].Cells[4].Value = dt.Rows[i][4].ToString();
+                    dgvJournals.Rows[j].Cells[5].Value = dt.Rows[i][5].ToString();
+                    dgvJournals.Rows[j].Cells[6].Value = dt.Rows[i][6].ToString();
+                    dgvJournals.Rows[j].Cells[7].Value = dt.Rows[i][7].ToString();
+                    dgvJournals.Rows[j].Cells[8].Value = dt.Rows[i][8].ToString();
+                    dgvJournals.Rows[j].Cells[9].Value = dt.Rows[i][9].ToString();
+                    dgvJournals.Rows[j].Cells[10].Value = dt.Rows[i][10].ToString();
+                    dgvJournals.Rows[j].Cells[11].Value = dt.Rows[i][11].ToString();
+          
+                    j++;
+                }
+            }
+            else
+            {
+                myToast.ShowToast("هذا القيد لايحتوي على أي تفاصيل", ToastTypeIcon.Information);
+
+            }
+
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+
+            _LoadJournalHeaderInfo();
+            btnSave.Enabled = true; 
+
+
         }
     }
 }

@@ -57,15 +57,16 @@
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox3.Location = new System.Drawing.Point(0, 443);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(602, 114);
+            this.groupBox3.Size = new System.Drawing.Size(590, 114);
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
             // 
             // btnShowDetails
             // 
+            this.btnShowDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnShowDetails.Font = new System.Drawing.Font("Tahoma", 9F);
             this.btnShowDetails.Image = global::AccountingPR.Properties.Resources.document4;
-            this.btnShowDetails.Location = new System.Drawing.Point(250, 24);
+            this.btnShowDetails.Location = new System.Drawing.Point(238, 24);
             this.btnShowDetails.Name = "btnShowDetails";
             this.btnShowDetails.Size = new System.Drawing.Size(102, 68);
             this.btnShowDetails.TabIndex = 18;
@@ -76,6 +77,7 @@
             // 
             // btnExit
             // 
+            this.btnExit.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.btnExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnExit.Font = new System.Drawing.Font("Tahoma", 9F);
             this.btnExit.Image = global::AccountingPR.Properties.Resources.close;
@@ -90,10 +92,11 @@
             // 
             // btnDelete
             // 
+            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDelete.Enabled = false;
             this.btnDelete.Font = new System.Drawing.Font("Tahoma", 9F);
             this.btnDelete.Image = global::AccountingPR.Properties.Resources.delete1;
-            this.btnDelete.Location = new System.Drawing.Point(131, 24);
+            this.btnDelete.Location = new System.Drawing.Point(119, 24);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(88, 68);
             this.btnDelete.TabIndex = 16;
@@ -104,10 +107,11 @@
             // 
             // btnSave
             // 
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSave.Enabled = false;
             this.btnSave.Font = new System.Drawing.Font("Tahoma", 9F);
             this.btnSave.Image = global::AccountingPR.Properties.Resources.diskette;
-            this.btnSave.Location = new System.Drawing.Point(381, 24);
+            this.btnSave.Location = new System.Drawing.Point(369, 24);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(88, 68);
             this.btnSave.TabIndex = 15;
@@ -118,9 +122,10 @@
             // 
             // btnNew
             // 
+            this.btnNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnNew.Font = new System.Drawing.Font("Tahoma", 9F);
             this.btnNew.Image = global::AccountingPR.Properties.Resources.add;
-            this.btnNew.Location = new System.Drawing.Point(500, 24);
+            this.btnNew.Location = new System.Drawing.Point(488, 24);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(88, 68);
             this.btnNew.TabIndex = 14;
@@ -138,7 +143,7 @@
             this.gbDetails.Dock = System.Windows.Forms.DockStyle.Top;
             this.gbDetails.Location = new System.Drawing.Point(0, 299);
             this.gbDetails.Name = "gbDetails";
-            this.gbDetails.Size = new System.Drawing.Size(602, 144);
+            this.gbDetails.Size = new System.Drawing.Size(590, 144);
             this.gbDetails.TabIndex = 4;
             this.gbDetails.TabStop = false;
             this.gbDetails.Text = "بيانات البنك";
@@ -147,7 +152,7 @@
             // 
             this.txtAccountNameAr.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtAccountNameAr.Enabled = false;
-            this.txtAccountNameAr.Location = new System.Drawing.Point(47, 89);
+            this.txtAccountNameAr.Location = new System.Drawing.Point(41, 89);
             this.txtAccountNameAr.Name = "txtAccountNameAr";
             this.txtAccountNameAr.Size = new System.Drawing.Size(394, 25);
             this.txtAccountNameAr.TabIndex = 3;
@@ -156,7 +161,7 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(451, 96);
+            this.label2.Location = new System.Drawing.Point(439, 96);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(97, 18);
             this.label2.TabIndex = 2;
@@ -166,7 +171,7 @@
             // 
             this.txtAccountNo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtAccountNo.Enabled = false;
-            this.txtAccountNo.Location = new System.Drawing.Point(47, 37);
+            this.txtAccountNo.Location = new System.Drawing.Point(41, 37);
             this.txtAccountNo.Name = "txtAccountNo";
             this.txtAccountNo.Size = new System.Drawing.Size(394, 25);
             this.txtAccountNo.TabIndex = 1;
@@ -176,7 +181,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(459, 44);
+            this.label1.Location = new System.Drawing.Point(447, 44);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(89, 18);
             this.label1.TabIndex = 0;
@@ -188,7 +193,7 @@
             this.gbTitle.Dock = System.Windows.Forms.DockStyle.Top;
             this.gbTitle.Location = new System.Drawing.Point(0, 0);
             this.gbTitle.Name = "gbTitle";
-            this.gbTitle.Size = new System.Drawing.Size(602, 299);
+            this.gbTitle.Size = new System.Drawing.Size(590, 299);
             this.gbTitle.TabIndex = 3;
             this.gbTitle.TabStop = false;
             this.gbTitle.Text = "البنوك";
@@ -206,7 +211,7 @@
             this.dgvBanksCashes.ReadOnly = true;
             this.dgvBanksCashes.RowHeadersWidth = 51;
             this.dgvBanksCashes.RowTemplate.Height = 24;
-            this.dgvBanksCashes.Size = new System.Drawing.Size(596, 275);
+            this.dgvBanksCashes.Size = new System.Drawing.Size(584, 275);
             this.dgvBanksCashes.TabIndex = 0;
             this.dgvBanksCashes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvBanksCashes_CellClick);
             // 
@@ -215,7 +220,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnExit;
-            this.ClientSize = new System.Drawing.Size(602, 569);
+            this.ClientSize = new System.Drawing.Size(590, 569);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.gbDetails);
             this.Controls.Add(this.gbTitle);

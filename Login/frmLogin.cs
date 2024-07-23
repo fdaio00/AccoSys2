@@ -12,6 +12,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AccountingPR.Properties;
+using AccoSys;
+
 namespace AccountingPR.Login
 {
     public partial class frmLogin : Form
@@ -48,7 +50,7 @@ namespace AccountingPR.Login
                 }
 
                 clsGlobal.CurrentUser = LoggedUser;
-                frmMain frm = new frmMain();
+                frmTest frm = new frmTest();
                 this.Hide();
                 frm.Show();
             }

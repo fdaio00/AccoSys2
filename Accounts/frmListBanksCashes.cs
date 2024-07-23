@@ -146,12 +146,12 @@ namespace AccountingPR.Bank
                 _Cashes.CashNameAr = txtAccountNameAr.Text.Trim();
                 if(await _Cashes.SaveAsync())
                 {
-                    MessageBox.Show("تم الحفظ بنجاح");
+                    myToast.ShowToast("تم الحفظ بنجاح",ToastTypeIcon.Success);
                     _ShowDetails();
                 }
                 else
                 {
-                      MessageBox.Show("لم يتم الحفظ بنجاح");
+                      myToast.ShowToast("لم يتم الحفظ بنجاح",ToastTypeIcon.Success);
 
                 }
             }
@@ -162,7 +162,7 @@ namespace AccountingPR.Bank
                 _Banks.BankNameAr = txtAccountNameAr.Text.Trim();
                 if (await _Banks.SaveAsync())
                 {
-                      MessageBox.Show("تم الحفظ بنجاح");
+                      myToast.ShowToast("تم الحفظ بنجاح",ToastTypeIcon.Success);
                     _ShowDetails();
 
 
@@ -170,7 +170,7 @@ namespace AccountingPR.Bank
                 }
                 else
                 {
-                      MessageBox.Show("لم يتم الحفظ بنجاح");
+                      myToast.ShowToast("لم يتم الحفظ بنجاح",ToastTypeIcon.Success);
 
                 }
             }
@@ -187,12 +187,12 @@ namespace AccountingPR.Bank
                 {
                     if (await _Cashes.DeleteAsync())
                     {
-                          MessageBox.Show("تم الحذف بنجاح");
+                          myToast.ShowToast("تم الحذف بنجاح",ToastTypeIcon.Success);
 
                     }
                     else
                     {
-                          MessageBox.Show("حدث خطأ ما!");
+                          myToast.ShowToast("حدث خطأ ما!",ToastTypeIcon.Error);
 
                     }
                 }
@@ -204,12 +204,12 @@ namespace AccountingPR.Bank
                 {
                     if (await _Banks.DeleteAsync())
                     {
-                          MessageBox.Show("تم الحذف بنجاح");
+                          myToast.ShowToast("تم الحذف بنجاح",ToastTypeIcon.Success);
 
                     }
                     else
                     {
-                          MessageBox.Show("حدث خطأ ما!");
+                          myToast.ShowToast("حدث خطأ ما!",ToastTypeIcon.Error);
 
                     }
                 }

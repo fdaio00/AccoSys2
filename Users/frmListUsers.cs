@@ -50,8 +50,8 @@ namespace AccountingPR.Users
             _User = clsUser.GetUserByID(UserID);
             if(_User==null)
             {
-                
-                    MessageBox.Show("لايوجد شخص بهذا الاسم", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); 
+
+                myToast.ShowToast("لايوجد شخص بهذا الاسم", ToastTypeIcon.Error); 
                     return;
                 
             }
@@ -69,6 +69,10 @@ namespace AccountingPR.Users
             if(_User.Image != null)
             {
                 pbImage.Image = clsUtil.ByteToImage(_User.Image);
+            }
+            else
+            {
+                pbImage.Image = null;
             }
                 ckbIsActive.Checked = _User.IsActive;
             if (_User.UserType)
@@ -176,7 +180,7 @@ namespace AccountingPR.Users
         {
             if(!this.ValidateChildren())
             {
-                MessageBox.Show("يجب عليك اتمام عملية الخانات بالشروط المطلوبة");
+                myToast.ShowToast("يجب عليك اتمام عملية الخانات بالشروط المطلوبة",ToastTypeIcon.Information);
                 return; 
             }
            
@@ -191,7 +195,7 @@ namespace AccountingPR.Users
 
             if(await _User.SaveAsync())
             {
-                MessageBox.Show("تم الحفظ بنجاح");
+                myToast.ShowToast("تم الحفظ بنجاح",ToastTypeIcon.Success);
 
                 txtUserID.Text = _User.UserID.ToString();    
                 
@@ -200,7 +204,7 @@ namespace AccountingPR.Users
             }
             else
             {
-                MessageBox.Show("لم يتم الحفظ");
+                myToast.ShowToast("لم يتم الحفظ",ToastTypeIcon.Warning);
 
             }
 
@@ -218,7 +222,7 @@ namespace AccountingPR.Users
             {
                 if (await clsUser.DeleteAsync (UserID))
                 {
-                    MessageBox.Show("تم الحذف بنجاح");
+                    myToast.ShowToast("تم الحذف بنجاح",ToastTypeIcon.Success);
 
                     _GetAllUsers();
                     dgvListUsers.ClearSelection();
@@ -227,7 +231,7 @@ namespace AccountingPR.Users
                 }
                 else
                 {
-                    MessageBox.Show("حصل خطأ ما", " خطأ!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    myToast.ShowToast("حصل خطأ ما", ToastTypeIcon.Error);
 
                 }
             }
@@ -295,6 +299,11 @@ namespace AccountingPR.Users
 
             }
             }
+
+        private void dgvListUsers_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
+    }
     }
 

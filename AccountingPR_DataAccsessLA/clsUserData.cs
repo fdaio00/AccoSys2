@@ -290,6 +290,8 @@ public static class clsUserData
 
         return IsFound;
     } 
+    
+    
     public static int GetUserMaxCount()
     {
         int? result = 0; 

@@ -80,7 +80,7 @@ namespace AccountingPR.Accounts
             _Account = clsAccount.GetAccountByID(AccountNo);
             if (_Account == null)
             {
-                MessageBox.Show("لايوجد حساب بهذا الرقم", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                myToast.ShowToast("لايوجد حساب بهذا الرقم", ToastTypeIcon.Warning);
                 return;
             }
             _Mode = enMode.Update;
@@ -209,7 +209,7 @@ namespace AccountingPR.Accounts
 
             if (!this.ValidateChildren())
             {
-                MessageBox.Show("يجب عليك اتمام تعبئة الخانات بالشروط المطلوبة");
+                myToast.ShowToast("يجب عليك اتمام تعبئة الخانات بالشروط المطلوبة",ToastTypeIcon.Warning);
                 return;
             }
 
@@ -231,7 +231,7 @@ namespace AccountingPR.Accounts
             {
                 if (_Mode == enMode.Update)
                 {
-                    MessageBox.Show("تم التعديل بنجاح");
+                    myToast.ShowToast("تم التعديل بنجاح",ToastTypeIcon.Success);
                     _CreateNodes();
                     btnDelete.Enabled = true;
                     txtAccountNo.Enabled = false; 
@@ -239,7 +239,7 @@ namespace AccountingPR.Accounts
                 }
                 else
                 {
-                    MessageBox.Show("تم الحفظ بنجاح");
+                    myToast.ShowToast("تم الحفظ بنجاح",ToastTypeIcon.Success);
                 _CreateNodes();
                     btnDelete.Enabled = true;
                     txtAccountNo.Enabled = false;
@@ -250,7 +250,7 @@ namespace AccountingPR.Accounts
             }
             else
             {
-                MessageBox.Show("حدثت مشكلة ما");
+                myToast.ShowToast("حدثت مشكلة ما",ToastTypeIcon.Warning);
 
             }
         }
@@ -259,24 +259,24 @@ namespace AccountingPR.Accounts
         {
             if(_Account==null)
             {
-                MessageBox.Show("يجب عليك اختيار حساب اولا");
+                myToast.ShowToast("يجب عليك اختيار حساب اولا",ToastTypeIcon.Warning);
                 return;
             }
             if(await clsAccount.CheckAccountHasChildren(_Account.AccountNo))
             {
-                MessageBox.Show("لايمكنك حذف هذا الحساب لان لديه ابناء", "لايمكن الحذف", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                myToast.ShowToast("لايمكنك حذف هذا الحساب لان لديه ابناء", ToastTypeIcon.Warning);
                     return;
             }
           if(await clsAccount.CheckAccountHasJournal(_Account.AccountNo))
             {
-                MessageBox.Show("لايمكن حذف هذا الحساب لارتباطه بقيود أخرى", "لايمكن الحذف", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                myToast.ShowToast("لايمكن حذف هذا الحساب لارتباطه بقيود أخرى",ToastTypeIcon.Warning );
                     return;
             }
             if (MessageBox.Show("هل تريد تعديل الحساب بالفعل؟", "تعديل", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.OK)
             {
                 if(await _Account.DeleteAsync())
                 {
-                    MessageBox.Show("تم الحذف بنجاح");
+                    myToast.ShowToast("تم الحذف بنجاح",ToastTypeIcon.Success);
                     _CreateNodes();
                     _ClearTextBoxes();
                     _EnbaleDesableTextBoxes(false);
@@ -284,7 +284,7 @@ namespace AccountingPR.Accounts
                 }
                 else
                 {
-                    MessageBox.Show("حدث خطأ ما!");
+                    myToast.ShowToast("حدث خطأ ما!",ToastTypeIcon.Warning);
 
                 }
             }

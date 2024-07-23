@@ -30,6 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.rbAdmin = new System.Windows.Forms.RadioButton();
+            this.rbUser = new System.Windows.Forms.RadioButton();
+            this.ckbIsActive = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.btnRemovePicture = new System.Windows.Forms.Button();
             this.btnSelectImage = new System.Windows.Forms.Button();
             this.txtUserID = new System.Windows.Forms.TextBox();
@@ -53,17 +58,12 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.ckbIsActive = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.rbUser = new System.Windows.Forms.RadioButton();
-            this.rbAdmin = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListUsers)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -91,6 +91,62 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "بيانات المستخدم";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.rbAdmin);
+            this.panel1.Controls.Add(this.rbUser);
+            this.panel1.Controls.Add(this.ckbIsActive);
+            this.panel1.Location = new System.Drawing.Point(318, 286);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(364, 28);
+            this.panel1.TabIndex = 55;
+            // 
+            // rbAdmin
+            // 
+            this.rbAdmin.AutoSize = true;
+            this.rbAdmin.Font = new System.Drawing.Font("Tahoma", 9F);
+            this.rbAdmin.Location = new System.Drawing.Point(133, 3);
+            this.rbAdmin.Name = "rbAdmin";
+            this.rbAdmin.Size = new System.Drawing.Size(60, 22);
+            this.rbAdmin.TabIndex = 1;
+            this.rbAdmin.Text = "مدير ";
+            this.rbAdmin.UseVisualStyleBackColor = true;
+            // 
+            // rbUser
+            // 
+            this.rbUser.AutoSize = true;
+            this.rbUser.Font = new System.Drawing.Font("Tahoma", 9F);
+            this.rbUser.Location = new System.Drawing.Point(250, 2);
+            this.rbUser.Name = "rbUser";
+            this.rbUser.Size = new System.Drawing.Size(85, 22);
+            this.rbUser.TabIndex = 0;
+            this.rbUser.Text = "مستخدم";
+            this.rbUser.UseVisualStyleBackColor = true;
+            // 
+            // ckbIsActive
+            // 
+            this.ckbIsActive.AutoSize = true;
+            this.ckbIsActive.Checked = true;
+            this.ckbIsActive.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ckbIsActive.Font = new System.Drawing.Font("Tahoma", 9F);
+            this.ckbIsActive.Location = new System.Drawing.Point(3, 2);
+            this.ckbIsActive.Name = "ckbIsActive";
+            this.ckbIsActive.Size = new System.Drawing.Size(65, 22);
+            this.ckbIsActive.TabIndex = 53;
+            this.ckbIsActive.Text = "تفعيل";
+            this.ckbIsActive.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.label1.Location = new System.Drawing.Point(706, 293);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(118, 21);
+            this.label1.TabIndex = 54;
+            this.label1.Text = "نوع المستخدم:";
             // 
             // btnRemovePicture
             // 
@@ -294,6 +350,7 @@
             this.dgvListUsers.Size = new System.Drawing.Size(833, 263);
             this.dgvListUsers.TabIndex = 43;
             this.dgvListUsers.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvListUsers_CellClick);
+            this.dgvListUsers.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvListUsers_CellContentClick);
             // 
             // groupBox2
             // 
@@ -355,62 +412,6 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // ckbIsActive
-            // 
-            this.ckbIsActive.AutoSize = true;
-            this.ckbIsActive.Checked = true;
-            this.ckbIsActive.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ckbIsActive.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.ckbIsActive.Location = new System.Drawing.Point(3, 2);
-            this.ckbIsActive.Name = "ckbIsActive";
-            this.ckbIsActive.Size = new System.Drawing.Size(65, 22);
-            this.ckbIsActive.TabIndex = 53;
-            this.ckbIsActive.Text = "تفعيل";
-            this.ckbIsActive.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.label1.Location = new System.Drawing.Point(706, 293);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(118, 21);
-            this.label1.TabIndex = 54;
-            this.label1.Text = "نوع المستخدم:";
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.rbAdmin);
-            this.panel1.Controls.Add(this.rbUser);
-            this.panel1.Controls.Add(this.ckbIsActive);
-            this.panel1.Location = new System.Drawing.Point(318, 286);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(364, 28);
-            this.panel1.TabIndex = 55;
-            // 
-            // rbUser
-            // 
-            this.rbUser.AutoSize = true;
-            this.rbUser.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.rbUser.Location = new System.Drawing.Point(250, 2);
-            this.rbUser.Name = "rbUser";
-            this.rbUser.Size = new System.Drawing.Size(85, 22);
-            this.rbUser.TabIndex = 0;
-            this.rbUser.Text = "مستخدم";
-            this.rbUser.UseVisualStyleBackColor = true;
-            // 
-            // rbAdmin
-            // 
-            this.rbAdmin.AutoSize = true;
-            this.rbAdmin.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.rbAdmin.Location = new System.Drawing.Point(133, 3);
-            this.rbAdmin.Name = "rbAdmin";
-            this.rbAdmin.Size = new System.Drawing.Size(60, 22);
-            this.rbAdmin.TabIndex = 1;
-            this.rbAdmin.Text = "مدير ";
-            this.rbAdmin.UseVisualStyleBackColor = true;
-            // 
             // frmListUsers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -435,12 +436,12 @@
             this.Load += new System.EventHandler(this.frmListUsers_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListUsers)).EndInit();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }

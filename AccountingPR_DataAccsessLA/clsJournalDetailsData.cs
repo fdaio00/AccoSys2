@@ -31,7 +31,37 @@ public static class clsJournalDetailsData
         }
 
         return dt;
+    } 
+    
+    public static async Task<DataTable> GetAllJournalDetailsByJouHeaderIDAsync(int JournalHeaderID)
+    {
+        DataTable dt = new DataTable();
+
+        using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+        {
+            using (SqlCommand command = new SqlCommand("SP_GetAllJournalDetailsByJouHeaderID", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@JouID", JournalHeaderID);
+
+                try
+                {
+                    await connection.OpenAsync();
+                    SqlDataReader reader = await command.ExecuteReaderAsync();
+                    if (reader.HasRows)
+                        dt.Load(reader); // Load data into DataTable
+                }
+                catch (Exception ex)
+                {
+                    clsDataAccessSettings.SetErrorLoggingEvent(ex.Message);
+                }
+            }
+        }
+
+        return dt;
     }
+
+
 
     public static async Task<int> AddNewJournalDetailAsync(
         int AccountID,
@@ -39,7 +69,8 @@ public static class clsJournalDetailsData
         decimal AccountCredit,
         string JouNote,
         int AccountCurrencyID,
-        int JouID)
+        int JouID,
+        float CurrentExchange)
     {
         int journalDetailID = -1;
 
@@ -59,6 +90,7 @@ public static class clsJournalDetailsData
                 command.Parameters.AddWithValue("@JouNote", (object)JouNote ?? DBNull.Value);
                 command.Parameters.AddWithValue("@AccountCurrencyID", (object)AccountCurrencyID ?? DBNull.Value);
                 command.Parameters.AddWithValue("@JouID", (object)JouID ?? DBNull.Value);
+                command.Parameters.AddWithValue("@CurrentExchange", (object)CurrentExchange ?? DBNull.Value);
 
                 try
                 {
@@ -85,7 +117,8 @@ public static class clsJournalDetailsData
         decimal AccountCredit,
         string JouNote,
         int AccountCurrencyID,
-        int JouID)
+        int JouID,
+        float CurrentExchange)
     {
         bool success = false;
 
@@ -101,6 +134,8 @@ public static class clsJournalDetailsData
                 command.Parameters.AddWithValue("@JouNote", (object)JouNote ?? DBNull.Value);
                 command.Parameters.AddWithValue("@AccountCurrencyID", (object)AccountCurrencyID ?? DBNull.Value);
                 command.Parameters.AddWithValue("@JouID", (object)JouID ?? DBNull.Value);
+                command.Parameters.AddWithValue("@CurrentExchange", (object)CurrentExchange ?? DBNull.Value);
+
 
                 try
                 {
@@ -152,7 +187,8 @@ public static class clsJournalDetailsData
         ref decimal? AccountCreditRef,
         ref string JouNoteRef,
         ref int? AccountCurrencyIDRef,
-        ref int? JouIDRef)
+        ref int? JouIDRef,
+        ref float? CurrentExchange)
     {
         bool isFound = false;
 
@@ -176,12 +212,14 @@ public static class clsJournalDetailsData
                         JouNoteRef = reader["JouNote"] != DBNull.Value ? Convert.ToString(reader["JouNote"]) : null;
                         AccountCurrencyIDRef = reader["CurrencyID"] != DBNull.Value ? Convert.ToInt32(reader["CurrencyID"]) : 0;
                         JouIDRef = reader["JouID"] != DBNull.Value ? Convert.ToInt32(reader["JouID"]) : 0;
+                        CurrentExchange = reader["CurrentExchange"] != DBNull.Value ? Convert.ToSingle(reader["CurrentExchange"]) : 0;
                     }
                     reader.Close();
                 }
                 catch (Exception ex)
                 {
                     clsDataAccessSettings.SetErrorLoggingEvent(ex.Message);
+                    isFound = false; 
                 }
             }
         }
@@ -224,5 +262,39 @@ public static class clsJournalDetailsData
         }
         return Count  ;
     }
+
+    public static async Task<bool> CheckJournalDetailsIDExists(int JouDetalisID)
+    {
+        bool IsFound = false;
+        using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+        {
+            using (SqlCommand command = new SqlCommand("SP_CheckJournalDetailsIDExists", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@JouDetalisID", JouDetalisID);
+
+                // Add a parameter to capture the return value
+                SqlParameter returnValue = new SqlParameter();
+                returnValue.Direction = ParameterDirection.ReturnValue;
+                command.Parameters.Add(returnValue);
+
+                try
+                {
+                    connection.Open();
+                   await command.ExecuteNonQueryAsync();
+                    int result = (int)returnValue.Value;
+                    IsFound = (result > 0);
+
+                }
+                catch (Exception ex)
+                {
+                    clsDataAccessSettings.SetErrorLoggingEvent(ex.Message);
+                }
+            }
+        }
+
+        return IsFound;
+    }
+
 }
     
