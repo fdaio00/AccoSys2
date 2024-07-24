@@ -52,16 +52,16 @@ public static class clsJournalHeadersData
             using (SqlCommand command = new SqlCommand("SP_AddJournalHeader", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@JouID", (object)JouID ?? DBNull.Value);
-                command.Parameters.AddWithValue("@JouDate", (object)JouDate ?? DBNull.Value);
-                command.Parameters.AddWithValue("@JouNote", (object)JouNote ?? DBNull.Value);
-                command.Parameters.AddWithValue("@JouTypeID", (object)JouTypeID ?? DBNull.Value);
+                command.Parameters.AddWithValue("@JouID", JouID );
+                command.Parameters.AddWithValue("@JouDate", JouDate );
+                command.Parameters.AddWithValue("@JouNote", JouNote );
+                command.Parameters.AddWithValue("@JouTypeID", JouTypeID );
                 command.Parameters.AddWithValue("@JouIsPost", (object)JouIsPost ?? DBNull.Value);
-                command.Parameters.AddWithValue("@TotalDebit", (object)TotalDebit ?? DBNull.Value);
-                command.Parameters.AddWithValue("@TotalCredit", (object)TotalCredit ?? DBNull.Value);
-                command.Parameters.AddWithValue("@TotalBalance", (object)TotalBalance ?? DBNull.Value);
-                command.Parameters.AddWithValue("@AddedByUserID", (object)AddedByUserID ?? DBNull.Value);
-                command.Parameters.AddWithValue("@AddDate", (object)AddDate ?? DBNull.Value);
+                command.Parameters.AddWithValue("@TotalDebit", TotalDebit );
+                command.Parameters.AddWithValue("@TotalCredit", TotalCredit );
+                command.Parameters.AddWithValue("@TotalBalance", TotalBalance );
+                command.Parameters.AddWithValue("@AddedByUserID", AddedByUserID );
+                command.Parameters.AddWithValue("@AddDate", AddDate );
 
 
                 try
@@ -100,21 +100,21 @@ public static class clsJournalHeadersData
             {
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@JouID", JouID);
-                command.Parameters.AddWithValue("@JouDate", (object)JouDate ?? DBNull.Value);
-                command.Parameters.AddWithValue("@JouNote", (object)JouNote ?? DBNull.Value);
-                command.Parameters.AddWithValue("@JouTypeID", (object)JouTypeID ?? DBNull.Value);
+                command.Parameters.AddWithValue("@JouDate", JouDate );
+                command.Parameters.AddWithValue("@JouNote", JouNote );
+                command.Parameters.AddWithValue("@JouTypeID", JouTypeID );
                 command.Parameters.AddWithValue("@JouIsPost", (object)JouIsPost ?? DBNull.Value);
-                command.Parameters.AddWithValue("@TotalDebit", (object)TotalDebit ?? DBNull.Value);
-                command.Parameters.AddWithValue("@TotalCredit", (object)TotalCredit ?? DBNull.Value);
-                command.Parameters.AddWithValue("@TotalBalance", (object)TotalBalance ?? DBNull.Value);
-                command.Parameters.AddWithValue("@EditedByUserID", (object)EditedByUserID ?? DBNull.Value);
-                command.Parameters.AddWithValue("@EditDate", (object)EditDate ?? DBNull.Value);
+                command.Parameters.AddWithValue("@TotalDebit", TotalDebit );
+                command.Parameters.AddWithValue("@TotalCredit", TotalCredit );
+                command.Parameters.AddWithValue("@TotalBalance", TotalBalance );
+                command.Parameters.AddWithValue("@EditedByUserID", EditedByUserID );
+                command.Parameters.AddWithValue("@EditDate", EditDate );
 
                 try
                 {
                     await connection.OpenAsync();
                     int rowsAffected = await command.ExecuteNonQueryAsync();
-                    success = rowsAffected > 0;
+                    success = (rowsAffected > 0);
                 }
                 catch (Exception ex)
                 {

@@ -21,6 +21,7 @@ namespace AccountingPR.Journals
         List<int> _AccountsList = new List<int>();
         clsJournalHeaders _JournalHeaders;
         int? _JournalCount = null;
+        int? _tempJournalDetialsID = null; 
 
         enum enMdoe { AddNew , Update };
         enMdoe _Mode = enMdoe.AddNew;
@@ -188,7 +189,8 @@ namespace AccountingPR.Journals
                     txtExchange.Text,
                     txtDetails.Text,
                     TotalDebit,
-                    TotalCredit);
+                    TotalCredit,
+                    _tempJournalDetialsID??null);
 
 
                 _AccountsList.Add(Convert.ToInt32(txtAccountNo.Text)); 
@@ -264,6 +266,10 @@ namespace AccountingPR.Journals
             cbCurrency.SelectedIndex = cbCurrency.FindString(_Currency.CurrencyNameAr);
             txtExchange.Text = dgvJournals.CurrentRow.Cells[7].Value.ToString();
             txtDetails.Text = dgvJournals.CurrentRow.Cells[8].Value.ToString();
+            if(dgvJournals.CurrentRow.Cells[11].Value!=null)
+            {
+                _tempJournalDetialsID = Convert.ToInt32(dgvJournals.CurrentRow.Cells[11].Value);
+            }
             toolStripMenuItem1_Click(null, null);
 
 
@@ -354,12 +360,13 @@ namespace AccountingPR.Journals
                         }
 
                         _JournalDetails.AccountCurrencyID = Convert.ToInt32(dgvJournals.Rows[i].Cells[5].Value);
-                        _JournalDetails.AccountCredit = Convert.ToInt32(dgvJournals.Rows[i].Cells[4].Value);
-                        _JournalDetails.AccountDebit = Convert.ToInt32(dgvJournals.Rows[i].Cells[3].Value);
+                        _JournalDetails.AccountCredit = Convert.ToDecimal(dgvJournals.Rows[i].Cells[4].Value);
+                        _JournalDetails.AccountDebit = Convert.ToDecimal(dgvJournals.Rows[i].Cells[3].Value);
                         _JournalDetails.AccountID = Convert.ToInt32(dgvJournals.Rows[i].Cells[1].Value);
                         _JournalDetails.JouID = Convert.ToInt32(dgvJournals.Rows[i].Cells[0].Value);
                         _JournalDetails.JouNote = Convert.ToString(dgvJournals.Rows[i].Cells[8].Value);
                         _JournalDetails.CurrentExchange = Convert.ToSingle(dgvJournals.Rows[i].Cells[7].Value);
+                       
                         
 
                         if(!await _JournalDetails.SaveAsync())
@@ -388,6 +395,8 @@ namespace AccountingPR.Journals
             _JournalHeaders.AddedByUserID = clsGlobal.CurrentUser.UserID;
             _JournalHeaders.AddDate = DateTime.Now;
             _JournalHeaders.JouDate = dtpJournalDate.Value;
+            _JournalHeaders.EditDate = DateTime.Now;
+            _JournalHeaders.EditedByUserID = clsGlobal.CurrentUser.UserID; 
             if(rbClosed.Checked)
             {
 
@@ -399,7 +408,7 @@ namespace AccountingPR.Journals
 
             }
             _JournalHeaders.JouIsPost = ckbIsPost.Checked;
-            _JournalHeaders.JouID = _JournalCount??-1;
+            _JournalHeaders.JouID = Convert.ToInt32(txtJournalID.Text);
             _JournalHeaders.TotalDebit =  Convert.ToDecimal(txtTotalDebit.Text);
 
             if(await _JournalHeaders.SaveAsync())
@@ -445,6 +454,10 @@ namespace AccountingPR.Journals
             if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
             {
                 e.Handled = true;
+            }
+            if(e.KeyChar == (char)13)
+            {
+                btnSearch.PerformClick();
             }
         }
       
@@ -533,6 +546,50 @@ namespace AccountingPR.Journals
             btnSave.Enabled = true; 
 
 
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void txtDetails_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void txtDetails_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(e.KeyChar ==(char)13)
+            {
+                btnEnterJournalDetails.PerformClick();
+            }
+        }
+
+        private void dgvJournals_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(dgvJournals.CurrentRow !=null)
+            {
+                btnDelete.Enabled = true; 
+            }
+        }
+
+        private async void btnDelete_Click(object sender, EventArgs e)
+        {
+           if(MessageBox.Show("هل انت متاكد من حذف السجل المحدد","",MessageBoxButtons.OKCancel,MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2)==DialogResult.OK)
+                {
+                if(await clsJournalDetails.DeleteAsync(Convert.ToInt32(dgvJournals.CurrentRow.Cells[11].Value)))
+                {
+                    myToast.ShowToast("تم حذف السجل بنجاح",ToastTypeIcon.Success);
+                    dgvJournals.ClearSelection();
+                    btnSearch.PerformClick();
+                    btnDelete.Enabled = false; 
+                }
+                else
+                {
+                    myToast.ShowToast("لم يتم حذف السجل", ToastTypeIcon.Error);
+
+                }
+
+            }
         }
     }
 }

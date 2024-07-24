@@ -78,6 +78,7 @@
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rd = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmsJournalDetails = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -92,7 +93,6 @@
             this.txtTotalCredit = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.rd = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -149,6 +149,7 @@
             this.txtSearch.Size = new System.Drawing.Size(264, 25);
             this.txtSearch.TabIndex = 12;
             this.txtSearch.TabStop = false;
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             this.txtSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSearch_KeyPress);
             // 
             // label15
@@ -415,7 +416,9 @@
             this.txtDetails.Name = "txtDetails";
             this.txtDetails.Size = new System.Drawing.Size(183, 25);
             this.txtDetails.TabIndex = 4;
+            this.txtDetails.TextChanged += new System.EventHandler(this.txtDetails_TextChanged);
             this.txtDetails.Enter += new System.EventHandler(this.EnteringTextBox);
+            this.txtDetails.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDetails_KeyPress);
             this.txtDetails.Leave += new System.EventHandler(this.LeaveTextBox);
             this.txtDetails.Validating += new System.ComponentModel.CancelEventHandler(this.txtBox_Validating);
             // 
@@ -567,6 +570,7 @@
             this.dgvJournals.RowTemplate.Height = 24;
             this.dgvJournals.Size = new System.Drawing.Size(1684, 310);
             this.dgvJournals.TabIndex = 0;
+            this.dgvJournals.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvJournals_CellClick);
             this.dgvJournals.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvJournals_CellDoubleClick);
             // 
             // Column9
@@ -654,6 +658,14 @@
             this.Column11.Name = "Column11";
             this.Column11.ReadOnly = true;
             // 
+            // rd
+            // 
+            this.rd.HeaderText = "معرف قيد اليومية";
+            this.rd.MinimumWidth = 6;
+            this.rd.Name = "rd";
+            this.rd.ReadOnly = true;
+            this.rd.Visible = false;
+            // 
             // cmsJournalDetails
             // 
             this.cmsJournalDetails.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -719,6 +731,7 @@
             this.btnDelete.Text = "حذف";
             this.btnDelete.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnDelete.UseVisualStyleBackColor = false;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnSave
             // 
@@ -820,14 +833,6 @@
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
-            // 
-            // rd
-            // 
-            this.rd.HeaderText = "معرف قيد اليومية";
-            this.rd.MinimumWidth = 6;
-            this.rd.Name = "rd";
-            this.rd.ReadOnly = true;
-            this.rd.Visible = false;
             // 
             // frmJournal
             // 

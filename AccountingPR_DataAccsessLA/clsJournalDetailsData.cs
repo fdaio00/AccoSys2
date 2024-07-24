@@ -124,7 +124,7 @@ public static class clsJournalDetailsData
 
         using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
         {
-            using (SqlCommand command = new SqlCommand("SP_UpdateJournalDetails", connection))
+            using (SqlCommand command = new SqlCommand("SP_UpdateJournalDetail", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@JouDetalisID", JouDetalisID);
@@ -159,7 +159,7 @@ public static class clsJournalDetailsData
 
         using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
         {
-            using (SqlCommand command = new SqlCommand("SP_DeleteJournalDetail", connection))
+            using (SqlCommand command = new SqlCommand("SP_DeleteJournalDetails", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@JouDetalisID", JouDetalisID);
@@ -194,7 +194,7 @@ public static class clsJournalDetailsData
 
         using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
         {
-            using (SqlCommand command = new SqlCommand("SP_GetJournalDetailByID", connection))
+            using (SqlCommand command = new SqlCommand("SP_GetJournalDetailsByID", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@JouDetalisID", JouDetalisID);

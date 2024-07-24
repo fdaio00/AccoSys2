@@ -103,6 +103,10 @@ public class clsJournalDetails
     {
         return await clsJournalDetailsData.DeleteJournalDetailAsync(this.JouDetalisID);
     }
+     public static async Task<bool> DeleteAsync(int JournalDetailsID)
+    {
+        return await clsJournalDetailsData.DeleteJournalDetailAsync(JournalDetailsID);
+    }
 
     public static async Task<DataTable> GetAllJournalDetailsAsync()
     {
