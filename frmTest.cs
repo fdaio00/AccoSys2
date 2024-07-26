@@ -1,5 +1,6 @@
 ﻿using AccountingPR.Accounts;
 using AccountingPR.Bank;
+using AccountingPR.Bonds;
 using AccountingPR.Company;
 using AccountingPR.Currencies;
 using AccountingPR.Journals;
@@ -103,7 +104,20 @@ namespace AccoSys
 
         private void btnDailyJournals_Click(object sender, EventArgs e)
         {
-            frmJournal frm = new frmJournal();
+            frmJournal frm = new frmJournal(); 
+            _OpenForm(frm);
+
+        }
+
+        private void btnGaveBonds_Click(object sender, EventArgs e)
+        {
+            frmBonds frm = new frmBonds(frmBonds.enScreen.ReceiptScreen);
+            _OpenForm(frm);
+        }
+
+        private void btnTakeBond_Click(object sender, EventArgs e)
+        {
+            frmBonds frm = new frmBonds(frmBonds.enScreen.DisbursementScreen);
             _OpenForm(frm);
         }
     }
