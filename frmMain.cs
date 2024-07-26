@@ -97,7 +97,7 @@ namespace AccountingPR
 
         private void tesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmTest frm = new frmTest();
+            frmMain2 frm = new frmMain2();
             frm.ShowDialog();
         }
 

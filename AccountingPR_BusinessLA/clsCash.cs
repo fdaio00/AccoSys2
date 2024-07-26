@@ -81,4 +81,28 @@ public class clsCash
             return null;
         }
     }
+
+
+    public static clsCash FindCashByName(string CashName)
+
+
+    {
+
+        int CashID = -1; 
+        int AccountNo = -1;
+
+        bool IsFound = false;
+
+        IsFound = clsCashData.FindCashByName(ref CashID, ref AccountNo, CashName);
+
+        if(IsFound )
+        {
+            return new clsCash(CashID,CashName,AccountNo);  
+        }
+
+        else
+        {
+            return null; 
+        }
+    }
 }

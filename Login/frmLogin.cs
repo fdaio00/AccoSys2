@@ -50,7 +50,7 @@ namespace AccountingPR.Login
                 }
 
                 clsGlobal.CurrentUser = LoggedUser;
-                frmTest frm = new frmTest();
+                frmMain2 frm = new frmMain2();
                 this.Hide();
                 frm.Show();
             }

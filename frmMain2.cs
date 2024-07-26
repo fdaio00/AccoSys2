@@ -17,12 +17,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TabControl = System.Windows.Forms.TabControl;
+using TabPage = System.Windows.Forms.TabPage;
 
 namespace AccoSys
 {
-    public partial class frmTest : Form
+    public partial class frmMain2 : Form
     {
-        public frmTest()
+        public frmMain2()
         {
             InitializeComponent();
         }
@@ -38,7 +39,19 @@ namespace AccoSys
             Form frm = (Form)sender;
             frm.BackColor = Color.White;
        
-            tbForms.TabPages.Add(frm);
+            //string formTitle = frm.Text;
+
+            //// Check if a tab with the same form is already open
+            //foreach (TabPage tabPage in tbForms.TabPages)
+            //{
+            //    if (tabPage.Text == formTitle)
+            //    {
+            //        // If found, select the tab and return
+            //        ribbon1.do.SelectedTab = tabPage;
+            //        return;
+            //    }
+            //}
+            tbForms.TabPages.Add(frm); 
             frm.TopLevel = false; // Important to set this to false
             frm.FormBorderStyle = FormBorderStyle.None; // Remove border
             frm.Dock = DockStyle.None; // Ensure the form is not docked
@@ -49,7 +62,7 @@ namespace AccoSys
             // Center the form within the TabPage
        
             frm.Left = (tbForms.ClientSize.Width - frm.Width) / 2;
-            frm.Top = -10;
+            frm.Top = 15;
             frm.Show();
 
 
@@ -133,6 +146,26 @@ namespace AccoSys
         {
             frmBonds frm = new frmBonds(frmBonds.enScreen.DisbursementScreen);
             _OpenForm(frm);
+        }
+
+        private void ribbon1_TabIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void ribbon1_OrbClicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ribbon1_ActiveTabChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ribbon1_OrbDropDown_TabIndexChanged(object sender, EventArgs e)
+        {
+            _OpenForm(tbForms.SelectedForm);
+
         }
     }
 }

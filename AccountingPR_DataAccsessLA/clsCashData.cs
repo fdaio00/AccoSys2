@@ -159,4 +159,43 @@ public static class clsCashData
 
         return isFound;
     }
+
+    public static bool FindCashByName(ref int CashID,
+      ref int AccountNo,
+        string CashNameAr
+    )
+    {
+        bool isFound = false;
+
+        using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+        {
+            using (SqlCommand command = new SqlCommand("SP_GetCashByName", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@CashNameAr", CashNameAr);
+
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        CashID = reader["CashID"] != DBNull.Value ? Convert.ToInt32(reader["CashID"]) : -1;
+                        AccountNo = reader["AccountNo"] != DBNull.Value ? Convert.ToInt32(reader["AccountNo"]) : -1;
+                      
+
+                        isFound = true;
+                    }
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    isFound = false;
+                    clsDataAccessSettings.SetErrorLoggingEvent(ex.Message);
+                }
+            }
+        }
+
+        return isFound;
+    }
 }

@@ -110,11 +110,11 @@
     <Compile Include="Currencies\frmListCurrencies.Designer.cs">
       <DependentUpon>frmListCurrencies.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmTest.cs">
+    <Compile Include="frmMain2.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmTest.Designer.cs">
-      <DependentUpon>frmTest.cs</DependentUpon>
+    <Compile Include="frmMain2.Designer.cs">
+      <DependentUpon>frmMain2.cs</DependentUpon>
     </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
@@ -182,8 +182,8 @@
     <EmbeddedResource Include="Currencies\frmListCurrencies.resx">
       <DependentUpon>frmListCurrencies.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmTest.resx">
-      <DependentUpon>frmTest.cs</DependentUpon>
+    <EmbeddedResource Include="frmMain2.resx">
+      <DependentUpon>frmMain2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>

@@ -1,6 +1,6 @@
 ﻿namespace AccoSys
 {
-    partial class frmTest
+    partial class frmMain2
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmTest));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain2));
             this.ribbon1 = new System.Windows.Forms.Ribbon();
             this.ribbonButton1 = new System.Windows.Forms.RibbonButton();
             this.rtFiles = new System.Windows.Forms.RibbonTab();
@@ -94,6 +94,7 @@
             this.ribbon1.OrbDropDown.Name = "";
             this.ribbon1.OrbDropDown.Size = new System.Drawing.Size(527, 72);
             this.ribbon1.OrbDropDown.TabIndex = 0;
+            this.ribbon1.OrbDropDown.TabIndexChanged += new System.EventHandler(this.ribbon1_OrbDropDown_TabIndexChanged);
             this.ribbon1.OrbStyle = System.Windows.Forms.RibbonOrbStyle.Office_2010;
             this.ribbon1.OrbVisible = false;
             // 
@@ -112,6 +113,9 @@
             this.ribbon1.TabSpacing = 3;
             this.ribbon1.Text = "صهيب";
             this.ribbon1.ThemeColor = System.Windows.Forms.RibbonTheme.Blue;
+            this.ribbon1.OrbClicked += new System.EventHandler(this.ribbon1_OrbClicked);
+            this.ribbon1.ActiveTabChanged += new System.EventHandler(this.ribbon1_ActiveTabChanged);
+            this.ribbon1.TabIndexChanged += new System.EventHandler(this.ribbon1_TabIndexChanged);
             // 
             // ribbonButton1
             // 
@@ -550,7 +554,7 @@
             this.ribbonButton3.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton3.SmallImage")));
             this.ribbonButton3.Text = "ribbonButton3";
             // 
-            // frmTest
+            // frmMain2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -559,7 +563,7 @@
             this.Controls.Add(this.ribbon1);
             this.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.KeyPreview = true;
-            this.Name = "frmTest";
+            this.Name = "frmMain2";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

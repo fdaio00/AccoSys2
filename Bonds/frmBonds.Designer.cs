@@ -326,7 +326,7 @@
             // 
             this.btnEnterJournalDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEnterJournalDetails.BackColor = System.Drawing.Color.Transparent;
-            this.btnEnterJournalDetails.Location = new System.Drawing.Point(90, 22);
+            this.btnEnterJournalDetails.Location = new System.Drawing.Point(55, 22);
             this.btnEnterJournalDetails.Name = "btnEnterJournalDetails";
             this.btnEnterJournalDetails.Size = new System.Drawing.Size(72, 50);
             this.btnEnterJournalDetails.TabIndex = 5;
@@ -343,20 +343,21 @@
             this.cbCurrency.Name = "cbCurrency";
             this.cbCurrency.Size = new System.Drawing.Size(202, 24);
             this.cbCurrency.TabIndex = 4;
+            this.cbCurrency.SelectedIndexChanged += new System.EventHandler(this.cbCurrency_SelectedIndexChanged);
             // 
             // txtDetails
             // 
             this.txtDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDetails.Location = new System.Drawing.Point(189, 48);
+            this.txtDetails.Location = new System.Drawing.Point(148, 48);
             this.txtDetails.Name = "txtDetails";
-            this.txtDetails.Size = new System.Drawing.Size(232, 23);
+            this.txtDetails.Size = new System.Drawing.Size(273, 23);
             this.txtDetails.TabIndex = 4;
             // 
             // label9
             // 
             this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(422, 18);
+            this.label9.Location = new System.Drawing.Point(387, 19);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(37, 16);
             this.label9.TabIndex = 17;
@@ -376,7 +377,7 @@
             // 
             this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(629, 18);
+            this.label10.Location = new System.Drawing.Point(600, 19);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(40, 16);
             this.label10.TabIndex = 15;
@@ -386,7 +387,7 @@
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(843, 18);
+            this.label7.Location = new System.Drawing.Point(811, 19);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(40, 16);
             this.label7.TabIndex = 13;
@@ -404,7 +405,7 @@
             // 
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(1067, 18);
+            this.label8.Location = new System.Drawing.Point(1028, 22);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(40, 16);
             this.label8.TabIndex = 11;
@@ -422,7 +423,7 @@
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(1349, 18);
+            this.label6.Location = new System.Drawing.Point(1320, 19);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(81, 16);
             this.label6.TabIndex = 9;
@@ -433,14 +434,14 @@
             this.txtAccountNo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtAccountNo.Location = new System.Drawing.Point(1417, 48);
             this.txtAccountNo.Name = "txtAccountNo";
-            this.txtAccountNo.Size = new System.Drawing.Size(148, 23);
+            this.txtAccountNo.Size = new System.Drawing.Size(186, 23);
             this.txtAccountNo.TabIndex = 0;
             // 
             // label5
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(1522, 18);
+            this.label5.Location = new System.Drawing.Point(1531, 19);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(75, 16);
             this.label5.TabIndex = 3;
@@ -496,6 +497,7 @@
             this.cbCashes.Name = "cbCashes";
             this.cbCashes.Size = new System.Drawing.Size(202, 24);
             this.cbCashes.TabIndex = 18;
+            this.cbCashes.SelectedIndexChanged += new System.EventHandler(this.cbCashes_SelectedIndexChanged);
             // 
             // label16
             // 
