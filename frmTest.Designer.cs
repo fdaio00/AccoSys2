@@ -74,7 +74,7 @@
             this.ribbonPanel20 = new System.Windows.Forms.RibbonPanel();
             this.btnLossesProfits = new System.Windows.Forms.RibbonButton();
             this.rtHelp = new System.Windows.Forms.RibbonTab();
-            this.tabControl1 = new MdiTabControl.TabControl();
+            this.tbForms = new MdiTabControl.TabControl();
             this.ribbonPanel9 = new System.Windows.Forms.RibbonPanel();
             this.ribbonButton3 = new System.Windows.Forms.RibbonButton();
             this.SuspendLayout();
@@ -518,18 +518,21 @@
             this.rtHelp.Name = "rtHelp";
             this.rtHelp.Text = "مساعدة";
             // 
-            // tabControl1
+            // tbForms
             // 
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 124);
-            this.tabControl1.MenuRenderer = null;
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.Size = new System.Drawing.Size(1075, 535);
-            this.tabControl1.TabCloseButtonImage = null;
-            this.tabControl1.TabCloseButtonImageDisabled = null;
-            this.tabControl1.TabCloseButtonImageHot = null;
-            this.tabControl1.TabIndex = 2;
-            this.tabControl1.TabsDirection = MdiTabControl.TabControl.FlowDirection.RightToLeft;
+            this.tbForms.BackColor = System.Drawing.SystemColors.Window;
+            this.tbForms.BorderColor = System.Drawing.SystemColors.Window;
+            this.tbForms.BorderColorDisabled = System.Drawing.SystemColors.Window;
+            this.tbForms.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbForms.Location = new System.Drawing.Point(0, 124);
+            this.tbForms.MenuRenderer = null;
+            this.tbForms.Name = "tbForms";
+            this.tbForms.Size = new System.Drawing.Size(1075, 535);
+            this.tbForms.TabCloseButtonImage = null;
+            this.tbForms.TabCloseButtonImageDisabled = null;
+            this.tbForms.TabCloseButtonImageHot = null;
+            this.tbForms.TabIndex = 2;
+            this.tbForms.TabsDirection = MdiTabControl.TabControl.FlowDirection.RightToLeft;
             // 
             // ribbonPanel9
             // 
@@ -552,7 +555,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1075, 659);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.tbForms);
             this.Controls.Add(this.ribbon1);
             this.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.KeyPreview = true;
@@ -600,7 +603,7 @@
         private System.Windows.Forms.ToolStripStatusLabel lblUser;
         private System.Windows.Forms.Ribbon ribbon1;
         private System.Windows.Forms.RibbonButton ribbonButton1;
-        private MdiTabControl.TabControl tabControl1;
+        private MdiTabControl.TabControl tbForms;
         private System.Windows.Forms.RibbonTab rtReports;
         private System.Windows.Forms.RibbonTab rtHelp;
         private System.Windows.Forms.RibbonPanel ribbonPanel9;

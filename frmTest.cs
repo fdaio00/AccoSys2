@@ -6,6 +6,7 @@ using AccountingPR.Currencies;
 using AccountingPR.Journals;
 using AccountingPR.System_Settings;
 using AccountingPR.Users;
+using MdiTabControl;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TabControl = System.Windows.Forms.TabControl;
 
 namespace AccoSys
 {
@@ -34,9 +36,21 @@ namespace AccoSys
         void _OpenForm (object sender)
         {
             Form frm = (Form)sender;
-            frm.StartPosition=FormStartPosition.CenterScreen;
-            tabControl1.TabPages.Add(frm);
-            
+            frm.BackColor = Color.White;
+       
+            tbForms.TabPages.Add(frm);
+            frm.TopLevel = false; // Important to set this to false
+            frm.FormBorderStyle = FormBorderStyle.None; // Remove border
+            frm.Dock = DockStyle.None; // Ensure the form is not docked
+
+            // Add the form to the TabPage and show it
+           
+
+            // Center the form within the TabPage
+       
+            frm.Left = (tbForms.ClientSize.Width - frm.Width) / 2;
+            frm.Top = -10;
+            frm.Show();
 
 
 
@@ -44,7 +58,7 @@ namespace AccoSys
 
         private void ribbonButton2_Click(object sender, EventArgs e)
         {
-            tabControl1.TabPages.Add(new frmListUsers());
+            tbForms.TabPages.Add(new frmListUsers());
 
         }
 
