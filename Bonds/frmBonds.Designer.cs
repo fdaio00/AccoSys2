@@ -439,6 +439,7 @@
             this.txtAccountNo.Name = "txtAccountNo";
             this.txtAccountNo.Size = new System.Drawing.Size(186, 23);
             this.txtAccountNo.TabIndex = 0;
+            this.txtAccountNo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAccountNo_KeyPress);
             // 
             // label5
             // 
@@ -498,7 +499,7 @@
             this.cbCashes.BackColor = System.Drawing.SystemColors.Window;
             this.cbCashes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCashes.FormattingEnabled = true;
-            this.cbCashes.Location = new System.Drawing.Point(703, 29);
+            this.cbCashes.Location = new System.Drawing.Point(495, 32);
             this.cbCashes.Name = "cbCashes";
             this.cbCashes.Size = new System.Drawing.Size(202, 24);
             this.cbCashes.TabIndex = 18;
@@ -529,7 +530,7 @@
             // 
             this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(917, 29);
+            this.label11.Location = new System.Drawing.Point(709, 32);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(57, 16);
             this.label11.TabIndex = 19;
@@ -560,7 +561,7 @@
             this.ckbIsPost.AutoSize = true;
             this.ckbIsPost.Checked = true;
             this.ckbIsPost.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ckbIsPost.Location = new System.Drawing.Point(1014, 29);
+            this.ckbIsPost.Location = new System.Drawing.Point(806, 32);
             this.ckbIsPost.Name = "ckbIsPost";
             this.ckbIsPost.Size = new System.Drawing.Size(59, 20);
             this.ckbIsPost.TabIndex = 3;
@@ -570,7 +571,7 @@
             // dtpBondHeaderDate
             // 
             this.dtpBondHeaderDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.dtpBondHeaderDate.Location = new System.Drawing.Point(1093, 30);
+            this.dtpBondHeaderDate.Location = new System.Drawing.Point(885, 33);
             this.dtpBondHeaderDate.Name = "dtpBondHeaderDate";
             this.dtpBondHeaderDate.Size = new System.Drawing.Size(304, 23);
             this.dtpBondHeaderDate.TabIndex = 4;
@@ -675,7 +676,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(1419, 33);
+            this.label3.Location = new System.Drawing.Point(1211, 36);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(75, 16);
             this.label3.TabIndex = 4;
@@ -703,10 +704,10 @@
             // txtBondHeaderID
             // 
             this.txtBondHeaderID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBondHeaderID.Location = new System.Drawing.Point(1518, 34);
+            this.txtBondHeaderID.Location = new System.Drawing.Point(1591, 34);
             this.txtBondHeaderID.Name = "txtBondHeaderID";
             this.txtBondHeaderID.ReadOnly = true;
-            this.txtBondHeaderID.Size = new System.Drawing.Size(264, 23);
+            this.txtBondHeaderID.Size = new System.Drawing.Size(191, 23);
             this.txtBondHeaderID.TabIndex = 1;
             this.txtBondHeaderID.TabStop = false;
             // 
@@ -723,9 +724,9 @@
             // txtJournalHeaderID
             // 
             this.txtJournalHeaderID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtJournalHeaderID.Location = new System.Drawing.Point(505, 26);
+            this.txtJournalHeaderID.Location = new System.Drawing.Point(1302, 32);
             this.txtJournalHeaderID.Name = "txtJournalHeaderID";
-            this.txtJournalHeaderID.Size = new System.Drawing.Size(125, 23);
+            this.txtJournalHeaderID.Size = new System.Drawing.Size(191, 23);
             this.txtJournalHeaderID.TabIndex = 22;
             this.txtJournalHeaderID.TabStop = false;
             // 
@@ -733,7 +734,7 @@
             // 
             this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(636, 30);
+            this.label14.Location = new System.Drawing.Point(1512, 36);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(61, 16);
             this.label14.TabIndex = 21;

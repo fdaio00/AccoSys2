@@ -1,10 +1,12 @@
-﻿using AccountingPR.Global;
+﻿using AccountingPR.Accounts;
+using AccountingPR.Global;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -21,7 +23,9 @@ namespace AccountingPR.Bonds
 
 
         public enum enScreen { ReceiptScreen =1 , DisbursementScreen =2}
-        public enScreen Screen; 
+        public enScreen Screen;
+        private clsAccount _Account;
+
         public frmBonds(enScreen ScreenType)
         {
             InitializeComponent();
@@ -134,9 +138,44 @@ namespace AccountingPR.Bonds
             {
                 BondsNo = await clsBondHeader.GenerateDisbursementBondNo(); 
             }
-
+            //why here it if i call get last numner direcly to the textvbox it does not 
+            //set the value , but when I assign it to integer var it gives me the correct answer expected?
             txtBondHeaderID.Text = BondsNo?.ToString();
-            txtJournalHeaderID.Text = clsJournalHeaders.GetLastJournalNumber().ToString(); 
+            txtJournalHeaderID.Text = (await clsJournalHeaders.GetLastJournalNumber()).ToString(); 
+        }
+
+        private void txtAccountNo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtAccountNo.Text.Trim()))
+            {
+
+                if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+                else if (e.KeyChar == (char)13)
+                {
+
+                    frmSearchAccount frm = new frmSearchAccount(Convert.ToInt32(txtAccountNo.Text.Trim()));
+                    frm.DataBack += GetAccountInfo;
+                    frm.ShowDialog();
+                    txtAmount.Focus();
+
+                }
+            }
+        }
+
+        private void GetAccountInfo(object sender, int AccountNo)
+        {
+            _Account = clsAccount.GetAccountByID(AccountNo);
+            if (_Account == null)
+            {
+                return;
+            }
+
+            txtAccountNo.Text = _Account.AccountNo.ToString();
+            txtAccountName.Text = _Account.AccountNameAr;
+       
         }
     }
 }
