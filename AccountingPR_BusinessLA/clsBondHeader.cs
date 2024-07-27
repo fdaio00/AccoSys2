@@ -130,6 +130,15 @@ public class clsBondHeader
     {
         return await clsBondHeadersData.GetAllBondHeadersAsync();
     }
+    public async static Task<int> GenerateReceiptBondNo()
+    {
+        return await clsBondHeadersData.GenerateReceiptBondNo();    
+    }
+
+    public async static Task<int> GenerateDisbursementBondNo()
+    {
+        return await clsBondHeadersData.GenerateDisbursementBondNo(); 
+    }
 
     public static bool FindBondHeaderByID(
         int bondID,

@@ -222,4 +222,73 @@ public static class clsBondHeadersData
 
         return isFound;
     }
+
+
+
+
+    public async static Task<int> GenerateReceiptBondNo()
+    {
+        int Count = -1;
+        using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+        {
+            using (SqlCommand command = new SqlCommand("SP_GenerateReceiptBondNo", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                SqlParameter countOutput = new SqlParameter("@Count", SqlDbType.Int)
+                {
+                    Direction = ParameterDirection.Output,
+                };
+
+                command.Parameters.Add(countOutput);
+
+                try
+                {
+                    connection.Open();
+                    await command.ExecuteScalarAsync();
+                    if (countOutput != null)
+                    {
+                        Count = Convert.ToInt32(countOutput.Value);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    clsDataAccessSettings.SetErrorLoggingEvent(ex.Message);
+                }
+            }
+        }
+        return Count;
+    }
+    
+    public async static Task<int> GenerateDisbursementBondNo()
+    {
+        int Count = -1;
+        using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+        {
+            using (SqlCommand command = new SqlCommand("SP_GenerateDisbursementBondNo", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                SqlParameter countOutput = new SqlParameter("@Count", SqlDbType.Int)
+                {
+                    Direction = ParameterDirection.Output,
+                };
+
+                command.Parameters.Add(countOutput);
+
+                try
+                {
+                    connection.Open();
+                    await command.ExecuteScalarAsync();
+                    if (countOutput != null)
+                    {
+                        Count = Convert.ToInt32(countOutput.Value);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    clsDataAccessSettings.SetErrorLoggingEvent(ex.Message);
+                }
+            }
+        }
+        return Count;
+    }
 }

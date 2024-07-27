@@ -121,5 +121,21 @@ namespace AccountingPR.Bonds
             }
             txtCahsID.Text = _Cash.AccountNo.ToString(); 
         }
+
+        private async void btnNew_Click(object sender, EventArgs e)
+        {
+            int? BondsNo =-1; 
+
+            if(Screen == enScreen.ReceiptScreen)
+            {
+                BondsNo = await clsBondHeader.GenerateReceiptBondNo(); 
+            }
+            else
+            {
+                BondsNo = await clsBondHeader.GenerateDisbursementBondNo(); 
+            }
+
+            txtBondHeaderID.Text = BondsNo?.ToString(); 
+        }
     }
 }
