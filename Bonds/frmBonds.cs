@@ -135,7 +135,8 @@ namespace AccountingPR.Bonds
                 BondsNo = await clsBondHeader.GenerateDisbursementBondNo(); 
             }
 
-            txtBondHeaderID.Text = BondsNo?.ToString(); 
+            txtBondHeaderID.Text = BondsNo?.ToString();
+            txtJournalHeaderID.Text = clsJournalHeaders.GetLastJournalNumber().ToString(); 
         }
     }
 }
