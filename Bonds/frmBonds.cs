@@ -279,12 +279,6 @@ namespace AccountingPR.Bonds
 
         private void dgvBondsList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (_AccountsList != null)
-            {
-                _AccountsList.Remove(Convert.ToInt32(dgvBondsList.CurrentRow.Cells[1].Value));
-            }
-            dgvBondsList.Rows.RemoveAt(dgvBondsList.CurrentRow.Index);
-            _CalculatingTotalBondsAmount();
 
 
 
@@ -302,6 +296,13 @@ namespace AccountingPR.Bonds
             {
                 _tempHeaderDetialsID = Convert.ToInt32(dgvBondsList.CurrentRow.Cells[9].Value);
             }
+
+            if (_AccountsList != null)
+            {
+                _AccountsList.Remove(Convert.ToInt32(dgvBondsList.CurrentRow.Cells[1].Value));
+            }
+            dgvBondsList.Rows.RemoveAt(dgvBondsList.CurrentRow.Index);
+            _CalculatingTotalBondsAmount();
             //toolStripMenuItem1_Click(null, null);
         }
     }
