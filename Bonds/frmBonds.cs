@@ -20,6 +20,8 @@ namespace AccountingPR.Bonds
         clsCurrency _Currency;
         clsCash _Cash;
         List<int> _AccountsList = new List<int>();
+        clsBondHeader _BondHeader;
+        clsBondDetail _BondDetail;
 
 
 
@@ -131,7 +133,7 @@ namespace AccountingPR.Bonds
         private async void btnNew_Click(object sender, EventArgs e)
         {
             int? BondsNo =-1; 
-
+           
             if(Screen == enScreen.ReceiptScreen)
             {
                 BondsNo = await clsBondHeader.GenerateReceiptBondNo(); 
@@ -142,8 +144,15 @@ namespace AccountingPR.Bonds
             }
             //why here it if i call get last numner direcly to the textvbox it does not 
             //set the value , but when I assign it to integer var it gives me the correct answer expected?
-            txtBondHeaderID.Text = BondsNo?.ToString();
+            _ClearTextBoxesAfterInsertingDataToDGV();
+            dgvBondsList.Rows.Clear();
+            _CalculatingTotalBondsAmount();
+            btnSave.Enabled = true;
+            _BondHeader = new clsBondHeader();
             txtJournalHeaderID.Text = (await clsJournalHeaders.GetLastJournalNumber()).ToString(); 
+            txtHeadNote.Focus();
+            txtBondHeaderID.Text = BondsNo?.ToString();
+            btnSave.Enabled = true; 
         }
 
         private void txtAccountNo_KeyPress(object sender, KeyPressEventArgs e)
@@ -297,13 +306,138 @@ namespace AccountingPR.Bonds
                 _tempHeaderDetialsID = Convert.ToInt32(dgvBondsList.CurrentRow.Cells[9].Value);
             }
 
+          
+            toolStripMenuItem1_Click(null, null);
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
             if (_AccountsList != null)
             {
                 _AccountsList.Remove(Convert.ToInt32(dgvBondsList.CurrentRow.Cells[1].Value));
             }
             dgvBondsList.Rows.RemoveAt(dgvBondsList.CurrentRow.Index);
             _CalculatingTotalBondsAmount();
-            //toolStripMenuItem1_Click(null, null);
+        }
+
+        async Task<bool> _SaveBondDetails()
+        {
+            bool sucsess = true;
+
+            try
+            {
+                for (int i = 0; i < dgvBondsList.Rows.Count; i++)
+                {
+                    if (dgvBondsList.Rows.Count > 0)
+                    {
+                        if (await clsBondDetail.CheckJournalDetailsIDExists(Convert.ToInt32(dgvBondsList.Rows[i].Cells[11].Value)))
+                        {
+                            _BondDetail = clsBondDetail.GetJournalDetailByID(Convert.ToInt32(dgvBondsList.Rows[i].Cells[11].Value));
+                        }
+                        else
+                        {
+                            _BondDetail = new clsBondDetail();
+
+                        }
+
+                        _BondDetail.AccountCurrencyID = Convert.ToInt32(dgvBondsList.Rows[i].Cells[5].Value);
+                        _BondDetail.AccountCredit = Convert.ToDecimal(dgvBondsList.Rows[i].Cells[4].Value);
+                        _BondDetail.AccountDebit = Convert.ToDecimal(dgvBondsList.Rows[i].Cells[3].Value);
+                        _BondDetail.AccountID = Convert.ToInt32(dgvBondsList.Rows[i].Cells[1].Value);
+                        _BondDetail.JouID = Convert.ToInt32(dgvBondsList.Rows[i].Cells[0].Value);
+                        _BondDetail.JouNote = Convert.ToString(dgvBondsList.Rows[i].Cells[8].Value);
+                        _BondDetail.CurrentExchange = Convert.ToSingle(dgvBondsList.Rows[i].Cells[7].Value);
+
+
+
+                        if (!await _BondDetail.SaveAsync())
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                clsGlobal.SetErrorLoggingEvent(ex.Message);
+                sucsess = false;
+            }
+
+
+            return sucsess;
+        }
+
+        int _GetBondTypeID()
+        {
+            if (rbDisbursement.Checked)
+            {
+
+                return Convert.ToInt32(enScreen.DisbursementScreen);
+            }
+            else if (rbReceipt.Checked)
+            {
+                return Convert.ToInt32(enScreen.ReceiptScreen);
+
+            }
+            else
+                return -1;
+        }
+        async Task<bool> _SaveBondHeader()
+        {
+            bool IsFound = false;
+            //_BondHeader.TotalCredit = Convert.ToDecimal(txtTotalCredit.Text);
+            _BondHeader.BondID = Convert.ToInt32(txtBondHeaderID.Text);
+            _BondHeader.BondDate = dtpBondHeaderDate.Value;
+            _BondHeader.BondNote = txtHeadNote.Text.Trim();
+            _BondHeader.BondTypeID = _GetBondTypeID(); 
+            _BondHeader.IsPost = ckbIsPost.Checked;
+            _BondHeader.BondBalance = Convert.ToDecimal(txtTotalBonds.Text);
+            _BondHeader.CashID = _Cash.CashID; 
+            //_BondHeader.AccountBankID = 
+            _BondHeader.AddedByUserID = clsGlobal.CurrentUser.UserID;
+            _BondHeader.AddDate = DateTime.Now;
+            _BondHeader.EditedByUserID = clsGlobal.CurrentUser.UserID;
+            _BondHeader.EditDate = DateTime.Now;
+            
+
+            if (await _BondHeader.SaveAsync())
+            {
+                IsFound = true;
+            }
+
+            return IsFound;
+
+
+
+        }
+
+        private async void btnSave_Click(object sender, EventArgs e)
+        {
+            //if(!this.ValidateChildren())
+            //{
+            //    myToast.ShowToast("يحب عليك ادخال الفراغات المطلوبة", ToastTypeIcon.Warning);
+            //    return;
+            //}
+
+            if (await _SaveBondHeader())
+            {
+                if (await _SaveBondDetails())
+                {
+                    myToast.ShowToast("تم حفظ جميع السجلات بنجاح", ToastTypeIcon.Success);
+
+                }
+                else
+                {
+                    myToast.ShowToast("لم يتم حفظ بعض السجلات , حدث خطأ ما ", ToastTypeIcon.Error);
+
+                }
+            }
+            else
+            {
+                myToast.ShowToast("لم يتم الحفظ , حدث خطأ ما ", ToastTypeIcon.Error);
+
+            }
         }
     }
 }

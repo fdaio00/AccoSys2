@@ -41,9 +41,8 @@ public static class clsBondHeadersData
         int? cashID,
         int? accountBankID,
         int? addedByUserID,
-        DateTime? addDate,
-        int? editedByUserID,
-        DateTime? editDate)
+        DateTime? addDate
+   )
     {
         int rowsAffected = 0;
 
@@ -53,17 +52,15 @@ public static class clsBondHeadersData
             {
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@BondID", bondID);
-                command.Parameters.AddWithValue("@BondDate", (object)bondDate ?? DBNull.Value);
-                command.Parameters.AddWithValue("@BondNote", (object)bondNote ?? DBNull.Value);
-                command.Parameters.AddWithValue("@BondType", (object)bondType ?? DBNull.Value);
-                command.Parameters.AddWithValue("@IsPost", (object)isPost ?? DBNull.Value);
-                command.Parameters.AddWithValue("@BondBalance", (object)bondBalance ?? DBNull.Value);
+                command.Parameters.AddWithValue("@BondDate", bondDate );
+                command.Parameters.AddWithValue("@BondNote", bondNote  );
+                command.Parameters.AddWithValue("@BondTypeID", bondType  );
+                command.Parameters.AddWithValue("@IsPost", isPost  );
+                command.Parameters.AddWithValue("@BondBalance", bondBalance  );
                 command.Parameters.AddWithValue("@CashID", (object)cashID ?? DBNull.Value);
                 command.Parameters.AddWithValue("@AccountBankID", (object)accountBankID ?? DBNull.Value);
                 command.Parameters.AddWithValue("@AddedByUserID", (object)addedByUserID ?? DBNull.Value);
                 command.Parameters.AddWithValue("@AddDate", (object)addDate ?? DBNull.Value);
-                command.Parameters.AddWithValue("@EditedByUserID", (object)editedByUserID ?? DBNull.Value);
-                command.Parameters.AddWithValue("@EditDate", (object)editDate ?? DBNull.Value);
 
                 try
                 {
@@ -89,8 +86,6 @@ public static class clsBondHeadersData
         decimal? bondBalance,
         int? cashID,
         int? accountBankID,
-        int? addedByUserID,
-        DateTime? addDate,
         int? editedByUserID,
         DateTime? editDate)
     {
@@ -102,15 +97,13 @@ public static class clsBondHeadersData
             {
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@BondID", bondID);
-                command.Parameters.AddWithValue("@BondDate", (object)bondDate ?? DBNull.Value);
-                command.Parameters.AddWithValue("@BondNote", (object)bondNote ?? DBNull.Value);
-                command.Parameters.AddWithValue("@BondType", (object)bondType ?? DBNull.Value);
-                command.Parameters.AddWithValue("@IsPost", (object)isPost ?? DBNull.Value);
-                command.Parameters.AddWithValue("@BondBalance", (object)bondBalance ?? DBNull.Value);
+                command.Parameters.AddWithValue("@BondDate", bondDate);
+                command.Parameters.AddWithValue("@BondNote", bondNote);
+                command.Parameters.AddWithValue("@BondTypeID", bondType);
+                command.Parameters.AddWithValue("@IsPost", isPost);
+                command.Parameters.AddWithValue("@BondBalance", bondBalance);
                 command.Parameters.AddWithValue("@CashID", (object)cashID ?? DBNull.Value);
                 command.Parameters.AddWithValue("@AccountBankID", (object)accountBankID ?? DBNull.Value);
-                command.Parameters.AddWithValue("@AddedByUserID", (object)addedByUserID ?? DBNull.Value);
-                command.Parameters.AddWithValue("@AddDate", (object)addDate ?? DBNull.Value);
                 command.Parameters.AddWithValue("@EditedByUserID", (object)editedByUserID ?? DBNull.Value);
                 command.Parameters.AddWithValue("@EditDate", (object)editDate ?? DBNull.Value);
 
@@ -201,7 +194,7 @@ public static class clsBondHeadersData
                         isFound = true;
                         bondDate = reader["BondDate"] != DBNull.Value ? (DateTime?)reader["BondDate"] : null;
                         bondNote = reader["BondNote"] != DBNull.Value ? Convert.ToString(reader["BondNote"]) : null;
-                        bondType = reader["BondType"] != DBNull.Value ? Convert.ToInt32(reader["BondType"]) : 0;
+                        bondType = reader["BondTypeID"] != DBNull.Value ? Convert.ToInt32(reader["BondType"]) : 0;
                         isPost = reader["IsPost"] != DBNull.Value ? (bool?)reader["IsPost"] : null;
                         bondBalance = reader["BondBalance"] != DBNull.Value ? (decimal?)reader["BondBalance"] : null;
                         cashID = reader["CashID"] != DBNull.Value ? (int?)reader["CashID"] : null;

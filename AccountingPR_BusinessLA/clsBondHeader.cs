@@ -7,10 +7,10 @@ public class clsBondHeader
     enum enMode { AddNew = 0, Update = 1 };
     private enMode _Mode;
 
-    public int BondID { get; private set; }
+    public int BondID { get;  set; }
     public DateTime? BondDate { get; set; }
     public string BondNote { get; set; }
-    public int BondType { get; set; }
+    public int BondTypeID { get; set; }
     public bool? IsPost { get; set; }
     public decimal? BondBalance { get; set; }
     public int? CashID { get; set; }
@@ -25,7 +25,7 @@ public class clsBondHeader
         this.BondID = -1;
         this.BondDate = null;
         this.BondNote = "";
-        this.BondType = 0;
+        this.BondTypeID = 0;
         this.IsPost = null;
         this.BondBalance = null;
         this.CashID = null;
@@ -54,7 +54,7 @@ public class clsBondHeader
         this.BondID = bondID;
         this.BondDate = bondDate;
         this.BondNote = bondNote;
-        this.BondType = bondType;
+        this.BondTypeID = bondType;
         this.IsPost = isPost;
         this.BondBalance = bondBalance;
         this.CashID = cashID;
@@ -72,15 +72,15 @@ public class clsBondHeader
             this.BondID,
             this.BondDate,
             this.BondNote,
-            this.BondType,
+            this.BondTypeID,
             this.IsPost,
             this.BondBalance,
             this.CashID,
             this.AccountBankID,
             this.AddedByUserID,
-            this.AddDate,
-            this.EditedByUserID,
-            this.EditDate);
+            this.AddDate
+          
+            );
 
         return rowsAffected > 0;
     }
@@ -91,13 +91,11 @@ public class clsBondHeader
             this.BondID,
             this.BondDate,
             this.BondNote,
-            this.BondType,
+            this.BondTypeID,
             this.IsPost,
             this.BondBalance,
             this.CashID,
             this.AccountBankID,
-            this.AddedByUserID,
-            this.AddDate,
             this.EditedByUserID,
             this.EditDate);
     }
