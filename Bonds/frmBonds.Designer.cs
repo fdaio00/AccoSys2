@@ -48,7 +48,7 @@
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.btnEnterJournalDetails = new System.Windows.Forms.Button();
+            this.btnEnterHeaderDetails = new System.Windows.Forms.Button();
             this.cbCurrency = new System.Windows.Forms.ComboBox();
             this.txtDetails = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -305,7 +305,7 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.btnEnterJournalDetails);
+            this.groupBox3.Controls.Add(this.btnEnterHeaderDetails);
             this.groupBox3.Controls.Add(this.cbCurrency);
             this.groupBox3.Controls.Add(this.txtDetails);
             this.groupBox3.Controls.Add(this.label9);
@@ -325,16 +325,17 @@
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
             // 
-            // btnEnterJournalDetails
+            // btnEnterHeaderDetails
             // 
-            this.btnEnterJournalDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEnterJournalDetails.BackColor = System.Drawing.Color.Transparent;
-            this.btnEnterJournalDetails.Location = new System.Drawing.Point(132, 22);
-            this.btnEnterJournalDetails.Name = "btnEnterJournalDetails";
-            this.btnEnterJournalDetails.Size = new System.Drawing.Size(72, 50);
-            this.btnEnterJournalDetails.TabIndex = 5;
-            this.btnEnterJournalDetails.Text = "ادخال";
-            this.btnEnterJournalDetails.UseVisualStyleBackColor = false;
+            this.btnEnterHeaderDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEnterHeaderDetails.BackColor = System.Drawing.Color.Transparent;
+            this.btnEnterHeaderDetails.Location = new System.Drawing.Point(132, 22);
+            this.btnEnterHeaderDetails.Name = "btnEnterHeaderDetails";
+            this.btnEnterHeaderDetails.Size = new System.Drawing.Size(72, 50);
+            this.btnEnterHeaderDetails.TabIndex = 5;
+            this.btnEnterHeaderDetails.Text = "ادخال";
+            this.btnEnterHeaderDetails.UseVisualStyleBackColor = false;
+            this.btnEnterHeaderDetails.Click += new System.EventHandler(this.btnEnterJournalDetails_Click);
             // 
             // cbCurrency
             // 
@@ -794,7 +795,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button btnEnterJournalDetails;
+        private System.Windows.Forms.Button btnEnterHeaderDetails;
         private System.Windows.Forms.ComboBox cbCurrency;
         private System.Windows.Forms.TextBox txtDetails;
         private System.Windows.Forms.Label label9;

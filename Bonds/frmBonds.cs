@@ -18,7 +18,8 @@ namespace AccountingPR.Bonds
         DataTable _dtCurrencyType;
         DataTable _dtCashes;
         clsCurrency _Currency;
-        clsCash _Cash; 
+        clsCash _Cash;
+        List<int> _AccountsList = new List<int>();
 
 
 
@@ -176,6 +177,85 @@ namespace AccountingPR.Bonds
             txtAccountNo.Text = _Account.AccountNo.ToString();
             txtAccountName.Text = _Account.AccountNameAr;
        
+        }
+        void _ClearTextBoxesAfterInsertingDataToDGV()
+        {
+            //txtJournalID.Clear();
+            txtAccountNo.Clear();
+            txtAccountName.Clear();
+            txtAmount.Text = "0.00";
+            txtExchange.Clear();
+            txtDetails.Clear();
+            //txtAccountNo.Focus();
+            _Account = null;
+            _Currency = null;
+            cbCurrency.SelectedIndex = cbCurrency.FindString("الريال اليمني");
+            cbCurrency_SelectedIndexChanged(null, null);
+
+
+        }
+        void _CalculatingTotalBondsAmount()
+        {
+            float TotalBonds = 0;
+
+            for (int i = 0; i < dgvBondsList.Rows.Count; i++)
+            {
+                TotalBonds += Convert.ToSingle(dgvBondsList.Rows[i].Cells[3].Value);
+            }
+
+            txtTotalBonds.Text = TotalBonds.ToString("0.0");
+
+        }
+        void _EnteringRow()
+        {
+            if (_Account == null)
+            {
+                myToast.ShowToast("يجب عليك ادخال حساب صحيح", ToastTypeIcon.Information);
+                txtAccountNo.Focus();
+                txtAccountNo.SelectAll();
+                return;
+            }
+
+            if (_AccountsList.Contains(Convert.ToInt32(txtAccountNo.Text)))
+            {
+                myToast.ShowToast("هذا الحساب مضاف بالفعل الى القائمة", ToastTypeIcon.Information);
+                txtAccountNo.Focus();
+                txtAccountNo.SelectAll();
+                return;
+
+            }
+            try
+            {
+
+                //float TotalDebit = Convert.ToSingle(txtExchange.Text.Trim()) * Convert.ToSingle(txtDebit.Text.Trim());
+                //float TotalCredit = Convert.ToSingle(txtExchange.Text) * Convert.ToSingle(txtCredit.Text);
+                dgvBondsList.Rows.Add(
+                    txtBondHeaderID.Text,
+                    txtAccountNo.Text,
+                    txtAccountName.Text,
+                txtAmount.Text,
+                    _Currency.CurrencyID.ToString(),
+                    _Currency.CurrencyNameAr.ToString(),
+                    txtExchange.Text,
+                    txtDetails.Text);
+                    //TotalDebit,
+                    //TotalCredit,
+                    //_tempJournalDetialsID ?? null);
+
+
+                _AccountsList.Add(Convert.ToInt32(txtAccountNo.Text));
+                _ClearTextBoxesAfterInsertingDataToDGV();
+                _CalculatingTotalBondsAmount();
+            }
+            catch (Exception)
+            {
+
+                myToast.ShowToast("حدثت مشكلة ما", ToastTypeIcon.Error);
+            }
+        }
+        private void btnEnterJournalDetails_Click(object sender, EventArgs e)
+        {
+            _EnteringRow();
         }
     }
 }
