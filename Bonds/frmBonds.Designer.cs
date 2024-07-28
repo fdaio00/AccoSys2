@@ -29,10 +29,6 @@
         private void InitializeComponent()
         {
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.btnExit = new System.Windows.Forms.Button();
-            this.btnDelete = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnNew = new System.Windows.Forms.Button();
             this.txtUserName = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.txtTotalBonds = new System.Windows.Forms.TextBox();
@@ -47,6 +43,7 @@
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnEnterHeaderDetails = new System.Windows.Forms.Button();
             this.cbCurrency = new System.Windows.Forms.ComboBox();
@@ -62,6 +59,8 @@
             this.txtAccountNo = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtJournalHeaderID = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.txtCahsID = new System.Windows.Forms.TextBox();
             this.cbCashes = new System.Windows.Forms.ComboBox();
             this.label16 = new System.Windows.Forms.Label();
@@ -71,10 +70,6 @@
             this.label15 = new System.Windows.Forms.Label();
             this.ckbIsPost = new System.Windows.Forms.CheckBox();
             this.dtpBondHeaderDate = new System.Windows.Forms.DateTimePicker();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.textBox11 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -85,8 +80,15 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtBondHeaderID = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtJournalHeaderID = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
+            this.btnExit = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnNew = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox5.SuspendLayout();
             this.gbTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBondsList)).BeginInit();
@@ -111,67 +113,6 @@
             this.groupBox5.Size = new System.Drawing.Size(1881, 93);
             this.groupBox5.TabIndex = 7;
             this.groupBox5.TabStop = false;
-            // 
-            // btnExit
-            // 
-            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExit.BackColor = System.Drawing.Color.Transparent;
-            this.btnExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnExit.Image = global::AccountingPR.Properties.Resources.close;
-            this.btnExit.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnExit.Location = new System.Drawing.Point(193, 22);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(90, 59);
-            this.btnExit.TabIndex = 3;
-            this.btnExit.Text = "خروج";
-            this.btnExit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnExit.UseVisualStyleBackColor = false;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDelete.BackColor = System.Drawing.Color.Transparent;
-            this.btnDelete.Enabled = false;
-            this.btnDelete.Image = global::AccountingPR.Properties.Resources.delete1;
-            this.btnDelete.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnDelete.Location = new System.Drawing.Point(349, 22);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(90, 59);
-            this.btnDelete.TabIndex = 2;
-            this.btnDelete.Text = "حذف";
-            this.btnDelete.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDelete.UseVisualStyleBackColor = false;
-            // 
-            // btnSave
-            // 
-            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.BackColor = System.Drawing.Color.Transparent;
-            this.btnSave.Enabled = false;
-            this.btnSave.Image = global::AccountingPR.Properties.Resources.diskette;
-            this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSave.Location = new System.Drawing.Point(505, 22);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(90, 59);
-            this.btnSave.TabIndex = 1;
-            this.btnSave.Text = "حفظ";
-            this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.UseVisualStyleBackColor = false;
-            // 
-            // btnNew
-            // 
-            this.btnNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNew.BackColor = System.Drawing.Color.Transparent;
-            this.btnNew.Image = global::AccountingPR.Properties.Resources.add;
-            this.btnNew.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnNew.Location = new System.Drawing.Point(661, 22);
-            this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(90, 59);
-            this.btnNew.TabIndex = 0;
-            this.btnNew.Text = "جديد";
-            this.btnNew.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNew.UseVisualStyleBackColor = false;
-            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // txtUserName
             // 
@@ -237,7 +178,9 @@
             this.Column5,
             this.Column6,
             this.Column7,
-            this.Column8});
+            this.Column8,
+            this.Column9,
+            this.Column10});
             this.dgvBondsList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvBondsList.Location = new System.Drawing.Point(3, 19);
             this.dgvBondsList.Name = "dgvBondsList";
@@ -246,6 +189,7 @@
             this.dgvBondsList.RowTemplate.Height = 24;
             this.dgvBondsList.Size = new System.Drawing.Size(1875, 312);
             this.dgvBondsList.TabIndex = 0;
+            this.dgvBondsList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvBondsList_CellContentClick);
             // 
             // Column1
             // 
@@ -303,6 +247,13 @@
             this.Column8.Name = "Column8";
             this.Column8.ReadOnly = true;
             // 
+            // Column9
+            // 
+            this.Column9.HeaderText = "اجمالي المبلغ";
+            this.Column9.MinimumWidth = 6;
+            this.Column9.Name = "Column9";
+            this.Column9.ReadOnly = true;
+            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.btnEnterHeaderDetails);
@@ -347,6 +298,7 @@
             this.cbCurrency.Name = "cbCurrency";
             this.cbCurrency.Size = new System.Drawing.Size(202, 24);
             this.cbCurrency.TabIndex = 4;
+            this.cbCurrency.TabStop = false;
             this.cbCurrency.SelectedIndexChanged += new System.EventHandler(this.cbCurrency_SelectedIndexChanged);
             // 
             // txtDetails
@@ -356,6 +308,7 @@
             this.txtDetails.Name = "txtDetails";
             this.txtDetails.Size = new System.Drawing.Size(273, 23);
             this.txtDetails.TabIndex = 4;
+            this.txtDetails.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDetails_KeyPress);
             // 
             // label9
             // 
@@ -375,6 +328,7 @@
             this.txtExchange.ReadOnly = true;
             this.txtExchange.Size = new System.Drawing.Size(201, 23);
             this.txtExchange.TabIndex = 7;
+            this.txtExchange.TabStop = false;
             this.txtExchange.Text = "0.0";
             // 
             // label10
@@ -403,7 +357,8 @@
             this.txtAmount.Location = new System.Drawing.Point(938, 48);
             this.txtAmount.Name = "txtAmount";
             this.txtAmount.Size = new System.Drawing.Size(204, 23);
-            this.txtAmount.TabIndex = 2;
+            this.txtAmount.TabIndex = 3;
+            this.txtAmount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAmount_KeyPress);
             // 
             // label8
             // 
@@ -421,7 +376,7 @@
             this.txtAccountName.Location = new System.Drawing.Point(1159, 48);
             this.txtAccountName.Name = "txtAccountName";
             this.txtAccountName.Size = new System.Drawing.Size(318, 23);
-            this.txtAccountName.TabIndex = 1;
+            this.txtAccountName.TabIndex = 2;
             // 
             // label6
             // 
@@ -439,7 +394,7 @@
             this.txtAccountNo.Location = new System.Drawing.Point(1494, 48);
             this.txtAccountNo.Name = "txtAccountNo";
             this.txtAccountNo.Size = new System.Drawing.Size(186, 23);
-            this.txtAccountNo.TabIndex = 0;
+            this.txtAccountNo.TabIndex = 1;
             this.txtAccountNo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAccountNo_KeyPress);
             // 
             // label5
@@ -483,6 +438,26 @@
             this.groupBox1.Size = new System.Drawing.Size(1881, 149);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
+            // 
+            // txtJournalHeaderID
+            // 
+            this.txtJournalHeaderID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtJournalHeaderID.Location = new System.Drawing.Point(1302, 32);
+            this.txtJournalHeaderID.Name = "txtJournalHeaderID";
+            this.txtJournalHeaderID.ReadOnly = true;
+            this.txtJournalHeaderID.Size = new System.Drawing.Size(191, 23);
+            this.txtJournalHeaderID.TabIndex = 22;
+            this.txtJournalHeaderID.TabStop = false;
+            // 
+            // label14
+            // 
+            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(1512, 36);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(61, 16);
+            this.label14.TabIndex = 21;
+            this.label14.Text = "رقم القيد:";
             // 
             // txtCahsID
             // 
@@ -577,50 +552,6 @@
             this.dtpBondHeaderDate.Size = new System.Drawing.Size(304, 23);
             this.dtpBondHeaderDate.TabIndex = 4;
             this.dtpBondHeaderDate.TabStop = false;
-            // 
-            // button3
-            // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.BackColor = System.Drawing.Color.Transparent;
-            this.button3.Image = global::AccountingPR.Properties.Resources.arrow_left2;
-            this.button3.Location = new System.Drawing.Point(17, 16);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(55, 57);
-            this.button3.TabIndex = 10;
-            this.button3.UseVisualStyleBackColor = false;
-            // 
-            // button4
-            // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.BackColor = System.Drawing.Color.Transparent;
-            this.button4.Image = global::AccountingPR.Properties.Resources.arrow_left;
-            this.button4.Location = new System.Drawing.Point(78, 16);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(55, 57);
-            this.button4.TabIndex = 9;
-            this.button4.UseVisualStyleBackColor = false;
-            // 
-            // button2
-            // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.BackColor = System.Drawing.Color.Transparent;
-            this.button2.Image = global::AccountingPR.Properties.Resources.arrow_right2;
-            this.button2.Location = new System.Drawing.Point(417, 17);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(55, 57);
-            this.button2.TabIndex = 6;
-            this.button2.UseVisualStyleBackColor = false;
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.BackColor = System.Drawing.Color.Transparent;
-            this.button1.Image = global::AccountingPR.Properties.Resources.arrow_right;
-            this.button1.Location = new System.Drawing.Point(356, 16);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(55, 57);
-            this.button1.TabIndex = 8;
-            this.button1.UseVisualStyleBackColor = false;
             // 
             // textBox11
             // 
@@ -722,24 +653,118 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "رقم السند:";
             // 
-            // txtJournalHeaderID
+            // btnExit
             // 
-            this.txtJournalHeaderID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtJournalHeaderID.Location = new System.Drawing.Point(1302, 32);
-            this.txtJournalHeaderID.Name = "txtJournalHeaderID";
-            this.txtJournalHeaderID.Size = new System.Drawing.Size(191, 23);
-            this.txtJournalHeaderID.TabIndex = 22;
-            this.txtJournalHeaderID.TabStop = false;
+            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExit.BackColor = System.Drawing.Color.Transparent;
+            this.btnExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnExit.Image = global::AccountingPR.Properties.Resources.close;
+            this.btnExit.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnExit.Location = new System.Drawing.Point(193, 22);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(90, 59);
+            this.btnExit.TabIndex = 9;
+            this.btnExit.Text = "خروج";
+            this.btnExit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnExit.UseVisualStyleBackColor = false;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
-            // label14
+            // btnDelete
             // 
-            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(1512, 36);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(61, 16);
-            this.label14.TabIndex = 21;
-            this.label14.Text = "رقم القيد:";
+            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDelete.BackColor = System.Drawing.Color.Transparent;
+            this.btnDelete.Enabled = false;
+            this.btnDelete.Image = global::AccountingPR.Properties.Resources.delete1;
+            this.btnDelete.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnDelete.Location = new System.Drawing.Point(349, 22);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(90, 59);
+            this.btnDelete.TabIndex = 8;
+            this.btnDelete.Text = "حذف";
+            this.btnDelete.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDelete.UseVisualStyleBackColor = false;
+            // 
+            // btnSave
+            // 
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.BackColor = System.Drawing.Color.Transparent;
+            this.btnSave.Enabled = false;
+            this.btnSave.Image = global::AccountingPR.Properties.Resources.diskette;
+            this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSave.Location = new System.Drawing.Point(505, 22);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(90, 59);
+            this.btnSave.TabIndex = 7;
+            this.btnSave.Text = "حفظ";
+            this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSave.UseVisualStyleBackColor = false;
+            // 
+            // btnNew
+            // 
+            this.btnNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnNew.BackColor = System.Drawing.Color.Transparent;
+            this.btnNew.Image = global::AccountingPR.Properties.Resources.add;
+            this.btnNew.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnNew.Location = new System.Drawing.Point(661, 22);
+            this.btnNew.Name = "btnNew";
+            this.btnNew.Size = new System.Drawing.Size(90, 59);
+            this.btnNew.TabIndex = 6;
+            this.btnNew.Text = "جديد";
+            this.btnNew.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnNew.UseVisualStyleBackColor = false;
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
+            // 
+            // button3
+            // 
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button3.BackColor = System.Drawing.Color.Transparent;
+            this.button3.Image = global::AccountingPR.Properties.Resources.arrow_left2;
+            this.button3.Location = new System.Drawing.Point(17, 16);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(55, 57);
+            this.button3.TabIndex = 10;
+            this.button3.UseVisualStyleBackColor = false;
+            // 
+            // button4
+            // 
+            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button4.BackColor = System.Drawing.Color.Transparent;
+            this.button4.Image = global::AccountingPR.Properties.Resources.arrow_left;
+            this.button4.Location = new System.Drawing.Point(78, 16);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(55, 57);
+            this.button4.TabIndex = 9;
+            this.button4.UseVisualStyleBackColor = false;
+            // 
+            // button2
+            // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.BackColor = System.Drawing.Color.Transparent;
+            this.button2.Image = global::AccountingPR.Properties.Resources.arrow_right2;
+            this.button2.Location = new System.Drawing.Point(417, 17);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(55, 57);
+            this.button2.TabIndex = 6;
+            this.button2.UseVisualStyleBackColor = false;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.BackColor = System.Drawing.Color.Transparent;
+            this.button1.Image = global::AccountingPR.Properties.Resources.arrow_right;
+            this.button1.Location = new System.Drawing.Point(356, 16);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(55, 57);
+            this.button1.TabIndex = 8;
+            this.button1.UseVisualStyleBackColor = false;
+            // 
+            // Column10
+            // 
+            this.Column10.HeaderText = "معرف السند";
+            this.Column10.MinimumWidth = 6;
+            this.Column10.Name = "Column10";
+            this.Column10.ReadOnly = true;
+            this.Column10.Visible = false;
             // 
             // frmBonds
             // 
@@ -834,5 +859,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtJournalHeaderID;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
     }
 }

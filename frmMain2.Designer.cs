@@ -81,6 +81,7 @@
             // 
             // ribbon1
             // 
+            this.ribbon1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ribbon1.CaptionBarVisible = false;
             this.ribbon1.Font = new System.Drawing.Font("Tahoma", 9F);
             this.ribbon1.Location = new System.Drawing.Point(0, 0);

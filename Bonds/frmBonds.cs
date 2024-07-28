@@ -26,6 +26,7 @@ namespace AccountingPR.Bonds
         public enum enScreen { ReceiptScreen =1 , DisbursementScreen =2}
         public enScreen Screen;
         private clsAccount _Account;
+        private int ?_tempHeaderDetialsID=null;
 
         public frmBonds(enScreen ScreenType)
         {
@@ -46,7 +47,7 @@ namespace AccountingPR.Bonds
                 try
                 {
 
-                    //cbCashes.SelectedIndex = cbCurrency.FindString("الريال اليمني");
+                    cbCashes.SelectedIndex = 0;
                 }
                 catch (Exception ex)
                 {
@@ -200,7 +201,7 @@ namespace AccountingPR.Bonds
 
             for (int i = 0; i < dgvBondsList.Rows.Count; i++)
             {
-                TotalBonds += Convert.ToSingle(dgvBondsList.Rows[i].Cells[3].Value);
+                TotalBonds += Convert.ToSingle(dgvBondsList.Rows[i].Cells[8].Value);
             }
 
             txtTotalBonds.Text = TotalBonds.ToString("0.0");
@@ -227,7 +228,7 @@ namespace AccountingPR.Bonds
             try
             {
 
-                //float TotalDebit = Convert.ToSingle(txtExchange.Text.Trim()) * Convert.ToSingle(txtDebit.Text.Trim());
+                float TotalBondAfterExchange = Convert.ToSingle(txtExchange.Text.Trim()) * Convert.ToSingle(txtAmount.Text.Trim());
                 //float TotalCredit = Convert.ToSingle(txtExchange.Text) * Convert.ToSingle(txtCredit.Text);
                 dgvBondsList.Rows.Add(
                     txtBondHeaderID.Text,
@@ -237,7 +238,9 @@ namespace AccountingPR.Bonds
                     _Currency.CurrencyID.ToString(),
                     _Currency.CurrencyNameAr.ToString(),
                     txtExchange.Text,
-                    txtDetails.Text);
+                    txtDetails.Text,
+                    TotalBondAfterExchange,
+                    _tempHeaderDetialsID??null);
                     //TotalDebit,
                     //TotalCredit,
                     //_tempJournalDetialsID ?? null);
@@ -256,6 +259,50 @@ namespace AccountingPR.Bonds
         private void btnEnterJournalDetails_Click(object sender, EventArgs e)
         {
             _EnteringRow();
+        }
+
+        private void txtAmount_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true; 
+            }
+        }
+
+        private void txtDetails_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(e.KeyChar == (char)13)
+            {
+                btnEnterHeaderDetails.PerformClick();
+            }
+        }
+
+        private void dgvBondsList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (_AccountsList != null)
+            {
+                _AccountsList.Remove(Convert.ToInt32(dgvBondsList.CurrentRow.Cells[1].Value));
+            }
+            dgvBondsList.Rows.RemoveAt(dgvBondsList.CurrentRow.Index);
+            _CalculatingTotalBondsAmount();
+
+
+
+
+            txtBondHeaderID.Text = dgvBondsList.CurrentRow.Cells[0].Value.ToString();
+            txtAccountNo.Text = dgvBondsList.CurrentRow.Cells[1].Value.ToString();
+            _Account = clsAccount.GetAccountByID(Convert.ToInt32(txtAccountNo.Text.Trim()));
+            txtAccountName.Text = dgvBondsList.CurrentRow.Cells[2].Value.ToString();
+            txtAmount.Text = dgvBondsList.CurrentRow.Cells[3].Value.ToString();
+            _Currency = clsCurrency.GetCurrencyByID(Convert.ToInt32(dgvBondsList.CurrentRow.Cells[4].Value));
+            cbCurrency.SelectedIndex = cbCurrency.FindString(_Currency.CurrencyNameAr);
+            txtExchange.Text = dgvBondsList.CurrentRow.Cells[6].Value.ToString();
+            txtDetails.Text = dgvBondsList.CurrentRow.Cells[7].Value.ToString();
+            if (dgvBondsList.CurrentRow.Cells[9].Value != null)
+            {
+                _tempHeaderDetialsID = Convert.ToInt32(dgvBondsList.CurrentRow.Cells[9].Value);
+            }
+            //toolStripMenuItem1_Click(null, null);
         }
     }
 }

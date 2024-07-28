@@ -242,6 +242,7 @@
     <None Include="Resources\arrow_right.png" />
     <None Include="Resources\arrow_right2.png" />
     <None Include="Resources\1488160809.png" />
+    <None Include="Resources\administrator.png" />
     <Content Include="Resources\back~1.png" />
     <Content Include="Resources\bank.png" />
     <Content Include="Resources\calculator.png" />
