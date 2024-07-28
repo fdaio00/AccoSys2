@@ -138,46 +138,42 @@ public class clsBondHeader
         return await clsBondHeadersData.GenerateDisbursementBondNo(); 
     }
 
-    public static bool FindBondHeaderByID(
-        int bondID,
-        out DateTime? bondDate,
-        out string bondNote,
-        out int bondType,
-        out bool? isPost,
-        out decimal? bondBalance,
-        out int? cashID,
-        out int? accountBankID,
-        out int? addedByUserID,
-        out DateTime? addDate,
-        out int? editedByUserID,
-        out DateTime? editDate)
+    public static clsBondHeader FindBondHeaderByID( int bondID )
     {
-        bondDate = null;
-        bondNote = null;
-        bondType = 0;
-        isPost = null;
-        bondBalance = null;
-        cashID = null;
-        accountBankID = null;
-        addedByUserID = null;
-        addDate = null;
-        editedByUserID = null;
-        editDate = null;
+         DateTime? bondDate = null; 
+         string bondNote= null;
+         int bondType= -1;
+         bool? isPost= null;
+         decimal? bondBalance= null;
+         int? cashID= null;
+         int? accountBankID= null;
+         int? addedByUserID= null;
+         DateTime? addDate= null;
+         int? editedByUserID= null;
+         DateTime? editDate = null; 
 
         bool isFound = clsBondHeadersData.FindBondHeaderByID(
             bondID,
-            out bondDate,
-            out bondNote,
-            out bondType,
-            out isPost,
-            out bondBalance,
-            out cashID,
-            out accountBankID,
-            out addedByUserID,
-            out addDate,
-            out editedByUserID,
-            out editDate);
+        ref     bondDate,
+        ref     bondNote,
+        ref     bondType,
+        ref     isPost,
+        ref     bondBalance,
+        ref     cashID,
+        ref     accountBankID,
+        ref     addedByUserID,
+        ref     addDate,
+        ref     editedByUserID,
+        ref editDate);
 
-        return isFound;
+        if(isFound )
+        {
+            return new clsBondHeader(bondID, bondDate, bondNote, bondType, isPost,
+                bondBalance, cashID, accountBankID, addedByUserID, addDate, editedByUserID, editDate);
+        }
+        else
+        {
+            return null; 
+        }
     }
 }

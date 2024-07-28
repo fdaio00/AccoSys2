@@ -19,7 +19,7 @@ public static class clsBondDetailsData
                 {
                     await connection.OpenAsync();
                     SqlDataReader reader = await command.ExecuteReaderAsync();
-                   if(reader.HasRows)     dt.Load(reader); // Load data into DataTable
+                    if (reader.HasRows) dt.Load(reader); // Load data into DataTable
                 }
                 catch (Exception ex)
                 {
@@ -42,19 +42,27 @@ public static class clsBondDetailsData
 
         using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
         {
-            using (SqlCommand command = new SqlCommand("SP_AddBondDetail", connection))
+            using (SqlCommand command = new SqlCommand("SP_AddBondDetails", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
+                SqlParameter OutputBondDetailsID = new SqlParameter("@BondDetailsID", SqlDbType.Int)
+                { Direction = ParameterDirection.Output };
+
+                command.Parameters.Add(OutputBondDetailsID);
                 command.Parameters.AddWithValue("@AccountID", accountID);
                 command.Parameters.AddWithValue("@Amount", amount);
-                command.Parameters.AddWithValue("@BondNote", bondNote);
+                command.Parameters.AddWithValue("@BondNote", (object)bondNote ?? DBNull.Value);
                 command.Parameters.AddWithValue("@CurrencyID", currencyID);
                 command.Parameters.AddWithValue("@BondID", bondID);
 
                 try
                 {
                     await connection.OpenAsync();
-                    bondDetailsID = Convert.ToInt32(await command.ExecuteScalarAsync());
+                    await command.ExecuteScalarAsync();
+                    if (OutputBondDetailsID != null)
+                    {
+                        bondDetailsID = Convert.ToInt32(OutputBondDetailsID.Value);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -78,13 +86,13 @@ public static class clsBondDetailsData
 
         using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
         {
-            using (SqlCommand command = new SqlCommand("SP_UpdateBondDetail", connection))
+            using (SqlCommand command = new SqlCommand("SP_UpdateBondDetails", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@BondDetailsID", bondDetailsID);
                 command.Parameters.AddWithValue("@AccountID", accountID);
                 command.Parameters.AddWithValue("@Amount", amount);
-                command.Parameters.AddWithValue("@BondNote", bondNote);
+                command.Parameters.AddWithValue("@BondNote", (object)bondNote ?? DBNull.Value);
                 command.Parameters.AddWithValue("@CurrencyID", currencyID);
                 command.Parameters.AddWithValue("@BondID", bondID);
 
@@ -178,4 +186,39 @@ public static class clsBondDetailsData
 
         return isFound;
     }
+
+    public static async Task<bool> CheckBondDetailsIDExists(int BondDetailsID)
+    {
+        bool IsFound = false;
+        using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+        {
+            using (SqlCommand command = new SqlCommand("SP_CheckBondDetailsIDExists", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@BondDetailsID", BondDetailsID);
+
+                // Add a parameter to capture the return value
+                SqlParameter returnValue = new SqlParameter();
+                returnValue.Direction = ParameterDirection.ReturnValue;
+                command.Parameters.Add(returnValue);
+
+                try
+                {
+                    connection.Open();
+                    await command.ExecuteNonQueryAsync();
+                    int result = (int)returnValue.Value;
+                    IsFound = (result > 0);
+
+                }
+                catch (Exception ex)
+                {
+                    clsDataAccessSettings.SetErrorLoggingEvent(ex.Message);
+                }
+            }
+        }
+
+        return IsFound;
+    }
+
+
 }

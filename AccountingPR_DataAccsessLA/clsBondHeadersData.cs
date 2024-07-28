@@ -53,7 +53,7 @@ public static class clsBondHeadersData
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@BondID", bondID);
                 command.Parameters.AddWithValue("@BondDate", bondDate );
-                command.Parameters.AddWithValue("@BondNote", bondNote  );
+                command.Parameters.AddWithValue("@BondNote", (object)bondNote ?? DBNull.Value);
                 command.Parameters.AddWithValue("@BondTypeID", bondType  );
                 command.Parameters.AddWithValue("@IsPost", isPost  );
                 command.Parameters.AddWithValue("@BondBalance", bondBalance  );
@@ -98,7 +98,7 @@ public static class clsBondHeadersData
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@BondID", bondID);
                 command.Parameters.AddWithValue("@BondDate", bondDate);
-                command.Parameters.AddWithValue("@BondNote", bondNote);
+                command.Parameters.AddWithValue("@BondNote", (object)bondNote ?? DBNull.Value);
                 command.Parameters.AddWithValue("@BondTypeID", bondType);
                 command.Parameters.AddWithValue("@IsPost", isPost);
                 command.Parameters.AddWithValue("@BondBalance", bondBalance);
@@ -152,17 +152,17 @@ public static class clsBondHeadersData
 
     public static bool FindBondHeaderByID(
         int bondID,
-        out DateTime? bondDate,
-        out string bondNote,
-        out int bondType,
-        out bool? isPost,
-        out decimal? bondBalance,
-        out int? cashID,
-        out int? accountBankID,
-        out int? addedByUserID,
-        out DateTime? addDate,
-        out int? editedByUserID,
-        out DateTime? editDate)
+        ref DateTime? bondDate,
+        ref string bondNote,
+        ref int bondType,
+        ref bool? isPost,
+        ref decimal? bondBalance,
+        ref int? cashID,
+        ref int? accountBankID,
+        ref int? addedByUserID,
+        ref DateTime? addDate,
+        ref int? editedByUserID,
+        ref DateTime? editDate)
     {
         bondDate = null;
         bondNote = null;

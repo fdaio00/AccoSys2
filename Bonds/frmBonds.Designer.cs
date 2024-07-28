@@ -476,6 +476,7 @@
             this.btnSearch.TabIndex = 20;
             this.btnSearch.Text = "بحث";
             this.btnSearch.UseVisualStyleBackColor = false;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // label11
             // 

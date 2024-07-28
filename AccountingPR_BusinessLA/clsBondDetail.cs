@@ -124,4 +124,11 @@ public class clsBondDetail
             return null;
         }
     }
+
+    public static async Task<bool> CheckBondDetailsIDExists(int BondDetailsID)
+    {
+        return await clsBondDetailsData.CheckBondDetailsIDExists(BondDetailsID);
+    }
+
+
 }

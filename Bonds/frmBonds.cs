@@ -25,10 +25,10 @@ namespace AccountingPR.Bonds
 
 
 
-        public enum enScreen { ReceiptScreen =1 , DisbursementScreen =2}
+        public enum enScreen { ReceiptScreen = 1, DisbursementScreen = 2 }
         public enScreen Screen;
         private clsAccount _Account;
-        private int ?_tempHeaderDetialsID=null;
+        private int? _tempHeaderDetialsID = null;
 
         public frmBonds(enScreen ScreenType)
         {
@@ -38,8 +38,8 @@ namespace AccountingPR.Bonds
 
         async void _FillCashesComboBox()
         {
-            _dtCashes = await clsCash.GetAllCashesAsync(); 
-            if(_dtCashes.Rows.Count > 0)
+            _dtCashes = await clsCash.GetAllCashesAsync();
+            if (_dtCashes.Rows.Count > 0)
             {
                 foreach (DataRow item in _dtCashes.Rows)
                 {
@@ -82,20 +82,20 @@ namespace AccountingPR.Bonds
         void _SetFormFormat()
         {
 
-            txtUserName.Text = clsGlobal.CurrentUser.FullName.ToString(); 
-           switch (Screen)
+            txtUserName.Text = clsGlobal.CurrentUser.FullName.ToString();
+            switch (Screen)
             {
                 case enScreen.ReceiptScreen:
                     this.Text = "سند صرف";
                     gbTitle.Text = "بيانات سند الصرف";
-                    rbReceipt.Checked = true; 
+                    rbReceipt.Checked = true;
 
-                    break; 
+                    break;
                 case enScreen.DisbursementScreen:
                     this.Text = "سند قبض";
                     gbTitle.Text = "بيانات سند القبض";
-                    rbDisbursement.Checked = true; 
-                    break; 
+                    rbDisbursement.Checked = true;
+                    break;
             }
         }
         private void frmBonds_Load(object sender, EventArgs e)
@@ -107,7 +107,7 @@ namespace AccountingPR.Bonds
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            this.Close(); 
+            this.Close();
         }
 
         private void cbCurrency_SelectedIndexChanged(object sender, EventArgs e)
@@ -123,24 +123,24 @@ namespace AccountingPR.Bonds
         private void cbCashes_SelectedIndexChanged(object sender, EventArgs e)
         {
             _Cash = clsCash.FindCashByName(cbCashes.SelectedItem.ToString());
-            if(_Cash==null)
+            if (_Cash == null)
             {
-                return; 
+                return;
             }
-            txtCahsID.Text = _Cash.AccountNo.ToString(); 
+            txtCahsID.Text = _Cash.AccountNo.ToString();
         }
 
         private async void btnNew_Click(object sender, EventArgs e)
         {
-            int? BondsNo =-1; 
-           
-            if(Screen == enScreen.ReceiptScreen)
+            int? BondsNo = -1;
+
+            if (Screen == enScreen.ReceiptScreen)
             {
-                BondsNo = await clsBondHeader.GenerateReceiptBondNo(); 
+                BondsNo = await clsBondHeader.GenerateReceiptBondNo();
             }
             else
             {
-                BondsNo = await clsBondHeader.GenerateDisbursementBondNo(); 
+                BondsNo = await clsBondHeader.GenerateDisbursementBondNo();
             }
             //why here it if i call get last numner direcly to the textvbox it does not 
             //set the value , but when I assign it to integer var it gives me the correct answer expected?
@@ -149,10 +149,10 @@ namespace AccountingPR.Bonds
             _CalculatingTotalBondsAmount();
             btnSave.Enabled = true;
             _BondHeader = new clsBondHeader();
-            txtJournalHeaderID.Text = (await clsJournalHeaders.GetLastJournalNumber()).ToString(); 
+            txtJournalHeaderID.Text = (await clsJournalHeaders.GetLastJournalNumber()).ToString();
             txtHeadNote.Focus();
             txtBondHeaderID.Text = BondsNo?.ToString();
-            btnSave.Enabled = true; 
+            btnSave.Enabled = true;
         }
 
         private void txtAccountNo_KeyPress(object sender, KeyPressEventArgs e)
@@ -186,7 +186,7 @@ namespace AccountingPR.Bonds
 
             txtAccountNo.Text = _Account.AccountNo.ToString();
             txtAccountName.Text = _Account.AccountNameAr;
-       
+
         }
         void _ClearTextBoxesAfterInsertingDataToDGV()
         {
@@ -249,10 +249,10 @@ namespace AccountingPR.Bonds
                     txtExchange.Text,
                     txtDetails.Text,
                     TotalBondAfterExchange,
-                    _tempHeaderDetialsID??null);
-                    //TotalDebit,
-                    //TotalCredit,
-                    //_tempJournalDetialsID ?? null);
+                    _tempHeaderDetialsID ?? null);
+                //TotalDebit,
+                //TotalCredit,
+                //_tempJournalDetialsID ?? null);
 
 
                 _AccountsList.Add(Convert.ToInt32(txtAccountNo.Text));
@@ -274,13 +274,13 @@ namespace AccountingPR.Bonds
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
-                e.Handled = true; 
+                e.Handled = true;
             }
         }
 
         private void txtDetails_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if(e.KeyChar == (char)13)
+            if (e.KeyChar == (char)13)
             {
                 btnEnterHeaderDetails.PerformClick();
             }
@@ -306,7 +306,7 @@ namespace AccountingPR.Bonds
                 _tempHeaderDetialsID = Convert.ToInt32(dgvBondsList.CurrentRow.Cells[9].Value);
             }
 
-          
+
             toolStripMenuItem1_Click(null, null);
         }
 
@@ -330,9 +330,9 @@ namespace AccountingPR.Bonds
                 {
                     if (dgvBondsList.Rows.Count > 0)
                     {
-                        if (await clsBondDetail.CheckJournalDetailsIDExists(Convert.ToInt32(dgvBondsList.Rows[i].Cells[11].Value)))
+                        if (await clsBondDetail.CheckBondDetailsIDExists(Convert.ToInt32(dgvBondsList.Rows[i].Cells[9].Value)))
                         {
-                            _BondDetail = clsBondDetail.GetJournalDetailByID(Convert.ToInt32(dgvBondsList.Rows[i].Cells[11].Value));
+                            _BondDetail = clsBondDetail.GetBondDetailByID(Convert.ToInt32(dgvBondsList.Rows[i].Cells[9].Value));
                         }
                         else
                         {
@@ -340,13 +340,12 @@ namespace AccountingPR.Bonds
 
                         }
 
-                        _BondDetail.AccountCurrencyID = Convert.ToInt32(dgvBondsList.Rows[i].Cells[5].Value);
-                        _BondDetail.AccountCredit = Convert.ToDecimal(dgvBondsList.Rows[i].Cells[4].Value);
-                        _BondDetail.AccountDebit = Convert.ToDecimal(dgvBondsList.Rows[i].Cells[3].Value);
+                        _BondDetail.BondID = Convert.ToInt32(dgvBondsList.Rows[i].Cells[0].Value);
                         _BondDetail.AccountID = Convert.ToInt32(dgvBondsList.Rows[i].Cells[1].Value);
-                        _BondDetail.JouID = Convert.ToInt32(dgvBondsList.Rows[i].Cells[0].Value);
-                        _BondDetail.JouNote = Convert.ToString(dgvBondsList.Rows[i].Cells[8].Value);
-                        _BondDetail.CurrentExchange = Convert.ToSingle(dgvBondsList.Rows[i].Cells[7].Value);
+                        _BondDetail.Amount = Convert.ToDecimal(dgvBondsList.Rows[i].Cells[3].Value);
+                        _BondDetail.BondNote = Convert.ToString(dgvBondsList.Rows[i].Cells[7].Value);
+                        _BondDetail.CurrencyID = Convert.ToInt32(dgvBondsList.Rows[i].Cells[4].Value);
+
 
 
 
@@ -390,16 +389,16 @@ namespace AccountingPR.Bonds
             _BondHeader.BondID = Convert.ToInt32(txtBondHeaderID.Text);
             _BondHeader.BondDate = dtpBondHeaderDate.Value;
             _BondHeader.BondNote = txtHeadNote.Text.Trim();
-            _BondHeader.BondTypeID = _GetBondTypeID(); 
+            _BondHeader.BondTypeID = _GetBondTypeID();
             _BondHeader.IsPost = ckbIsPost.Checked;
             _BondHeader.BondBalance = Convert.ToDecimal(txtTotalBonds.Text);
-            _BondHeader.CashID = _Cash.CashID; 
+            _BondHeader.CashID = _Cash.CashID;
             //_BondHeader.AccountBankID = 
             _BondHeader.AddedByUserID = clsGlobal.CurrentUser.UserID;
             _BondHeader.AddDate = DateTime.Now;
             _BondHeader.EditedByUserID = clsGlobal.CurrentUser.UserID;
             _BondHeader.EditDate = DateTime.Now;
-            
+
 
             if (await _BondHeader.SaveAsync())
             {
@@ -439,5 +438,104 @@ namespace AccountingPR.Bonds
 
             }
         }
+         void _LoadJournalHeaderInfo()
+        {
+            _BondHeader =  clsBondHeader.FindBondHeaderByID(Convert.ToInt32(txtSearch.Text.Trim()));
+            _ClearTextBoxesAfterInsertingDataToDGV();
+            txtJournalID.Clear();
+            txtHeadNote.Clear();
+            dgvJournals.Rows.Clear();
+            if (_JournalHeaders == null)
+            {
+                myToast.ShowToast("لا يوجد قيد بهذا الرقم", ToastTypeIcon.Information);
+                txtSearch.Focus();
+                return;
+            }
+            txtJournalID.Text = _JournalHeaders.JouID.ToString();
+            dtpJournalDate.Value = _JournalHeaders.JouDate.Value;
+            txtHeadNote.Text = _JournalHeaders.JouNote.ToString();
+            ckbIsPost.Checked = _JournalHeaders.JouIsPost ?? false;
+            if (_JournalHeaders.JouTypeID == (int)enJournalType.Closed)
+            {
+                rbClosed.Checked = true;
+                rbGeneral.Checked = false;
+
+            }
+            if (_JournalHeaders.JouTypeID == (int)enJournalType.General)
+            {
+                rbGeneral.Checked = true;
+                rbClosed.Checked = false;
+
+            }
+            txtBalance.Text = _JournalHeaders.TotalBalance.ToString();
+            txtTotalDebit.Text = _JournalHeaders.TotalDebit.ToString();
+            txtTotalCredit.Text = _JournalHeaders.TotalCredit.ToString();
+
+            _LoadJournalDetailsToDataGridView();
+
+
+
+
+
+        }
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            _LoadJournalHeaderInfo();
+        }
     }
+
+
+    /*
+     شوف المشكلة زم ما قال لك تشات جي بي تي انه لازم يكون هناك اوبجت من الكلاس اللي انت عايزه
+    وزي ما قلت لك انك لازم تلتزم بالطريقة التي انت فاهم لها مش طريقة الاستاذ 
+    في طريقة الاستاذ هو عامل 
+    _LocalLicenseApplication.ApplicationInfo =.........
+    اذا جئنا للنظر هنا في ال
+    ApplicationInfo 
+    سنرى انه عبارة عن كلاس داخل الكلاس الثانية بتاع اللوكال لايسنس ابلكيشن 
+    وعشان هذه الكلاس لم يتم تعيين قيمة لها اما ان ترسل لها كونستركتر مليان او كنستركر فاضي
+    ApplicationInfo = new clsApplicati on();
+    or 
+    ApplicationInfo = clsApplication.GetApplication(ApplicationID);
+
+        لكن لو نظرنا الى السطر الثاني قد نرى انه يتم جلب البيانات وذلك بواسطة ارسال رقم الابلكيشن واللي هو في الاساس مش موجود 
+        وهذه الدالة هي اصلا موجودة في كلاس لوكال لايسنش ابلكيشن ف عليك اولا ان تقوم بانشاء اوبجكت من كلاس لايسنس ابلكيشن 
+
+        اذا كان الوضع وضع اضافة طلب جديد سنقوم بمراعاة الاشياء التالية لكي يتم الحفظ بنجاح 
+        -  اولا ساقوم بالذهاب الى جدول 
+        LocalLicenseApplications 
+        س ارى ان يحتاج ان تتم اضافة 3 حقول حتى يتم الحفظ والتي هي : 
+        LocalDrivingLicenseApplication ID والذي يضاف تلقائيا 
+        ApplicationID
+        LicenseClassID 
+
+        اذا يتبين لنا انه لكي تتم عملية الحفظ سنقوم باضافة 
+        application 
+        ثم نقوم بارسال رقم الابلكيشن اي دي الى دالة اللوكال لاينسن لكي امليء هذا الحقل 
+        ونقوم بجلب معلومات لايسنس كلاس من الكومبو بووكس 
+
+        الان كيف س اقوم بحفظ ابكليشن جديد
+        س اعمل اوبجكت جديد من 
+        Application 
+        >>_Application = new clsApplication(); 
+        بعد ان اقوم بحقظ معلومات الابلكيشن س اقوم ب عمل اوبجكت جديد من نوع لوكال دراينفث لايسنس ابلكيشن 
+        _LocalDrivingLicenseApplication = new clsLocalDrivingLicenseAppliction(); 
+
+        بعدها س اقوم باسناد المعلومات التي احتاج اليها لاجل الحفظ 
+        _LocalDrivingLicenseApplication.Application = _Application.ApplicationID;
+    _LocalDrivingLicenseApplication.LicenseClassID = cbLicsesClasses.selectedIndex +1 (او بطريقة الاستاذ في اليوزر او البيروسن (
+    بعد ذلك س اعمل حفظ
+    _LocalDrivingLicenseApplicato.Save()
+
+    اخي مارلي هذه هي الحل الكامل لمشكلتك اسال الله ان اكون وفقت في شرحها 
+    اذا لم تفهم ف قم بالبحث عنها في الانترنت 
+    اذا لم يفتهم لك قم بمراجعة الكورس 18 
+    اذا لم تفهم قم بمراجعة الكورس 16
+    اذا لم تفهم قم بمراجعة الكورس 11
+    اذا لم تفهم قم بمراجعة الكورس 10
+    اذا لم تفهم عندك خلل في طريقة تتبعك لخارطة الطريق ويجب عليك اصلاحه 
+
+
+
+     */
 }
