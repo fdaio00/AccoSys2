@@ -200,9 +200,23 @@ namespace AccountingPR.Bonds
             _Account = null;
             _Currency = null;
             cbCurrency.SelectedIndex = cbCurrency.FindString("الريال اليمني");
+            _tempHeaderDetialsID = null; 
             cbCurrency_SelectedIndexChanged(null, null);
 
 
+        }
+
+        bool _CheckIfAccountExsitsInDGV()
+        {
+            for(int i = 0; i < dgvBondsList.Rows.Count; i ++)
+            {
+                if(txtAccountName.Text.Trim() == dgvBondsList.Rows[i].Cells[1].ToString())
+                {
+                    return true;
+                }
+            }
+
+            return false;   
         }
         void _CalculatingTotalBondsAmount()
         {
@@ -226,14 +240,22 @@ namespace AccountingPR.Bonds
                 return;
             }
 
-            if (_AccountsList.Contains(Convert.ToInt32(txtAccountNo.Text)))
+            if (_CheckIfAccountExsitsInDGV())
             {
                 myToast.ShowToast("هذا الحساب مضاف بالفعل الى القائمة", ToastTypeIcon.Information);
                 txtAccountNo.Focus();
                 txtAccountNo.SelectAll();
                 return;
-
             }
+
+            //if (_AccountsList.Contains(Convert.ToInt32(txtAccountNo.Text)))
+            //{
+            //    myToast.ShowToast("هذا الحساب مضاف بالفعل الى القائمة", ToastTypeIcon.Information);
+            //    txtAccountNo.Focus();
+            //    txtAccountNo.SelectAll();
+            //    return;
+
+            //}
             try
             {
 
@@ -330,7 +352,7 @@ namespace AccountingPR.Bonds
                 {
                     if (dgvBondsList.Rows.Count > 0)
                     {
-                        if (await clsBondDetail.CheckBondDetailsIDExists(Convert.ToInt32(dgvBondsList.Rows[i].Cells[9].Value)))
+                        if (await clsBondDetail.CheckBondDetailsIDExistsAsync(Convert.ToInt32(dgvBondsList.Rows[i].Cells[9].Value)))
                         {
                             _BondDetail = clsBondDetail.GetBondDetailByID(Convert.ToInt32(dgvBondsList.Rows[i].Cells[9].Value));
                         }
@@ -339,7 +361,7 @@ namespace AccountingPR.Bonds
                             _BondDetail = new clsBondDetail();
 
                         }
-
+                        
                         _BondDetail.BondID = Convert.ToInt32(dgvBondsList.Rows[i].Cells[0].Value);
                         _BondDetail.AccountID = Convert.ToInt32(dgvBondsList.Rows[i].Cells[1].Value);
                         _BondDetail.Amount = Convert.ToDecimal(dgvBondsList.Rows[i].Cells[3].Value);
@@ -410,7 +432,40 @@ namespace AccountingPR.Bonds
 
 
         }
+        private async void _LoadHeaderDetailsToDataGridView()
+        {
+            DataTable dt = await clsBondDetail.GetAllBondDetailsByBondHeaderIDAsync(Convert.ToInt32(txtBondHeaderID.Text.Trim()));
+            if (dt.Rows.Count > 0)
+            {
+                dgvBondsList.Rows.Clear();
+                dgvBondsList.RowCount = dt.Rows.Count;
+                int j = 0;
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
 
+
+
+                    dgvBondsList.Rows[j].Cells[0].Value = dt.Rows[i][0].ToString();
+                    dgvBondsList.Rows[j].Cells[1].Value = dt.Rows[i][1].ToString();
+                    dgvBondsList.Rows[j].Cells[2].Value = dt.Rows[i][2].ToString();
+                    dgvBondsList.Rows[j].Cells[3].Value = dt.Rows[i][3].ToString();
+                    dgvBondsList.Rows[j].Cells[4].Value = dt.Rows[i][4].ToString();
+                    dgvBondsList.Rows[j].Cells[5].Value = dt.Rows[i][5].ToString();
+                    dgvBondsList.Rows[j].Cells[6].Value = dt.Rows[i][6].ToString();
+                    dgvBondsList.Rows[j].Cells[7].Value = dt.Rows[i][7].ToString();
+                    dgvBondsList.Rows[j].Cells[8].Value = dt.Rows[i][8].ToString();
+                    dgvBondsList.Rows[j].Cells[9].Value = dt.Rows[i][9].ToString();
+            
+
+                    j++;
+                }
+            }
+            else
+            {
+                myToast.ShowToast("هذا القيد لايحتوي على أي تفاصيل", ToastTypeIcon.Information);
+
+            }
+        }
         private async void btnSave_Click(object sender, EventArgs e)
         {
             //if(!this.ValidateChildren())
@@ -438,40 +493,39 @@ namespace AccountingPR.Bonds
 
             }
         }
-         void _LoadJournalHeaderInfo()
+        void _LoadJournalHeaderInfo()
         {
-            _BondHeader =  clsBondHeader.FindBondHeaderByID(Convert.ToInt32(txtSearch.Text.Trim()));
+            _BondHeader = clsBondHeader.FindBondHeaderByID(Convert.ToInt32(txtSearch.Text.Trim()));
             _ClearTextBoxesAfterInsertingDataToDGV();
-            txtJournalID.Clear();
+            txtBondHeaderID.Clear();
             txtHeadNote.Clear();
-            dgvJournals.Rows.Clear();
-            if (_JournalHeaders == null)
+            dgvBondsList.Rows.Clear();
+            if (_BondHeader == null)
             {
                 myToast.ShowToast("لا يوجد قيد بهذا الرقم", ToastTypeIcon.Information);
                 txtSearch.Focus();
                 return;
             }
-            txtJournalID.Text = _JournalHeaders.JouID.ToString();
-            dtpJournalDate.Value = _JournalHeaders.JouDate.Value;
-            txtHeadNote.Text = _JournalHeaders.JouNote.ToString();
-            ckbIsPost.Checked = _JournalHeaders.JouIsPost ?? false;
-            if (_JournalHeaders.JouTypeID == (int)enJournalType.Closed)
+            btnSave.Enabled = true;  
+            txtBondHeaderID.Text = _BondHeader.BondID.ToString();
+            dtpBondHeaderDate.Value = _BondHeader.BondDate.Value;
+            txtHeadNote.Text = _BondHeader.BondNote.ToString();
+            ckbIsPost.Checked = _BondHeader.IsPost ?? false;
+            if (_BondHeader.BondTypeID == (int)enScreen.ReceiptScreen)
             {
-                rbClosed.Checked = true;
-                rbGeneral.Checked = false;
+                rbReceipt.Checked = true;
+                rbDisbursement.Checked = false;
 
             }
-            if (_JournalHeaders.JouTypeID == (int)enJournalType.General)
+            if (_BondHeader.BondTypeID == (int)enScreen.DisbursementScreen)
             {
-                rbGeneral.Checked = true;
-                rbClosed.Checked = false;
+                rbReceipt.Checked = false;
+                rbDisbursement.Checked = true;
 
             }
-            txtBalance.Text = _JournalHeaders.TotalBalance.ToString();
-            txtTotalDebit.Text = _JournalHeaders.TotalDebit.ToString();
-            txtTotalCredit.Text = _JournalHeaders.TotalCredit.ToString();
+            txtTotalBonds.Text = _BondHeader.BondBalance.ToString();
 
-            _LoadJournalDetailsToDataGridView();
+            _LoadHeaderDetailsToDataGridView();
 
 
 
@@ -481,6 +535,18 @@ namespace AccountingPR.Bonds
         private void btnSearch_Click(object sender, EventArgs e)
         {
             _LoadJournalHeaderInfo();
+        }
+
+        private void txtSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+            if(e.KeyChar == (char)13)
+            {
+                btnSearch.PerformClick();
+            }
         }
     }
 

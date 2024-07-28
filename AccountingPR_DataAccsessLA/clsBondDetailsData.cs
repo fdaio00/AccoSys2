@@ -157,7 +157,7 @@ public static class clsBondDetailsData
 
         using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
         {
-            using (SqlCommand command = new SqlCommand("SP_GetBondDetailByID", connection))
+            using (SqlCommand command = new SqlCommand("SP_GetBondDetailsByID", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@BondDetailsID", bondDetailsID);
@@ -168,12 +168,12 @@ public static class clsBondDetailsData
                     SqlDataReader reader = command.ExecuteReader();
                     if (reader.Read())
                     {
-                        isFound = true;
                         accountID = reader["AccountID"] != DBNull.Value ? Convert.ToInt32(reader["AccountID"]) : 0;
                         amount = reader["Amount"] != DBNull.Value ? Convert.ToDecimal(reader["Amount"]) : 0;
                         bondNote = reader["BondNote"] != DBNull.Value ? Convert.ToString(reader["BondNote"]) : null;
                         currencyID = reader["CurrencyID"] != DBNull.Value ? Convert.ToInt32(reader["CurrencyID"]) : 0;
                         bondID = reader["BondID"] != DBNull.Value ? Convert.ToInt32(reader["BondID"]) : 0;
+                        isFound = true;
                     }
                     reader.Close();
                 }
@@ -187,7 +187,7 @@ public static class clsBondDetailsData
         return isFound;
     }
 
-    public static async Task<bool> CheckBondDetailsIDExists(int BondDetailsID)
+    public static async Task<bool> CheckBondDetailsIDExistsAsync(int BondDetailsID)
     {
         bool IsFound = false;
         using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
@@ -220,5 +220,34 @@ public static class clsBondDetailsData
         return IsFound;
     }
 
+
+
+    public static async Task<DataTable> GetAllBondDetailsByBondHeaderIDAsync(int BondID)
+    {
+        DataTable dt = new DataTable();
+
+        using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+        {
+            using (SqlCommand command = new SqlCommand("SP_GetAllBondDetailsByBondHeaderID", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@BondID", BondID);
+
+                try
+                {
+                    await connection.OpenAsync();
+                    SqlDataReader reader = await command.ExecuteReaderAsync();
+                    if (reader.HasRows)
+                        dt.Load(reader); // Load data into DataTable
+                }
+                catch (Exception ex)
+                {
+                    clsDataAccessSettings.SetErrorLoggingEvent(ex.Message);
+                }
+            }
+        }
+
+        return dt;
+    }
 
 }

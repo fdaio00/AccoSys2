@@ -125,9 +125,13 @@ public class clsBondDetail
         }
     }
 
-    public static async Task<bool> CheckBondDetailsIDExists(int BondDetailsID)
+    public static async Task<bool> CheckBondDetailsIDExistsAsync(int BondDetailsID)
     {
-        return await clsBondDetailsData.CheckBondDetailsIDExists(BondDetailsID);
+        return await clsBondDetailsData.CheckBondDetailsIDExistsAsync(BondDetailsID);
+    }
+    public static async Task<DataTable> GetAllBondDetailsByBondHeaderIDAsync(int BondID)
+    { 
+        return await clsBondDetailsData.GetAllBondDetailsByBondHeaderIDAsync(BondID);
     }
 
 
