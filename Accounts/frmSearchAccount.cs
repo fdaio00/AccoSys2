@@ -96,14 +96,50 @@ namespace AccountingPR.Accounts
 
         private void frmSearchAccount_KeyPress(object sender, KeyPressEventArgs e)
         {
-           
+            if (dgvAccounts.SelectedRows.Count > 0)
+                if (e.KeyChar == (char)13)
+                {
+                    dgvAccounts_CellDoubleClick(null, null);
+                }
         }
 
         private void dgvAccounts_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (dgvAccounts.SelectedRows.Count > 0 && e.KeyChar == (char)13)
+            if (dgvAccounts.SelectedRows.Count > 0)
+                if( e.KeyChar == (char)13)
             {
                 dgvAccounts_CellDoubleClick(null, null);
+            }
+
+        }
+
+        private void dgvAccounts_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (dgvAccounts.CurrentRow != null)
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    dgvAccounts_CellDoubleClick(null, null);
+                }
+            }
+        }
+
+        private void frmSearchAccount_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (dgvAccounts.CurrentRow != null)
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    dgvAccounts_CellDoubleClick(null, null);
+                }
+            }
+        }
+
+        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                dgvAccounts.Focus();
             }
         }
     }

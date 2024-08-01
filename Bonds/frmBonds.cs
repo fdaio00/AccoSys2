@@ -424,6 +424,7 @@ namespace AccountingPR.Bonds
             _BondHeader.AddDate = DateTime.Now;
             _BondHeader.EditedByUserID = clsGlobal.CurrentUser.UserID;
             _BondHeader.EditDate = DateTime.Now;
+            _BondHeader.JournalID = Convert.ToInt32(txtJournalHeaderID.Text);
 
 
             if (await _BondHeader.SaveAsync())
@@ -478,13 +479,13 @@ namespace AccountingPR.Bonds
             //    return;
             //}
 
-            if (await _SaveBondHeader())
+            if (await _SaveJournalHeader())
             {
-                if (await _SaveBondDetails())
+                if (await _SaveJournalDetails())
                 {
-                    if (await _SaveJournalHeader())
+                    if (await _SaveBondHeader())
                     {
-                        if (await _SaveJournalDetails())
+                        if (await _SaveBondDetails())
                         {
                             myToast.ShowToast("تم حفظ جميع السجلات بنجاح", ToastTypeIcon.Success);
 
@@ -682,41 +683,48 @@ namespace AccountingPR.Bonds
 
         }
 
-        void _LoadJournalHeaderInfo()
+        void _LoadBondHeaderInfo()
         {
-            _BondHeader = clsBondHeader.FindBondHeaderByID(Convert.ToInt32(txtSearch.Text.Trim()));
-            _ClearTextBoxesAfterInsertingDataToDGV();
-            txtBondHeaderID.Clear();
-            txtHeadNote.Clear();
-            dgvBondsList.Rows.Clear();
-            if (_BondHeader == null)
+            try
             {
-                myToast.ShowToast("لا يوجد قيد بهذا الرقم", ToastTypeIcon.Information);
-                txtSearch.Focus();
-                return;
+                _BondHeader = clsBondHeader.FindBondHeaderByID(Convert.ToInt32(txtSearch.Text.Trim()));
+                _ClearTextBoxesAfterInsertingDataToDGV();
+                txtBondHeaderID.Clear();
+                txtHeadNote.Clear();
+                dgvBondsList.Rows.Clear();
+                if (_BondHeader == null)
+                {
+                    myToast.ShowToast("لا يوجد قيد بهذا الرقم", ToastTypeIcon.Information);
+                    txtSearch.Focus();
+                    return;
+                }
+                txtCurrentBondHeaderID.Text = txtSearch.Text;
+                btnSave.Enabled = true;
+                txtBondHeaderID.Text = _BondHeader.BondID.ToString();
+                dtpBondHeaderDate.Value = _BondHeader.BondDate.Value;
+                txtHeadNote.Text = _BondHeader.BondNote.ToString();
+                ckbIsPost.Checked = _BondHeader.IsPost ?? false;
+                if (_BondHeader.BondTypeID == (int)enScreen.ReceiptScreen)
+                {
+                    rbReceipt.Checked = true;
+                    rbDisbursement.Checked = false;
+
+                }
+                if (_BondHeader.BondTypeID == (int)enScreen.DisbursementScreen)
+                {
+                    rbReceipt.Checked = false;
+                    rbDisbursement.Checked = true;
+
+                }
+                txtTotalBonds.Text = _BondHeader.BondBalance.ToString();
+                txtJournalHeaderID.Text = _BondHeader.JournalID.ToString();
+
+                _LoadHeaderDetailsToDataGridView();
             }
-            txtCurrentBondHeaderID.Text = txtSearch.Text; 
-            btnSave.Enabled = true;
-            txtBondHeaderID.Text = _BondHeader.BondID.ToString();
-            dtpBondHeaderDate.Value = _BondHeader.BondDate.Value;
-            txtHeadNote.Text = _BondHeader.BondNote.ToString();
-            ckbIsPost.Checked = _BondHeader.IsPost ?? false;
-            if (_BondHeader.BondTypeID == (int)enScreen.ReceiptScreen)
+            catch (Exception ex)
             {
-                rbReceipt.Checked = true;
-                rbDisbursement.Checked = false;
-
+                clsGlobal.SetErrorLoggingEvent(ex.Message);
             }
-            if (_BondHeader.BondTypeID == (int)enScreen.DisbursementScreen)
-            {
-                rbReceipt.Checked = false;
-                rbDisbursement.Checked = true;
-
-            }
-            txtTotalBonds.Text = _BondHeader.BondBalance.ToString();
-  
-            _LoadHeaderDetailsToDataGridView();
-
 
 
 
@@ -724,7 +732,7 @@ namespace AccountingPR.Bonds
         }
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            _LoadJournalHeaderInfo();
+            _LoadBondHeaderInfo();
         }
 
         private void txtSearch_KeyPress(object sender, KeyPressEventArgs e)
@@ -862,6 +870,33 @@ namespace AccountingPR.Bonds
             }
         }
 
+        private void GoToNextTextBox(TextBox sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                sender.Focus();
+            }
+        }
+        private void txtAccountNo_KeyDown(object sender, KeyEventArgs e)
+        {
+            GoToNextTextBox(txtAccountName ,e);
+        }
+
+        private void txtAccountName_KeyDown(object sender, KeyEventArgs e)
+        {
+            GoToNextTextBox(txtAmount, e);
+        }
+
+        private void txtAmount_KeyDown(object sender, KeyEventArgs e)
+        {
+            GoToNextTextBox(txtDetails, e);
+        }
+
+        private void txtDetails_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            btnSearch.PerformClick();
+        }
     }
 
 

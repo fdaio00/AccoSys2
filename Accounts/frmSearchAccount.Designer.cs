@@ -46,6 +46,7 @@
             this.txtSearch.Size = new System.Drawing.Size(578, 25);
             this.txtSearch.TabIndex = 3;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
+            this.txtSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSearch_KeyDown);
             // 
             // groupBox1
             // 
@@ -86,6 +87,7 @@
             this.dgvAccounts.TabIndex = 0;
             this.dgvAccounts.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAccounts_CellDoubleClick);
             this.dgvAccounts.SelectionChanged += new System.EventHandler(this.dgvAccounts_SelectionChanged);
+            this.dgvAccounts.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvAccounts_KeyDown);
             this.dgvAccounts.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dgvAccounts_KeyPress);
             // 
             // btnExit
@@ -118,6 +120,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "البحث عن حساب";
             this.Load += new System.EventHandler(this.frmSearchAccount_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmSearchAccount_KeyDown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.frmSearchAccount_KeyPress);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

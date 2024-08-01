@@ -20,6 +20,7 @@ public class clsBondHeader
     public DateTime? AddDate { get; set; }
     public int? EditedByUserID { get; set; }
     public DateTime? EditDate { get; set; }
+    public int JournalID { get; set;  }
 
     public clsBondHeader()
     {
@@ -35,6 +36,7 @@ public class clsBondHeader
         this.AddDate = null;
         this.EditedByUserID = null;
         this.EditDate = null;
+        this.JournalID = -1; 
         _Mode = enMode.AddNew;
     }
 
@@ -50,7 +52,7 @@ public class clsBondHeader
         int? addedByUserID,
         DateTime? addDate,
         int? editedByUserID,
-        DateTime? editDate)
+        DateTime? editDate, int JournalID)
     {
         this.BondID = bondID;
         this.BondDate = bondDate;
@@ -64,6 +66,7 @@ public class clsBondHeader
         this.AddDate = addDate;
         this.EditedByUserID = editedByUserID;
         this.EditDate = editDate;
+        this.JournalID = JournalID; 
         _Mode = enMode.Update;
     }
 
@@ -79,9 +82,10 @@ public class clsBondHeader
             this.CashID,
             this.AccountBankID,
             this.AddedByUserID,
-            this.AddDate
-          
-            );
+            this.AddDate,
+            this.JournalID
+
+            ) ;
 
         return rowsAffected > 0;
     }
@@ -98,7 +102,8 @@ public class clsBondHeader
             this.CashID,
             this.AccountBankID,
             this.EditedByUserID,
-            this.EditDate);
+            this.EditDate,
+            this.JournalID);
     }
 
     public async Task<bool> SaveAsync()
@@ -151,7 +156,8 @@ public class clsBondHeader
          int? addedByUserID= null;
          DateTime? addDate= null;
          int? editedByUserID= null;
-         DateTime? editDate = null; 
+         DateTime? editDate = null;
+        int JournalID = -1; 
 
         bool isFound = clsBondHeadersData.FindBondHeaderByID(
             bondID,
@@ -165,12 +171,13 @@ public class clsBondHeader
         ref     addedByUserID,
         ref     addDate,
         ref     editedByUserID,
-        ref editDate);
+        ref editDate,
+            ref JournalID);
 
         if(isFound )
         {
             return new clsBondHeader(bondID, bondDate, bondNote, bondType, isPost,
-                bondBalance, cashID, accountBankID, addedByUserID, addDate, editedByUserID, editDate);
+                bondBalance, cashID, accountBankID, addedByUserID, addDate, editedByUserID, editDate,JournalID);
         }
         else
         {

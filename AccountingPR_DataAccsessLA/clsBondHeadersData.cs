@@ -41,7 +41,8 @@ public static class clsBondHeadersData
         int? cashID,
         int? accountBankID,
         int? addedByUserID,
-        DateTime? addDate
+        DateTime? addDate, 
+        int JournalID
    )
     {
         int rowsAffected = 0;
@@ -61,6 +62,7 @@ public static class clsBondHeadersData
                 command.Parameters.AddWithValue("@AccountBankID", (object)accountBankID ?? DBNull.Value);
                 command.Parameters.AddWithValue("@AddedByUserID", (object)addedByUserID ?? DBNull.Value);
                 command.Parameters.AddWithValue("@AddDate", (object)addDate ?? DBNull.Value);
+                command.Parameters.AddWithValue("@JournalID", JournalID );
 
                 try
                 {
@@ -87,7 +89,8 @@ public static class clsBondHeadersData
         int? cashID,
         int? accountBankID,
         int? editedByUserID,
-        DateTime? editDate)
+        DateTime? editDate,
+        int JournalID)
     {
         bool success = false;
 
@@ -106,6 +109,7 @@ public static class clsBondHeadersData
                 command.Parameters.AddWithValue("@AccountBankID", (object)accountBankID ?? DBNull.Value);
                 command.Parameters.AddWithValue("@EditedByUserID", (object)editedByUserID ?? DBNull.Value);
                 command.Parameters.AddWithValue("@EditDate", (object)editDate ?? DBNull.Value);
+                command.Parameters.AddWithValue("@JournalID", JournalID );
 
                 try
                 {
@@ -162,7 +166,8 @@ public static class clsBondHeadersData
         ref int? addedByUserID,
         ref DateTime? addDate,
         ref int? editedByUserID,
-        ref DateTime? editDate)
+        ref DateTime? editDate, 
+        ref int JournalID)
     {
         bondDate = null;
         bondNote = null;
@@ -194,7 +199,8 @@ public static class clsBondHeadersData
                         isFound = true;
                         bondDate = reader["BondDate"] != DBNull.Value ? (DateTime?)reader["BondDate"] : null;
                         bondNote = reader["BondNote"] != DBNull.Value ? Convert.ToString(reader["BondNote"]) : null;
-                        bondType = reader["BondTypeID"] != DBNull.Value ? Convert.ToInt32(reader["BondType"]) : 0;
+                        bondType = reader["BondTypeID"] != DBNull.Value ? Convert.ToInt32(reader["BondTypeID"]) : 0;
+                        JournalID = reader["JournalID"] != DBNull.Value ? Convert.ToInt32(reader["JournalID"]) : 0;
                         isPost = reader["IsPost"] != DBNull.Value ? (bool?)reader["IsPost"] : null;
                         bondBalance = reader["BondBalance"] != DBNull.Value ? (decimal?)reader["BondBalance"] : null;
                         cashID = reader["CashID"] != DBNull.Value ? (int?)reader["CashID"] : null;
@@ -208,6 +214,7 @@ public static class clsBondHeadersData
                 }
                 catch (Exception ex)
                 {
+                    isFound = false;
                     clsDataAccessSettings.SetErrorLoggingEvent(ex.Message);
                 }
             }
