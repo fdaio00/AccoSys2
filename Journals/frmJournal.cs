@@ -336,6 +336,7 @@ namespace AccountingPR.Journals
             txtJournalID.Text = _JournalCount.ToString();
             _JournalHeaders = new clsJournalHeaders();
             txtHeadNote.Focus();
+            _Mode = enMdoe.AddNew; 
         }
 
        async Task<bool> _SaveJournalDetails()
@@ -428,8 +429,24 @@ namespace AccountingPR.Journals
             //    myToast.ShowToast("يحب عليك ادخال الفراغات المطلوبة", ToastTypeIcon.Warning);
             //    return;
             //}
+
+            if (_Mode == enMdoe.Update)
+            {
+                if (_JournalHeaders.OperationTypeID == 2 || _JournalHeaders.OperationTypeID == 3)
+                {
+                    myToast.ShowToast("لا يمكنك التعديل على هذا القيد لانه مربوط بسند آخر", ToastTypeIcon.Warning);
+                    return; 
+                }
+            }
+
+            if (_Mode == enMdoe.Update && ckbIsPost.Checked)
+            {
+
             
-            if(await _SaveJournalHeader())
+                myToast.ShowToast("لا يمكنك التعديل على هذا القيد لانه قد تم ترحيله", ToastTypeIcon.Warning);
+                return;
+            }
+            if (await _SaveJournalHeader())
             {
                 if(await _SaveJournalDetails())
                 {
@@ -474,6 +491,7 @@ namespace AccountingPR.Journals
                 txtSearch.Focus();
                 return;
             }
+            _Mode = enMdoe.Update; 
             txtJournalID.Text = _JournalHeaders.JouID.ToString();
             dtpJournalDate  .Value = _JournalHeaders.JouDate.Value;
             txtHeadNote.Text = _JournalHeaders.JouNote.ToString();
@@ -575,7 +593,23 @@ namespace AccountingPR.Journals
 
         private async void btnDelete_Click(object sender, EventArgs e)
         {
-           if(MessageBox.Show("هل انت متاكد من حذف السجل المحدد","",MessageBoxButtons.OKCancel,MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2)==DialogResult.OK)
+            if (_Mode == enMdoe.Update)
+            {
+                if (_JournalHeaders.OperationTypeID == 2 || _JournalHeaders.OperationTypeID == 3)
+                {
+                    myToast.ShowToast("لا يمكنك التعديل على هذا القيد لانه مربوط بسند آخر", ToastTypeIcon.Warning);
+                    return;
+                }
+            }
+
+            if (_Mode == enMdoe.Update && ckbIsPost.Checked)
+            {
+
+
+                myToast.ShowToast("لا يمكنك التعديل على هذا القيد لانه قد تم ترحيله", ToastTypeIcon.Warning);
+                return;
+            }
+            if (MessageBox.Show("هل انت متاكد من حذف السجل المحدد","",MessageBoxButtons.OKCancel,MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2)==DialogResult.OK)
                 {
                 if(await clsJournalDetails.DeleteAsync(Convert.ToInt32(dgvJournals.CurrentRow.Cells[11].Value)))
                 {
@@ -592,5 +626,83 @@ namespace AccountingPR.Journals
 
             }
         }
+
+        private async void bntMax_Click(object sender, EventArgs e)
+        {
+            int? MaxJournalHeaderID = await clsJournalHeaders.GetMaxJournalHeaderIDAsync(); 
+
+            if(MaxJournalHeaderID.HasValue)
+            {
+                txtCurrentJournalHeaderID.Text = MaxJournalHeaderID.Value.ToString();
+                txtSearch.Text = txtCurrentJournalHeaderID.Text;
+                btnSearch.PerformClick(); 
+            }
+            else
+            {
+                myToast.ShowToast("هذا اخر سجل", ToastTypeIcon.Information);
+            }
+            }
+
+        private async void btnMin_Click(object sender, EventArgs e)
+        {
+            int? MinJournalHeaderID = await clsJournalHeaders.GetMinJournalHeaderIDAsync(); 
+
+            if(MinJournalHeaderID.HasValue)
+            {
+                txtCurrentJournalHeaderID.Text = MinJournalHeaderID.Value.ToString();
+                txtSearch.Text = txtCurrentJournalHeaderID.Text;
+                btnSearch.PerformClick();
+            }
+            else
+            {
+                myToast.ShowToast("هذا اول سجل", ToastTypeIcon.Information);
+            }
+        }
+
+        private async void btnPrevious_Click(object sender, EventArgs e)
+        {
+            if (int.TryParse(txtCurrentJournalHeaderID.Text, out int currentJournalHeaderID))
+            {
+                int? previousJournalHeaderID = await clsJournalHeaders.GetPreviousJournalHeaderIDAsync(currentJournalHeaderID);
+                if (previousJournalHeaderID.HasValue)
+                {
+                    txtCurrentJournalHeaderID.Text = previousJournalHeaderID.Value.ToString();
+                    txtSearch.Text = txtCurrentJournalHeaderID.Text;
+                    btnSearch.PerformClick();
+                }
+                else
+                {
+                    myToast.ShowToast("هذا اول سجل", ToastTypeIcon.Information);
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("Invalid current record ID.");
+            }
+        }
+
+        private async void btnNext_Click(object sender, EventArgs e)
+        {
+            if (int.TryParse(txtCurrentJournalHeaderID.Text, out int currentJournalHeaderID))
+            {
+                int? nextJournalHeaderID = await clsJournalHeaders.GetNextJournalHeaderIDAsync(currentJournalHeaderID);
+                if (nextJournalHeaderID.HasValue)
+                {
+                    txtCurrentJournalHeaderID.Text = nextJournalHeaderID.Value.ToString();
+                    txtSearch.Text = txtCurrentJournalHeaderID.Text;
+                    btnSearch.PerformClick();
+                }
+                else
+                {
+                    myToast.ShowToast("هذا اخر سجل",ToastTypeIcon.Information);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Invalid current record ID.");
+            }
+        }
     }
-}
+    }
+

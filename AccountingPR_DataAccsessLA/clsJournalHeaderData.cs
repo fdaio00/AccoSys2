@@ -245,4 +245,48 @@ public static class clsJournalHeadersData
         }
         return Count;
     }
+
+
+    public static async Task<int?> GetJournalHeaderIDAsync(string storedProcedure, int? currentJournalHeaderID)
+    {
+        int? journalHeaderID = null;
+
+        using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+        {
+            using (SqlCommand command = new SqlCommand(storedProcedure, connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                if (currentJournalHeaderID.HasValue)
+                {
+                    command.Parameters.AddWithValue("@CurrentJournalHeaderID", currentJournalHeaderID.Value);
+                }
+
+                SqlParameter journalHeaderIDParam = new SqlParameter
+                {
+                    ParameterName = storedProcedure.Contains("Max") || storedProcedure.Contains("Min") ? "@JournalHeaderID" : storedProcedure.Contains("Next") ? "@NextJournalHeaderID" : "@PreviousJournalHeaderID",
+                    SqlDbType = SqlDbType.Int,
+                    Direction = ParameterDirection.Output
+                };
+                command.Parameters.Add(journalHeaderIDParam);
+
+                try
+                {
+                    await connection.OpenAsync();
+                    await command.ExecuteNonQueryAsync();
+                    if (journalHeaderIDParam.Value != DBNull.Value)
+                    {
+                        journalHeaderID = Convert.ToInt32(journalHeaderIDParam.Value);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Log or handle the error as needed
+                    clsDataAccessSettings.SetErrorLoggingEvent(ex.Message);
+                }
+            }
+        }
+
+        return journalHeaderID;
+    }
+
 }

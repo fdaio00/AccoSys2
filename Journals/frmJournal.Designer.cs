@@ -30,16 +30,18 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtOperationType = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
             this.btnSearch = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.ckbIsPost = new System.Windows.Forms.CheckBox();
             this.dtpJournalDate = new System.Windows.Forms.DateTimePicker();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.btnMin = new System.Windows.Forms.Button();
+            this.btnPrevious = new System.Windows.Forms.Button();
+            this.bntMax = new System.Windows.Forms.Button();
+            this.btnNext = new System.Windows.Forms.Button();
+            this.txtCurrentJournalHeaderID = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.rbClosed = new System.Windows.Forms.RadioButton();
@@ -93,8 +95,6 @@
             this.txtTotalCredit = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.label16 = new System.Windows.Forms.Label();
-            this.txtOperationType = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -114,11 +114,11 @@
             this.groupBox1.Controls.Add(this.label15);
             this.groupBox1.Controls.Add(this.ckbIsPost);
             this.groupBox1.Controls.Add(this.dtpJournalDate);
-            this.groupBox1.Controls.Add(this.button3);
-            this.groupBox1.Controls.Add(this.button4);
-            this.groupBox1.Controls.Add(this.button2);
-            this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Controls.Add(this.textBox11);
+            this.groupBox1.Controls.Add(this.btnMin);
+            this.groupBox1.Controls.Add(this.btnPrevious);
+            this.groupBox1.Controls.Add(this.bntMax);
+            this.groupBox1.Controls.Add(this.btnNext);
+            this.groupBox1.Controls.Add(this.txtCurrentJournalHeaderID);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.label3);
@@ -132,6 +132,25 @@
             this.groupBox1.Size = new System.Drawing.Size(1690, 149);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
+            // 
+            // txtOperationType
+            // 
+            this.txtOperationType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtOperationType.Location = new System.Drawing.Point(517, 32);
+            this.txtOperationType.Name = "txtOperationType";
+            this.txtOperationType.ReadOnly = true;
+            this.txtOperationType.Size = new System.Drawing.Size(148, 25);
+            this.txtOperationType.TabIndex = 20;
+            // 
+            // label16
+            // 
+            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(671, 30);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(91, 18);
+            this.label16.TabIndex = 21;
+            this.label16.Text = "نوع العملية : ";
             // 
             // btnSearch
             // 
@@ -170,8 +189,6 @@
             // 
             this.ckbIsPost.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ckbIsPost.AutoSize = true;
-            this.ckbIsPost.Checked = true;
-            this.ckbIsPost.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ckbIsPost.Location = new System.Drawing.Point(800, 31);
             this.ckbIsPost.Name = "ckbIsPost";
             this.ckbIsPost.Size = new System.Drawing.Size(65, 22);
@@ -188,58 +205,62 @@
             this.dtpJournalDate.TabIndex = 4;
             this.dtpJournalDate.TabStop = false;
             // 
-            // button3
+            // btnMin
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.BackColor = System.Drawing.Color.Transparent;
-            this.button3.Image = global::AccountingPR.Properties.Resources.arrow_left2;
-            this.button3.Location = new System.Drawing.Point(16, 15);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(55, 57);
-            this.button3.TabIndex = 10;
-            this.button3.UseVisualStyleBackColor = false;
+            this.btnMin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMin.BackColor = System.Drawing.Color.Transparent;
+            this.btnMin.Image = global::AccountingPR.Properties.Resources.arrow_left2;
+            this.btnMin.Location = new System.Drawing.Point(16, 15);
+            this.btnMin.Name = "btnMin";
+            this.btnMin.Size = new System.Drawing.Size(55, 57);
+            this.btnMin.TabIndex = 10;
+            this.btnMin.UseVisualStyleBackColor = false;
+            this.btnMin.Click += new System.EventHandler(this.btnMin_Click);
             // 
-            // button4
+            // btnPrevious
             // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.BackColor = System.Drawing.Color.Transparent;
-            this.button4.Image = global::AccountingPR.Properties.Resources.arrow_left;
-            this.button4.Location = new System.Drawing.Point(77, 15);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(55, 57);
-            this.button4.TabIndex = 9;
-            this.button4.UseVisualStyleBackColor = false;
+            this.btnPrevious.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPrevious.BackColor = System.Drawing.Color.Transparent;
+            this.btnPrevious.Image = global::AccountingPR.Properties.Resources.arrow_left;
+            this.btnPrevious.Location = new System.Drawing.Point(77, 15);
+            this.btnPrevious.Name = "btnPrevious";
+            this.btnPrevious.Size = new System.Drawing.Size(55, 57);
+            this.btnPrevious.TabIndex = 9;
+            this.btnPrevious.UseVisualStyleBackColor = false;
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
             // 
-            // button2
+            // bntMax
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.BackColor = System.Drawing.Color.Transparent;
-            this.button2.Image = global::AccountingPR.Properties.Resources.arrow_right2;
-            this.button2.Location = new System.Drawing.Point(416, 16);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(55, 57);
-            this.button2.TabIndex = 6;
-            this.button2.UseVisualStyleBackColor = false;
+            this.bntMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bntMax.BackColor = System.Drawing.Color.Transparent;
+            this.bntMax.Image = global::AccountingPR.Properties.Resources.arrow_right2;
+            this.bntMax.Location = new System.Drawing.Point(416, 16);
+            this.bntMax.Name = "bntMax";
+            this.bntMax.Size = new System.Drawing.Size(55, 57);
+            this.bntMax.TabIndex = 6;
+            this.bntMax.UseVisualStyleBackColor = false;
+            this.bntMax.Click += new System.EventHandler(this.bntMax_Click);
             // 
-            // button1
+            // btnNext
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.BackColor = System.Drawing.Color.Transparent;
-            this.button1.Image = global::AccountingPR.Properties.Resources.arrow_right;
-            this.button1.Location = new System.Drawing.Point(355, 15);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(55, 57);
-            this.button1.TabIndex = 8;
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnNext.BackColor = System.Drawing.Color.Transparent;
+            this.btnNext.Image = global::AccountingPR.Properties.Resources.arrow_right;
+            this.btnNext.Location = new System.Drawing.Point(355, 15);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(55, 57);
+            this.btnNext.TabIndex = 8;
+            this.btnNext.UseVisualStyleBackColor = false;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
-            // textBox11
+            // txtCurrentJournalHeaderID
             // 
-            this.textBox11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox11.Location = new System.Drawing.Point(149, 37);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.ReadOnly = true;
-            this.textBox11.Size = new System.Drawing.Size(200, 25);
-            this.textBox11.TabIndex = 7;
+            this.txtCurrentJournalHeaderID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCurrentJournalHeaderID.Location = new System.Drawing.Point(149, 37);
+            this.txtCurrentJournalHeaderID.Name = "txtCurrentJournalHeaderID";
+            this.txtCurrentJournalHeaderID.ReadOnly = true;
+            this.txtCurrentJournalHeaderID.Size = new System.Drawing.Size(200, 25);
+            this.txtCurrentJournalHeaderID.TabIndex = 7;
             // 
             // label4
             // 
@@ -838,25 +859,6 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // label16
-            // 
-            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(671, 30);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(91, 18);
-            this.label16.TabIndex = 21;
-            this.label16.Text = "نوع العملية : ";
-            // 
-            // txtOperationType
-            // 
-            this.txtOperationType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtOperationType.Location = new System.Drawing.Point(517, 32);
-            this.txtOperationType.Name = "txtOperationType";
-            this.txtOperationType.ReadOnly = true;
-            this.txtOperationType.Size = new System.Drawing.Size(148, 25);
-            this.txtOperationType.TabIndex = 20;
-            // 
             // frmJournal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
@@ -920,11 +922,11 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtAccountNo;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox11;
+        private System.Windows.Forms.Button btnMin;
+        private System.Windows.Forms.Button btnPrevious;
+        private System.Windows.Forms.Button bntMax;
+        private System.Windows.Forms.Button btnNext;
+        private System.Windows.Forms.TextBox txtCurrentJournalHeaderID;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.DataGridView dgvJournals;
         private System.Windows.Forms.GroupBox groupBox5;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 
 public class clsJournalHeaders
@@ -191,4 +192,27 @@ public class clsJournalHeaders
     {
         return await clsJournalHeadersData.GetLastJournalNumber();
     }
+
+
+    public static async Task<int?> GetNextJournalHeaderIDAsync(int currentJournalHeaderID)
+    {
+        return await clsJournalHeadersData.GetJournalHeaderIDAsync("SP_GetNextJournalHeader", currentJournalHeaderID);
+    }
+
+    public static async Task<int?> GetPreviousJournalHeaderIDAsync(int currentJournalHeaderID)
+    {
+        return await clsJournalHeadersData.GetJournalHeaderIDAsync("SP_GetPreviousJournalHeader", currentJournalHeaderID);
+    }
+
+    public static async Task<int?> GetMaxJournalHeaderIDAsync()
+    {
+        return await clsJournalHeadersData.GetJournalHeaderIDAsync("SP_GetMaxJournalHeader", null);
+    }
+
+    public static async Task<int?> GetMinJournalHeaderIDAsync()
+    {
+        return await clsJournalHeadersData. GetJournalHeaderIDAsync("SP_GetMinJournalHeader", null);
+    }
+
+
 }

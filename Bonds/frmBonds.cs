@@ -713,7 +713,7 @@ namespace AccountingPR.Bonds
 
             }
             txtTotalBonds.Text = _BondHeader.BondBalance.ToString();
-
+  
             _LoadHeaderDetailsToDataGridView();
 
 
