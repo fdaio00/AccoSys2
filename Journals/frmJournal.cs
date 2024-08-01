@@ -25,6 +25,7 @@ namespace AccountingPR.Journals
         private clsJournalDetails _JournalDetails;
 
        public enum enJournalType { General =1 ,Reversed = 2, Circular =3, Closed = 4};
+        public enum enOperationType { DailyJournal =1 , Receipt = 2 , Disbursement=3 }
         public frmJournal()
         {
             InitializeComponent();
@@ -144,6 +145,7 @@ namespace AccountingPR.Journals
                 txtExchange.Clear();
                 txtDetails.Clear();
             //txtAccountNo.Focus();
+            txtOperationType.Clear(); 
             _Account = null; 
             _Currency = null;
             cbCurrency.SelectedIndex = cbCurrency.FindString("الريال اليمني");
@@ -407,6 +409,7 @@ namespace AccountingPR.Journals
             _JournalHeaders.JouIsPost = ckbIsPost.Checked;
             _JournalHeaders.JouID = Convert.ToInt32(txtJournalID.Text);
             _JournalHeaders.TotalDebit =  Convert.ToDecimal(txtTotalDebit.Text);
+            _JournalHeaders.OperationTypeID = Convert.ToInt32(enOperationType.DailyJournal);
 
             if(await _JournalHeaders.SaveAsync())
             {
@@ -490,6 +493,7 @@ namespace AccountingPR.Journals
             txtBalance.Text = _JournalHeaders.TotalBalance.ToString();
             txtTotalDebit.Text = _JournalHeaders.TotalDebit.ToString();
             txtTotalCredit.Text = _JournalHeaders.TotalCredit.ToString();
+            txtOperationType.Text = _JournalHeaders.OperationTypeInfo.OperationName;
 
             _LoadJournalDetailsToDataGridView();
               

@@ -37,12 +37,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MdiTabControl">
-      <HintPath>..\..\smart_t\smart_t\MdiTabControl.dll</HintPath>
+      <HintPath>.\MdiTabControl.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms.Ribbon">
-      <HintPath>..\..\smart_t\smart_t\System.Windows.Forms.Ribbon.dll</HintPath>
+      <HintPath>.\System.Windows.Forms.Ribbon.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />

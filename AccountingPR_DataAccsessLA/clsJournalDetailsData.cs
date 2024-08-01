@@ -84,12 +84,12 @@ public static class clsJournalDetailsData
                     Direction = ParameterDirection.Output
                 };
                 command.Parameters.Add(idOutput);
-                command.Parameters.AddWithValue("@AccountID", (object)AccountID ?? DBNull.Value);
-                command.Parameters.AddWithValue("@AccountDebit", (object)AccountDebit ?? DBNull.Value);
-                command.Parameters.AddWithValue("@AccountCredit", (object)AccountCredit ?? DBNull.Value);
+                command.Parameters.AddWithValue("@AccountID", AccountID );
+                command.Parameters.AddWithValue("@AccountDebit", AccountDebit );
+                command.Parameters.AddWithValue("@AccountCredit", AccountCredit );
                 command.Parameters.AddWithValue("@JouNote", (object)JouNote ?? DBNull.Value);
                 command.Parameters.AddWithValue("@AccountCurrencyID", (object)AccountCurrencyID ?? DBNull.Value);
-                command.Parameters.AddWithValue("@JouID", (object)JouID ?? DBNull.Value);
+                command.Parameters.AddWithValue("@JouID", JouID );
                 command.Parameters.AddWithValue("@CurrentExchange", (object)CurrentExchange ?? DBNull.Value);
 
                 try

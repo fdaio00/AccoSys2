@@ -20,6 +20,10 @@ public class clsJournalHeaders
     public int? EditedByUserID { get; set; }
     public DateTime? EditDate { get; set; }
 
+    public int OperationTypeID { get; set; }
+
+    public clsOperationType OperationTypeInfo { get; set; }
+
     public clsJournalHeaders()
     {
         this.JouID = -1;
@@ -49,7 +53,8 @@ public class clsJournalHeaders
         int? AddedByUserID,
         DateTime? AddDate,
         int? EditedByUserID,
-        DateTime? EditDate)
+        DateTime? EditDate,
+        int operationTypeID)
     {
         this.JouID = JouID;
         this.JouDate = JouDate;
@@ -64,20 +69,23 @@ public class clsJournalHeaders
         this.EditedByUserID = EditedByUserID;
         this.EditDate = EditDate;
         _Mode = enMode.Update;
+        this.OperationTypeID = operationTypeID;
+        OperationTypeInfo = clsOperationType.GetOperationTypeByID(this.OperationTypeID);
     }
 
     private async Task<bool> _AddNewJournalHeaderAsync()
     {
-       return await clsJournalHeadersData.AddNewJournalHeaderAsync(this.JouID,
-            this.JouDate.HasValue ? this.JouDate.Value : default(DateTime),
-            this.JouNote,
-            this.JouTypeID.HasValue ? this.JouTypeID.Value : default(int),
-            this.JouIsPost.HasValue ? this.JouIsPost.Value : default(bool),
-            this.TotalDebit.HasValue ? this.TotalDebit.Value : default(decimal),
-            this.TotalCredit.HasValue ? this.TotalCredit.Value : default(decimal),
-            this.TotalBalance.HasValue ? this.TotalBalance.Value : default(decimal),
-            this.AddedByUserID.HasValue ? this.AddedByUserID.Value : default(int),
-            this.AddDate.HasValue ? this.AddDate.Value : default(DateTime)
+        return await clsJournalHeadersData.AddNewJournalHeaderAsync(this.JouID,
+             this.JouDate.HasValue ? this.JouDate.Value : default(DateTime),
+             this.JouNote,
+             this.JouTypeID.HasValue ? this.JouTypeID.Value : default(int),
+             this.JouIsPost.HasValue ? this.JouIsPost.Value : default(bool),
+             this.TotalDebit.HasValue ? this.TotalDebit.Value : default(decimal),
+             this.TotalCredit.HasValue ? this.TotalCredit.Value : default(decimal),
+             this.TotalBalance.HasValue ? this.TotalBalance.Value : default(decimal),
+             this.AddedByUserID.HasValue ? this.AddedByUserID.Value : default(int),
+             this.AddDate.HasValue ? this.AddDate.Value : default(DateTime),
+             this.OperationTypeID
 );
         
     }
@@ -95,7 +103,8 @@ public class clsJournalHeaders
             this.TotalBalance.HasValue ? this.TotalBalance.Value : default(decimal)
  ,
             this.EditedByUserID,
-            this.EditDate);
+            this.EditDate,
+            this.OperationTypeID);
     }
 
     public async Task<bool> SaveAsync()
@@ -140,6 +149,7 @@ public class clsJournalHeaders
         DateTime? AddDate = null;
         int? EditedByUserID = null;
         DateTime? EditDate = null;
+        int OperationTypeID = -1; 
 
         bool isJournalHeaderFound = clsJournalHeadersData.FindJournalHeaderByID(
             JouID,
@@ -153,7 +163,7 @@ public class clsJournalHeaders
             ref AddedByUserID,
             ref AddDate,
             ref EditedByUserID,
-            ref EditDate);
+            ref EditDate,ref OperationTypeID);
 
         if (isJournalHeaderFound)
         {
@@ -169,7 +179,7 @@ public class clsJournalHeaders
                 AddedByUserID,
                 AddDate,
                 EditedByUserID,
-                EditDate);
+                EditDate, OperationTypeID);
         }
         else
         {

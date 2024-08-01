@@ -152,6 +152,7 @@ namespace AccountingPR.Bonds
             _CalculatingTotalBondsAmount();
             btnSave.Enabled = true;
             _BondHeader = new clsBondHeader();
+            _JournalHeaders = new clsJournalHeaders();
             txtJournalHeaderID.Text = (await clsJournalHeaders.GetLastJournalNumber()).ToString();
             txtHeadNote.Focus();
             txtBondHeaderID.Text = BondsNo?.ToString();
@@ -499,7 +500,6 @@ namespace AccountingPR.Bonds
                         myToast.ShowToast("لم يتم الحفظ , حدث خطأ ما ", ToastTypeIcon.Error);
 
                     }
-                    myToast.ShowToast("تم حفظ جميع السجلات بنجاح", ToastTypeIcon.Success);
 
                 }
                 else
@@ -521,35 +521,107 @@ namespace AccountingPR.Bonds
 
             try
             {
-                for (int i = 0; i < dgvBondsList.Rows.Count; i++)
+
+                if (Screen == enScreen.ReceiptScreen)
                 {
-                    if (dgvBondsList.Rows.Count > 0)
+                    for (int i = 0; i < dgvBondsList.Rows.Count; i++)
                     {
-                        if (await clsJournalDetails.CheckJournalDetailsIDExists(Convert.ToInt32(dgvBondsList.Rows[i].Cells[11].Value)))
+                        if (dgvBondsList.Rows.Count > 0)
                         {
-                            _JournalDetails = clsJournalDetails.GetJournalDetailByID(Convert.ToInt32(dgvBondsList.Rows[i].Cells[11].Value));
-                        }
-                        else
-                        {
-                            _JournalDetails = new clsJournalDetails();
+                            //if (await clsJournalDetails.CheckJournalDetailsIDExists(Convert.ToInt32(dgvBondsList.Rows[i].Cells[11].Value)))
+                            //{
+                            //    _JournalDetails = clsJournalDetails.GetJournalDetailByID(Convert.ToInt32(dgvBondsList.Rows[i].Cells[11].Value));
+                            //}
+                            //else
+                            //{
+                            //    _JournalDetails = new clsJournalDetails();
 
-                        }
+                            //}
+                             _JournalDetails = new clsJournalDetails();
+                            _JournalDetails.AccountCurrencyID = Convert.ToInt32(dgvBondsList.Rows[i].Cells[4].Value);
+                            _JournalDetails.AccountCredit = Convert.ToDecimal(dgvBondsList.Rows[i].Cells[3].Value);
+                            _JournalDetails.AccountDebit = 0;
+                            _JournalDetails.AccountID = Convert.ToInt32(dgvBondsList.Rows[i].Cells[1].Value);
+                            _JournalDetails.JouID = Convert.ToInt32(txtJournalHeaderID.Text);
+                            _JournalDetails.JouNote = Convert.ToString(dgvBondsList.Rows[i].Cells[7].Value);
+                            _JournalDetails.CurrentExchange = Convert.ToSingle(dgvBondsList.Rows[i].Cells[6].Value);
 
-                        _JournalDetails.AccountCurrencyID = Convert.ToInt32(dgvBondsList.Rows[i].Cells[5].Value);
-                        _JournalDetails.AccountCredit = Convert.ToDecimal(dgvBondsList.Rows[i].Cells[4].Value);
-                        _JournalDetails.AccountDebit = Convert.ToDecimal(dgvBondsList.Rows[i].Cells[3].Value);
-                        _JournalDetails.AccountID = Convert.ToInt32(dgvBondsList.Rows[i].Cells[1].Value);
-                        _JournalDetails.JouID = Convert.ToInt32(dgvBondsList.Rows[i].Cells[0].Value);
-                        _JournalDetails.JouNote = Convert.ToString(dgvBondsList.Rows[i].Cells[8].Value);
-                        _JournalDetails.CurrentExchange = Convert.ToSingle(dgvBondsList.Rows[i].Cells[7].Value);
 
 
-
-                        if (!await _JournalDetails.SaveAsync())
-                        {
-                            return false;
+                            if (!await _JournalDetails.SaveAsync())
+                            {
+                                return false;
+                            }
                         }
                     }
+
+                   
+
+                    //Adding Cash Number as Debit : 
+                        _JournalDetails = new clsJournalDetails();
+                 _JournalDetails.AccountCurrencyID = Convert.ToInt32(_Currency.CurrencyID);
+                    _JournalDetails.AccountCredit = 0;
+                    _JournalDetails.AccountDebit = Convert.ToDecimal(txtTotalBonds.Text);
+                    _JournalDetails.AccountID = Convert.ToInt32(txtCahsID.Text);
+                    _JournalDetails.JouID = Convert.ToInt32(txtJournalHeaderID.Text);
+                    _JournalDetails.JouNote = Convert.ToString(txtHeadNote.Text);
+                    _JournalDetails.CurrentExchange = Convert.ToSingle(_Currency.CurrencyExchange);
+
+
+                    if (!await _JournalDetails.SaveAsync())
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < dgvBondsList.Rows.Count; i++)
+                    {
+                        if (dgvBondsList.Rows.Count > 0)
+                        {
+                            //if (await clsJournalDetails.CheckJournalDetailsIDExists(Convert.ToInt32(dgvBondsList.Rows[i].Cells[11].Value)))
+                            //{
+                            //    _JournalDetails = clsJournalDetails.GetJournalDetailByID(Convert.ToInt32(dgvBondsList.Rows[i].Cells[11].Value));
+                            //}
+                            //else
+                            //{
+                            //    _JournalDetails = new clsJournalDetails();
+
+                            //}
+
+
+                                _JournalDetails = new clsJournalDetails();
+
+                            _JournalDetails.AccountCurrencyID = Convert.ToInt32(dgvBondsList.Rows[i].Cells[4].Value);
+                            _JournalDetails.AccountCredit =0;
+                            _JournalDetails.AccountDebit = Convert.ToDecimal(dgvBondsList.Rows[i].Cells[3].Value);
+                            _JournalDetails.AccountID = Convert.ToInt32(dgvBondsList.Rows[i].Cells[1].Value);
+                            _JournalDetails.JouID = Convert.ToInt32(txtJournalHeaderID.Text);
+                            _JournalDetails.JouNote = Convert.ToString(dgvBondsList.Rows[i].Cells[7].Value);
+                            _JournalDetails.CurrentExchange = Convert.ToSingle(dgvBondsList.Rows[i].Cells[6].Value);
+
+
+
+                            if (!await _JournalDetails.SaveAsync())
+                            {
+                                return false;
+                            }
+                        }
+                    }
+
+                    _JournalDetails = new clsJournalDetails();
+                    _JournalDetails.AccountCurrencyID = Convert.ToInt32(_Currency.CurrencyID);
+                    _JournalDetails.AccountCredit = Convert.ToDecimal(txtTotalBonds.Text);
+                    _JournalDetails.AccountDebit = 0;
+                    _JournalDetails.AccountID = Convert.ToInt32(txtCahsID.Text);
+                    _JournalDetails.JouID = Convert.ToInt32(txtJournalHeaderID.Text);
+                    _JournalDetails.JouNote = Convert.ToString(txtHeadNote.Text);
+
+                    if (!await _JournalDetails.SaveAsync())
+                    {
+                        return false;
+                    }
+                    _JournalDetails.CurrentExchange = Convert.ToSingle(_Currency.CurrencyExchange);
                 }
             }
             catch (Exception ex)
@@ -575,7 +647,7 @@ namespace AccountingPR.Bonds
             _JournalHeaders.JouDate = dtpBondHeaderDate.Value;
             _JournalHeaders.EditDate = DateTime.Now;
             _JournalHeaders.EditedByUserID = clsGlobal.CurrentUser.UserID;
-                _JournalHeaders.JouTypeID = Convert.ToInt32(frmJournal. enJournalType.Closed);
+            _JournalHeaders.JouTypeID = Convert.ToInt32(frmJournal. enJournalType.Closed);
 
             //if (rbClosed.Checked)
             //{
@@ -591,6 +663,16 @@ namespace AccountingPR.Bonds
             _JournalHeaders.JouID = Convert.ToInt32(txtJournalHeaderID.Text);
             _JournalHeaders.TotalDebit = Convert.ToDecimal(txtTotalBonds.Text);
 
+            int OperationType = 0; 
+            if(Screen == enScreen.ReceiptScreen)
+            {
+                OperationType = Convert.ToInt32(frmJournal.enOperationType.Receipt);
+            }
+            else
+            {
+                OperationType = Convert.ToInt32(frmJournal.enOperationType.Disbursement);
+            }
+            _JournalHeaders.OperationTypeID = OperationType; 
             if (await _JournalHeaders.SaveAsync())
             {
                 IsFound = true;

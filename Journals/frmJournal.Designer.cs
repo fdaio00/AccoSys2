@@ -93,6 +93,8 @@
             this.txtTotalCredit = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.label16 = new System.Windows.Forms.Label();
+            this.txtOperationType = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -105,6 +107,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtOperationType);
+            this.groupBox1.Controls.Add(this.label16);
             this.groupBox1.Controls.Add(this.btnSearch);
             this.groupBox1.Controls.Add(this.txtSearch);
             this.groupBox1.Controls.Add(this.label15);
@@ -168,7 +172,7 @@
             this.ckbIsPost.AutoSize = true;
             this.ckbIsPost.Checked = true;
             this.ckbIsPost.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ckbIsPost.Location = new System.Drawing.Point(669, 30);
+            this.ckbIsPost.Location = new System.Drawing.Point(800, 31);
             this.ckbIsPost.Name = "ckbIsPost";
             this.ckbIsPost.Size = new System.Drawing.Size(65, 22);
             this.ckbIsPost.TabIndex = 3;
@@ -178,7 +182,7 @@
             // dtpJournalDate
             // 
             this.dtpJournalDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.dtpJournalDate.Location = new System.Drawing.Point(754, 31);
+            this.dtpJournalDate.Location = new System.Drawing.Point(906, 29);
             this.dtpJournalDate.Name = "dtpJournalDate";
             this.dtpJournalDate.Size = new System.Drawing.Size(304, 25);
             this.dtpJournalDate.TabIndex = 4;
@@ -189,7 +193,7 @@
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button3.BackColor = System.Drawing.Color.Transparent;
             this.button3.Image = global::AccountingPR.Properties.Resources.arrow_left2;
-            this.button3.Location = new System.Drawing.Point(109, 13);
+            this.button3.Location = new System.Drawing.Point(16, 15);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(55, 57);
             this.button3.TabIndex = 10;
@@ -200,7 +204,7 @@
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button4.BackColor = System.Drawing.Color.Transparent;
             this.button4.Image = global::AccountingPR.Properties.Resources.arrow_left;
-            this.button4.Location = new System.Drawing.Point(170, 13);
+            this.button4.Location = new System.Drawing.Point(77, 15);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(55, 57);
             this.button4.TabIndex = 9;
@@ -211,7 +215,7 @@
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button2.BackColor = System.Drawing.Color.Transparent;
             this.button2.Image = global::AccountingPR.Properties.Resources.arrow_right2;
-            this.button2.Location = new System.Drawing.Point(509, 14);
+            this.button2.Location = new System.Drawing.Point(416, 16);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(55, 57);
             this.button2.TabIndex = 6;
@@ -222,7 +226,7 @@
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.BackColor = System.Drawing.Color.Transparent;
             this.button1.Image = global::AccountingPR.Properties.Resources.arrow_right;
-            this.button1.Location = new System.Drawing.Point(448, 13);
+            this.button1.Location = new System.Drawing.Point(355, 15);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(55, 57);
             this.button1.TabIndex = 8;
@@ -231,7 +235,7 @@
             // textBox11
             // 
             this.textBox11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox11.Location = new System.Drawing.Point(242, 35);
+            this.textBox11.Location = new System.Drawing.Point(149, 37);
             this.textBox11.Name = "textBox11";
             this.textBox11.ReadOnly = true;
             this.textBox11.Size = new System.Drawing.Size(200, 25);
@@ -285,7 +289,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(1080, 34);
+            this.label3.Location = new System.Drawing.Point(1232, 32);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(75, 18);
             this.label3.TabIndex = 4;
@@ -315,7 +319,7 @@
             // txtJournalID
             // 
             this.txtJournalID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtJournalID.Location = new System.Drawing.Point(1179, 35);
+            this.txtJournalID.Location = new System.Drawing.Point(1331, 33);
             this.txtJournalID.Name = "txtJournalID";
             this.txtJournalID.ReadOnly = true;
             this.txtJournalID.Size = new System.Drawing.Size(264, 25);
@@ -328,7 +332,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1449, 35);
+            this.label1.Location = new System.Drawing.Point(1601, 33);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(68, 18);
             this.label1.TabIndex = 0;
@@ -834,6 +838,25 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // label16
+            // 
+            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(671, 30);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(91, 18);
+            this.label16.TabIndex = 21;
+            this.label16.Text = "نوع العملية : ";
+            // 
+            // txtOperationType
+            // 
+            this.txtOperationType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtOperationType.Location = new System.Drawing.Point(517, 32);
+            this.txtOperationType.Name = "txtOperationType";
+            this.txtOperationType.ReadOnly = true;
+            this.txtOperationType.Size = new System.Drawing.Size(148, 25);
+            this.txtOperationType.TabIndex = 20;
+            // 
             // frmJournal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
@@ -937,5 +960,7 @@
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.DataGridViewTextBoxColumn rd;
+        private System.Windows.Forms.TextBox txtOperationType;
+        private System.Windows.Forms.Label label16;
     }
 }

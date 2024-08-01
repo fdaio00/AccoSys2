@@ -43,7 +43,8 @@ public static class clsJournalHeadersData
         decimal TotalCredit,
         decimal TotalBalance,
         int AddedByUserID,
-        DateTime AddDate)
+        DateTime AddDate,
+        int OperationTypeID)
     {
         bool Succes = false; 
 
@@ -62,6 +63,7 @@ public static class clsJournalHeadersData
                 command.Parameters.AddWithValue("@TotalBalance", TotalBalance );
                 command.Parameters.AddWithValue("@AddedByUserID", AddedByUserID );
                 command.Parameters.AddWithValue("@AddDate", AddDate );
+                command.Parameters.AddWithValue("@OperationTypeID", OperationTypeID);
 
 
                 try
@@ -90,7 +92,8 @@ public static class clsJournalHeadersData
         decimal TotalCredit,
         decimal TotalBalance,
         int? EditedByUserID,
-        DateTime? EditDate)
+        DateTime? EditDate,
+        int OperationTypeID)
     {
         bool success = false;
 
@@ -109,6 +112,7 @@ public static class clsJournalHeadersData
                 command.Parameters.AddWithValue("@TotalBalance", TotalBalance );
                 command.Parameters.AddWithValue("@EditedByUserID", EditedByUserID );
                 command.Parameters.AddWithValue("@EditDate", EditDate );
+                command.Parameters.AddWithValue("@OperationTypeID", OperationTypeID);
 
                 try
                 {
@@ -165,7 +169,8 @@ public static class clsJournalHeadersData
         ref int? AddedByUserIDRef,
         ref DateTime? AddDateRef,
         ref int? EditedByUserIDRef,
-        ref DateTime? EditDateRef)
+        ref DateTime? EditDateRef,
+        ref int OperationTypeID)
     {
         bool isFound = false;
 
@@ -194,6 +199,7 @@ public static class clsJournalHeadersData
                         AddDateRef = reader["AddDate"] != DBNull.Value ? Convert.ToDateTime(reader["AddDate"]) : (DateTime?)null;
                         EditedByUserIDRef = reader["EditedByUserID"] != DBNull.Value ? Convert.ToInt32(reader["EditedByUserID"]) : (int?)null;
                         EditDateRef = reader["EditDate"] != DBNull.Value ? Convert.ToDateTime(reader["EditDate"]) : (DateTime?)null;
+                        OperationTypeID = reader["OperationTypeID"] != DBNull.Value ? Convert.ToInt32(reader["OperationTypeID"]) :-1;
                     }
                     reader.Close();
                 }
