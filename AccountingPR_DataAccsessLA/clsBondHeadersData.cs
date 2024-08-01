@@ -19,7 +19,7 @@ public static class clsBondHeadersData
                 {
                     await connection.OpenAsync();
                     SqlDataReader reader = await command.ExecuteReaderAsync();
-                   if(reader.HasRows)   dt.Load(reader); // Load data into DataTable
+                    if (reader.HasRows) dt.Load(reader); // Load data into DataTable
                 }
                 catch (Exception ex)
                 {
@@ -52,11 +52,11 @@ public static class clsBondHeadersData
             {
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@BondID", bondID);
-                command.Parameters.AddWithValue("@BondDate", bondDate );
+                command.Parameters.AddWithValue("@BondDate", bondDate);
                 command.Parameters.AddWithValue("@BondNote", (object)bondNote ?? DBNull.Value);
-                command.Parameters.AddWithValue("@BondTypeID", bondType  );
-                command.Parameters.AddWithValue("@IsPost", isPost  );
-                command.Parameters.AddWithValue("@BondBalance", bondBalance  );
+                command.Parameters.AddWithValue("@BondTypeID", bondType);
+                command.Parameters.AddWithValue("@IsPost", isPost);
+                command.Parameters.AddWithValue("@BondBalance", bondBalance);
                 command.Parameters.AddWithValue("@CashID", (object)cashID ?? DBNull.Value);
                 command.Parameters.AddWithValue("@AccountBankID", (object)accountBankID ?? DBNull.Value);
                 command.Parameters.AddWithValue("@AddedByUserID", (object)addedByUserID ?? DBNull.Value);
@@ -251,7 +251,7 @@ public static class clsBondHeadersData
         }
         return Count;
     }
-    
+
     public async static Task<int> GenerateDisbursementBondNo()
     {
         int Count = -1;
@@ -284,4 +284,52 @@ public static class clsBondHeadersData
         }
         return Count;
     }
+
+
+    public static async Task<int?> GetBondHeaderIDAsync(string storedProcedure, int? currentBondID)
+    {
+        int? bondID = null;
+
+        using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+        {
+            using (SqlCommand command = new SqlCommand(storedProcedure, connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+
+                // Add the currentBondID parameter if it has a value
+                if (currentBondID.HasValue)
+                {
+                    command.Parameters.AddWithValue("@CurrentBondID", currentBondID.Value);
+                }
+
+                // Determine the parameter name based on the stored procedure name
+                SqlParameter bondIDParam = new SqlParameter
+                {
+                    ParameterName = storedProcedure.Contains("Max") || storedProcedure.Contains("Min") ? "@BondID" : storedProcedure.Contains("Next") ? "@NextBondID" : "@PreviousBondID",
+                    SqlDbType = SqlDbType.Int,
+                    Direction = ParameterDirection.Output
+                };
+                command.Parameters.Add(bondIDParam);
+
+                try
+                {
+                    await connection.OpenAsync();
+                    await command.ExecuteNonQueryAsync();
+                    if (bondIDParam.Value != DBNull.Value)
+                    {
+                        bondID = Convert.ToInt32(bondIDParam.Value);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Log or handle the error as needed
+                    clsDataAccessSettings.SetErrorLoggingEvent(ex.Message);
+                }
+            }
+        }
+
+        return bondID;
+    }
+
 }
+

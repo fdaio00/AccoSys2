@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using System.Threading.Tasks;
 using System;
+using System.Data.SqlClient;
 
 public class clsBondHeader
 {
@@ -175,5 +176,29 @@ public class clsBondHeader
         {
             return null; 
         }
+    }
+
+
+
+   
+
+    public static async Task<int?> GetNextBondHeaderIDAsync(int currentBondID)
+    {
+        return await clsBondHeadersData.GetBondHeaderIDAsync("SP_GetNextBondHeaderID", currentBondID);
+    }
+
+    public static async Task<int?> GetPreviousBondHeaderIDAsync(int currentBondID)
+    {
+        return await clsBondHeadersData.GetBondHeaderIDAsync("SP_GetPreviousBondHeaderID", currentBondID);
+    }
+
+    public static async Task<int?> GetMaxBondHeaderIDAsync()
+    {
+        return await clsBondHeadersData.GetBondHeaderIDAsync("SP_GetMaxBondHeaderID", null);
+    }
+
+    public static async Task<int?> GetMinBondHeaderIDAsync()
+    {
+        return await clsBondHeadersData. GetBondHeaderIDAsync("SP_GetMinBondHeaderID", null);
     }
 }

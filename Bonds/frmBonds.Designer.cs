@@ -78,11 +78,11 @@
             this.label15 = new System.Windows.Forms.Label();
             this.ckbIsPost = new System.Windows.Forms.CheckBox();
             this.dtpBondHeaderDate = new System.Windows.Forms.DateTimePicker();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.btnMin = new System.Windows.Forms.Button();
+            this.btnPrevious = new System.Windows.Forms.Button();
+            this.btnMax = new System.Windows.Forms.Button();
+            this.btnNext = new System.Windows.Forms.Button();
+            this.txtCurrentBondHeaderID = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.rbDisbursement = new System.Windows.Forms.RadioButton();
@@ -512,11 +512,11 @@
             this.groupBox1.Controls.Add(this.label15);
             this.groupBox1.Controls.Add(this.ckbIsPost);
             this.groupBox1.Controls.Add(this.dtpBondHeaderDate);
-            this.groupBox1.Controls.Add(this.button3);
-            this.groupBox1.Controls.Add(this.button4);
-            this.groupBox1.Controls.Add(this.button2);
-            this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Controls.Add(this.textBox11);
+            this.groupBox1.Controls.Add(this.btnMin);
+            this.groupBox1.Controls.Add(this.btnPrevious);
+            this.groupBox1.Controls.Add(this.btnMax);
+            this.groupBox1.Controls.Add(this.btnNext);
+            this.groupBox1.Controls.Add(this.txtCurrentBondHeaderID);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.label3);
@@ -647,58 +647,62 @@
             this.dtpBondHeaderDate.TabIndex = 4;
             this.dtpBondHeaderDate.TabStop = false;
             // 
-            // button3
+            // btnMin
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.BackColor = System.Drawing.Color.Transparent;
-            this.button3.Image = global::AccountingPR.Properties.Resources.arrow_left2;
-            this.button3.Location = new System.Drawing.Point(17, 16);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(55, 57);
-            this.button3.TabIndex = 10;
-            this.button3.UseVisualStyleBackColor = false;
+            this.btnMin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMin.BackColor = System.Drawing.Color.Transparent;
+            this.btnMin.Image = global::AccountingPR.Properties.Resources.arrow_left2;
+            this.btnMin.Location = new System.Drawing.Point(17, 16);
+            this.btnMin.Name = "btnMin";
+            this.btnMin.Size = new System.Drawing.Size(55, 57);
+            this.btnMin.TabIndex = 10;
+            this.btnMin.UseVisualStyleBackColor = false;
+            this.btnMin.Click += new System.EventHandler(this.btnMin_Click);
             // 
-            // button4
+            // btnPrevious
             // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.BackColor = System.Drawing.Color.Transparent;
-            this.button4.Image = global::AccountingPR.Properties.Resources.arrow_left;
-            this.button4.Location = new System.Drawing.Point(78, 16);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(55, 57);
-            this.button4.TabIndex = 9;
-            this.button4.UseVisualStyleBackColor = false;
+            this.btnPrevious.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPrevious.BackColor = System.Drawing.Color.Transparent;
+            this.btnPrevious.Image = global::AccountingPR.Properties.Resources.arrow_left;
+            this.btnPrevious.Location = new System.Drawing.Point(78, 16);
+            this.btnPrevious.Name = "btnPrevious";
+            this.btnPrevious.Size = new System.Drawing.Size(55, 57);
+            this.btnPrevious.TabIndex = 9;
+            this.btnPrevious.UseVisualStyleBackColor = false;
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
             // 
-            // button2
+            // btnMax
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.BackColor = System.Drawing.Color.Transparent;
-            this.button2.Image = global::AccountingPR.Properties.Resources.arrow_right2;
-            this.button2.Location = new System.Drawing.Point(417, 17);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(55, 57);
-            this.button2.TabIndex = 6;
-            this.button2.UseVisualStyleBackColor = false;
+            this.btnMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMax.BackColor = System.Drawing.Color.Transparent;
+            this.btnMax.Image = global::AccountingPR.Properties.Resources.arrow_right2;
+            this.btnMax.Location = new System.Drawing.Point(417, 17);
+            this.btnMax.Name = "btnMax";
+            this.btnMax.Size = new System.Drawing.Size(55, 57);
+            this.btnMax.TabIndex = 6;
+            this.btnMax.UseVisualStyleBackColor = false;
+            this.btnMax.Click += new System.EventHandler(this.btnMax_Click);
             // 
-            // button1
+            // btnNext
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.BackColor = System.Drawing.Color.Transparent;
-            this.button1.Image = global::AccountingPR.Properties.Resources.arrow_right;
-            this.button1.Location = new System.Drawing.Point(356, 16);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(55, 57);
-            this.button1.TabIndex = 8;
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnNext.BackColor = System.Drawing.Color.Transparent;
+            this.btnNext.Image = global::AccountingPR.Properties.Resources.arrow_right;
+            this.btnNext.Location = new System.Drawing.Point(356, 16);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(55, 57);
+            this.btnNext.TabIndex = 8;
+            this.btnNext.UseVisualStyleBackColor = false;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
-            // textBox11
+            // txtCurrentBondHeaderID
             // 
-            this.textBox11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox11.Location = new System.Drawing.Point(150, 38);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.ReadOnly = true;
-            this.textBox11.Size = new System.Drawing.Size(200, 23);
-            this.textBox11.TabIndex = 7;
+            this.txtCurrentBondHeaderID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCurrentBondHeaderID.Location = new System.Drawing.Point(150, 38);
+            this.txtCurrentBondHeaderID.Name = "txtCurrentBondHeaderID";
+            this.txtCurrentBondHeaderID.ReadOnly = true;
+            this.txtCurrentBondHeaderID.Size = new System.Drawing.Size(200, 23);
+            this.txtCurrentBondHeaderID.TabIndex = 7;
             // 
             // label4
             // 
@@ -862,11 +866,11 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.CheckBox ckbIsPost;
         private System.Windows.Forms.DateTimePicker dtpBondHeaderDate;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox11;
+        private System.Windows.Forms.Button btnMin;
+        private System.Windows.Forms.Button btnPrevious;
+        private System.Windows.Forms.Button btnMax;
+        private System.Windows.Forms.Button btnNext;
+        private System.Windows.Forms.TextBox txtCurrentBondHeaderID;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton rbDisbursement;

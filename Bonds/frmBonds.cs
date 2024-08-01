@@ -695,6 +695,7 @@ namespace AccountingPR.Bonds
                 txtSearch.Focus();
                 return;
             }
+            txtCurrentBondHeaderID.Text = txtSearch.Text; 
             btnSave.Enabled = true;
             txtBondHeaderID.Text = _BondHeader.BondID.ToString();
             dtpBondHeaderDate.Value = _BondHeader.BondDate.Value;
@@ -784,6 +785,83 @@ namespace AccountingPR.Bonds
             else
                 Screen = enScreen.DisbursementScreen;
         }
+
+        private async void btnMax_Click(object sender, EventArgs e)
+        {
+            int? maxBondHeaderID = await clsBondHeader.GetMaxBondHeaderIDAsync();
+
+            if (maxBondHeaderID.HasValue)
+            {
+                txtCurrentBondHeaderID.Text = maxBondHeaderID.Value.ToString();
+                txtSearch.Text = txtCurrentBondHeaderID.Text;
+                btnSearch.PerformClick();
+            }
+            else
+            {
+                myToast.ShowToast("هذا اخر سجل", ToastTypeIcon.Information);
+            }
+        }
+
+        private async void btnMin_Click(object sender, EventArgs e)
+        {
+            int? minBondHeaderID = await clsBondHeader.GetMinBondHeaderIDAsync();
+
+            if (minBondHeaderID.HasValue)
+            {
+                txtCurrentBondHeaderID.Text = minBondHeaderID.Value.ToString();
+                txtSearch.Text = txtCurrentBondHeaderID.Text;
+                btnSearch.PerformClick();
+            }
+            else
+            {
+                myToast.ShowToast("هذا اول سجل", ToastTypeIcon.Information);
+            }
+        }
+
+        private async void btnPrevious_Click(object sender, EventArgs e)
+        {
+            if (int.TryParse(txtCurrentBondHeaderID.Text, out int currentBondHeaderID))
+            {
+                int? previousBondHeaderID = await clsBondHeader.GetPreviousBondHeaderIDAsync(currentBondHeaderID);
+                if (previousBondHeaderID.HasValue)
+                {
+                    txtCurrentBondHeaderID.Text = previousBondHeaderID.Value.ToString();
+                    txtSearch.Text = txtCurrentBondHeaderID.Text;
+                    btnSearch.PerformClick();
+                }
+                else
+                {
+                    myToast.ShowToast("هذا اول سجل", ToastTypeIcon.Information);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Invalid current record ID.");
+            }
+        }
+
+        private async void btnNext_Click(object sender, EventArgs e)
+        {
+            if (int.TryParse(txtCurrentBondHeaderID.Text, out int currentBondHeaderID))
+            {
+                int? nextBondHeaderID = await clsBondHeader.GetNextBondHeaderIDAsync(currentBondHeaderID);
+                if (nextBondHeaderID.HasValue)
+                {
+                    txtCurrentBondHeaderID.Text = nextBondHeaderID.Value.ToString();
+                    txtSearch.Text = txtCurrentBondHeaderID.Text;
+                    btnSearch.PerformClick();
+                }
+                else
+                {
+                    myToast.ShowToast("هذا اخر سجل", ToastTypeIcon.Information);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Invalid current record ID.");
+            }
+        }
+
     }
 
 
