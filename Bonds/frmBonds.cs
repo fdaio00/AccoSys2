@@ -1,5 +1,6 @@
 ﻿using AccountingPR.Accounts;
 using AccountingPR.Global;
+using AccountingPR.Journals;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,6 +30,8 @@ namespace AccountingPR.Bonds
         public enScreen Screen;
         private clsAccount _Account;
         private int? _tempHeaderDetialsID = null;
+        private clsJournalHeaders _JournalHeaders;
+        private clsJournalDetails _JournalDetails;
 
         public frmBonds(enScreen ScreenType)
         {
@@ -200,7 +203,7 @@ namespace AccountingPR.Bonds
             _Account = null;
             _Currency = null;
             cbCurrency.SelectedIndex = cbCurrency.FindString("الريال اليمني");
-            _tempHeaderDetialsID = null; 
+            _tempHeaderDetialsID = null;
             cbCurrency_SelectedIndexChanged(null, null);
 
 
@@ -208,15 +211,15 @@ namespace AccountingPR.Bonds
 
         bool _CheckIfAccountExsitsInDGV()
         {
-            for(int i = 0; i < dgvBondsList.Rows.Count; i ++)
+            for (int i = 0; i < dgvBondsList.Rows.Count; i++)
             {
-                if(txtAccountName.Text.Trim() == dgvBondsList.Rows[i].Cells[1].ToString())
+                if (txtAccountName.Text.Trim() == dgvBondsList.Rows[i].Cells[1].ToString())
                 {
                     return true;
                 }
             }
 
-            return false;   
+            return false;
         }
         void _CalculatingTotalBondsAmount()
         {
@@ -361,7 +364,7 @@ namespace AccountingPR.Bonds
                             _BondDetail = new clsBondDetail();
 
                         }
-                        
+
                         _BondDetail.BondID = Convert.ToInt32(dgvBondsList.Rows[i].Cells[0].Value);
                         _BondDetail.AccountID = Convert.ToInt32(dgvBondsList.Rows[i].Cells[1].Value);
                         _BondDetail.Amount = Convert.ToDecimal(dgvBondsList.Rows[i].Cells[3].Value);
@@ -455,7 +458,7 @@ namespace AccountingPR.Bonds
                     dgvBondsList.Rows[j].Cells[7].Value = dt.Rows[i][7].ToString();
                     dgvBondsList.Rows[j].Cells[8].Value = dt.Rows[i][8].ToString();
                     dgvBondsList.Rows[j].Cells[9].Value = dt.Rows[i][9].ToString();
-            
+
 
                     j++;
                 }
@@ -478,6 +481,24 @@ namespace AccountingPR.Bonds
             {
                 if (await _SaveBondDetails())
                 {
+                    if (await _SaveJournalHeader())
+                    {
+                        if (await _SaveJournalDetails())
+                        {
+                            myToast.ShowToast("تم حفظ جميع السجلات بنجاح", ToastTypeIcon.Success);
+
+                        }
+                        else
+                        {
+                            myToast.ShowToast("لم يتم حفظ بعض السجلات , حدث خطأ ما ", ToastTypeIcon.Error);
+
+                        }
+                    }
+                    else
+                    {
+                        myToast.ShowToast("لم يتم الحفظ , حدث خطأ ما ", ToastTypeIcon.Error);
+
+                    }
                     myToast.ShowToast("تم حفظ جميع السجلات بنجاح", ToastTypeIcon.Success);
 
                 }
@@ -493,6 +514,92 @@ namespace AccountingPR.Bonds
 
             }
         }
+
+        async private Task<bool> _SaveJournalDetails()
+        {
+            bool sucsess = true;
+
+            try
+            {
+                for (int i = 0; i < dgvBondsList.Rows.Count; i++)
+                {
+                    if (dgvBondsList.Rows.Count > 0)
+                    {
+                        if (await clsJournalDetails.CheckJournalDetailsIDExists(Convert.ToInt32(dgvBondsList.Rows[i].Cells[11].Value)))
+                        {
+                            _JournalDetails = clsJournalDetails.GetJournalDetailByID(Convert.ToInt32(dgvBondsList.Rows[i].Cells[11].Value));
+                        }
+                        else
+                        {
+                            _JournalDetails = new clsJournalDetails();
+
+                        }
+
+                        _JournalDetails.AccountCurrencyID = Convert.ToInt32(dgvBondsList.Rows[i].Cells[5].Value);
+                        _JournalDetails.AccountCredit = Convert.ToDecimal(dgvBondsList.Rows[i].Cells[4].Value);
+                        _JournalDetails.AccountDebit = Convert.ToDecimal(dgvBondsList.Rows[i].Cells[3].Value);
+                        _JournalDetails.AccountID = Convert.ToInt32(dgvBondsList.Rows[i].Cells[1].Value);
+                        _JournalDetails.JouID = Convert.ToInt32(dgvBondsList.Rows[i].Cells[0].Value);
+                        _JournalDetails.JouNote = Convert.ToString(dgvBondsList.Rows[i].Cells[8].Value);
+                        _JournalDetails.CurrentExchange = Convert.ToSingle(dgvBondsList.Rows[i].Cells[7].Value);
+
+
+
+                        if (!await _JournalDetails.SaveAsync())
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                clsGlobal.SetErrorLoggingEvent(ex.Message);
+                sucsess = false;
+            }
+
+
+            return sucsess;
+        }
+
+       async private Task<bool> _SaveJournalHeader()
+        {
+            bool IsFound = false;
+            _JournalHeaders.TotalCredit = Convert.ToDecimal(txtTotalBonds.Text);
+            //_JournalHeaders.TotalBalance = Convert.ToDecimal(txtTotalBonds.Text);
+            _JournalHeaders.TotalBalance = 0;
+            _JournalHeaders.JouNote = txtHeadNote.Text.Trim();
+            _JournalHeaders.AddedByUserID = clsGlobal.CurrentUser.UserID;
+            _JournalHeaders.AddDate = DateTime.Now;
+            _JournalHeaders.JouDate = dtpBondHeaderDate.Value;
+            _JournalHeaders.EditDate = DateTime.Now;
+            _JournalHeaders.EditedByUserID = clsGlobal.CurrentUser.UserID;
+                _JournalHeaders.JouTypeID = Convert.ToInt32(frmJournal. enJournalType.Closed);
+
+            //if (rbClosed.Checked)
+            //{
+
+            //    _JournalHeaders.JouTypeID = Convert.ToInt32(frmJournal. enJournalType.Closed);
+            //}
+            //if (rbGeneral.Checked)
+            //{
+            //    _JournalHeaders.JouTypeID = Convert.ToInt32(frm.enJournalType.General);
+
+            //}
+            _JournalHeaders.JouIsPost = ckbIsPost.Checked;
+            _JournalHeaders.JouID = Convert.ToInt32(txtJournalHeaderID.Text);
+            _JournalHeaders.TotalDebit = Convert.ToDecimal(txtTotalBonds.Text);
+
+            if (await _JournalHeaders.SaveAsync())
+            {
+                IsFound = true;
+            }
+
+            return IsFound;
+
+        }
+
         void _LoadJournalHeaderInfo()
         {
             _BondHeader = clsBondHeader.FindBondHeaderByID(Convert.ToInt32(txtSearch.Text.Trim()));
@@ -506,7 +613,7 @@ namespace AccountingPR.Bonds
                 txtSearch.Focus();
                 return;
             }
-            btnSave.Enabled = true;  
+            btnSave.Enabled = true;
             txtBondHeaderID.Text = _BondHeader.BondID.ToString();
             dtpBondHeaderDate.Value = _BondHeader.BondDate.Value;
             txtHeadNote.Text = _BondHeader.BondNote.ToString();
@@ -543,10 +650,57 @@ namespace AccountingPR.Bonds
             {
                 e.Handled = true;
             }
-            if(e.KeyChar == (char)13)
+            if (e.KeyChar == (char)13)
             {
                 btnSearch.PerformClick();
             }
+        }
+
+        private async void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("هل انت متاكد من حذف السجل المحدد", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+            {
+                if (await clsBondDetail.DeleteAsync(Convert.ToInt32(dgvBondsList.CurrentRow.Cells[9].Value)))
+                {
+                    myToast.ShowToast("تم حذف السجل بنجاح", ToastTypeIcon.Success);
+                    dgvBondsList.ClearSelection();
+                    btnSearch.PerformClick();
+                    btnDelete.Enabled = false;
+                }
+                else
+                {
+                    myToast.ShowToast("لم يتم حذف السجل", ToastTypeIcon.Error);
+
+                }
+            }
+        }
+
+        private void dgvBondsList_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvBondsList.CurrentRow != null)
+            {
+                btnDelete.Enabled = true;
+            }
+        }
+
+        private void rbReceipt_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbReceipt.Checked)
+            {
+                Screen = enScreen.ReceiptScreen;
+            }
+            else
+                Screen = enScreen.DisbursementScreen;
+        }
+
+        private void rbDisbursement_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbReceipt.Checked)
+            {
+                Screen = enScreen.ReceiptScreen;
+            }
+            else
+                Screen = enScreen.DisbursementScreen;
         }
     }
 

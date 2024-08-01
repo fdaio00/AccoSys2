@@ -39,6 +39,19 @@
             this.txtTotalBonds = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.gbTitle = new System.Windows.Forms.GroupBox();
+            this.dgvBondsList = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnEnterHeaderDetails = new System.Windows.Forms.Button();
             this.cbCurrency = new System.Windows.Forms.ComboBox();
@@ -79,26 +92,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtBondHeaderID = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvBondsList = new System.Windows.Forms.DataGridView();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox5.SuspendLayout();
             this.gbTitle.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvBondsList)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvBondsList)).BeginInit();
-            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox5
@@ -148,6 +148,7 @@
             this.btnDelete.Text = "حذف";
             this.btnDelete.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnDelete.UseVisualStyleBackColor = false;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnSave
             // 
@@ -228,6 +229,122 @@
             this.gbTitle.Size = new System.Drawing.Size(1881, 334);
             this.gbTitle.TabIndex = 6;
             this.gbTitle.TabStop = false;
+            // 
+            // dgvBondsList
+            // 
+            this.dgvBondsList.AllowUserToAddRows = false;
+            this.dgvBondsList.AllowUserToDeleteRows = false;
+            this.dgvBondsList.AllowUserToOrderColumns = true;
+            this.dgvBondsList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvBondsList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvBondsList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.Column2,
+            this.Column3,
+            this.Column4,
+            this.Column5,
+            this.Column6,
+            this.Column7,
+            this.Column8,
+            this.Column9,
+            this.Column10});
+            this.dgvBondsList.ContextMenuStrip = this.contextMenuStrip1;
+            this.dgvBondsList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvBondsList.Location = new System.Drawing.Point(3, 19);
+            this.dgvBondsList.Name = "dgvBondsList";
+            this.dgvBondsList.ReadOnly = true;
+            this.dgvBondsList.RowHeadersWidth = 51;
+            this.dgvBondsList.RowTemplate.Height = 24;
+            this.dgvBondsList.Size = new System.Drawing.Size(1875, 312);
+            this.dgvBondsList.TabIndex = 0;
+            this.dgvBondsList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvBondsList_CellClick);
+            this.dgvBondsList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvBondsList_CellContentClick);
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "رقم السند";
+            this.Column1.MinimumWidth = 6;
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "رقم الحساب";
+            this.Column2.MinimumWidth = 6;
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "اسم الحساب";
+            this.Column3.MinimumWidth = 6;
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "المبلغ";
+            this.Column4.MinimumWidth = 6;
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "رقم العملة";
+            this.Column5.MinimumWidth = 6;
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "العملة";
+            this.Column6.MinimumWidth = 6;
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "الصرف";
+            this.Column7.MinimumWidth = 6;
+            this.Column7.Name = "Column7";
+            this.Column7.ReadOnly = true;
+            // 
+            // Column8
+            // 
+            this.Column8.HeaderText = "البيان";
+            this.Column8.MinimumWidth = 6;
+            this.Column8.Name = "Column8";
+            this.Column8.ReadOnly = true;
+            // 
+            // Column9
+            // 
+            this.Column9.HeaderText = "اجمالي المبلغ";
+            this.Column9.MinimumWidth = 6;
+            this.Column9.Name = "Column9";
+            this.Column9.ReadOnly = true;
+            // 
+            // Column10
+            // 
+            this.Column10.HeaderText = "معرف السند";
+            this.Column10.MinimumWidth = 6;
+            this.Column10.Name = "Column10";
+            this.Column10.ReadOnly = true;
+            this.Column10.Visible = false;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(148, 28);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(147, 24);
+            this.toolStripMenuItem1.Text = "ازالة الصف";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // groupBox3
             // 
@@ -614,6 +731,7 @@
             this.rbDisbursement.TabStop = true;
             this.rbDisbursement.Text = "قبض";
             this.rbDisbursement.UseVisualStyleBackColor = true;
+            this.rbDisbursement.CheckedChanged += new System.EventHandler(this.rbDisbursement_CheckedChanged);
             // 
             // rbReceipt
             // 
@@ -624,6 +742,7 @@
             this.rbReceipt.TabIndex = 0;
             this.rbReceipt.Text = "صرف";
             this.rbReceipt.UseVisualStyleBackColor = true;
+            this.rbReceipt.CheckedChanged += new System.EventHandler(this.rbReceipt_CheckedChanged);
             // 
             // label3
             // 
@@ -674,121 +793,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "رقم السند:";
             // 
-            // Column10
-            // 
-            this.Column10.HeaderText = "معرف السند";
-            this.Column10.MinimumWidth = 6;
-            this.Column10.Name = "Column10";
-            this.Column10.ReadOnly = true;
-            this.Column10.Visible = false;
-            // 
-            // Column9
-            // 
-            this.Column9.HeaderText = "اجمالي المبلغ";
-            this.Column9.MinimumWidth = 6;
-            this.Column9.Name = "Column9";
-            this.Column9.ReadOnly = true;
-            // 
-            // Column8
-            // 
-            this.Column8.HeaderText = "البيان";
-            this.Column8.MinimumWidth = 6;
-            this.Column8.Name = "Column8";
-            this.Column8.ReadOnly = true;
-            // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "الصرف";
-            this.Column7.MinimumWidth = 6;
-            this.Column7.Name = "Column7";
-            this.Column7.ReadOnly = true;
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "العملة";
-            this.Column6.MinimumWidth = 6;
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "رقم العملة";
-            this.Column5.MinimumWidth = 6;
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "المبلغ";
-            this.Column4.MinimumWidth = 6;
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "اسم الحساب";
-            this.Column3.MinimumWidth = 6;
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "رقم الحساب";
-            this.Column2.MinimumWidth = 6;
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "رقم السند";
-            this.Column1.MinimumWidth = 6;
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // dgvBondsList
-            // 
-            this.dgvBondsList.AllowUserToAddRows = false;
-            this.dgvBondsList.AllowUserToDeleteRows = false;
-            this.dgvBondsList.AllowUserToOrderColumns = true;
-            this.dgvBondsList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvBondsList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvBondsList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2,
-            this.Column3,
-            this.Column4,
-            this.Column5,
-            this.Column6,
-            this.Column7,
-            this.Column8,
-            this.Column9,
-            this.Column10});
-            this.dgvBondsList.ContextMenuStrip = this.contextMenuStrip1;
-            this.dgvBondsList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvBondsList.Location = new System.Drawing.Point(3, 19);
-            this.dgvBondsList.Name = "dgvBondsList";
-            this.dgvBondsList.ReadOnly = true;
-            this.dgvBondsList.RowHeadersWidth = 51;
-            this.dgvBondsList.RowTemplate.Height = 24;
-            this.dgvBondsList.Size = new System.Drawing.Size(1875, 312);
-            this.dgvBondsList.TabIndex = 0;
-            this.dgvBondsList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvBondsList_CellContentClick);
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(148, 28);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(210, 24);
-            this.toolStripMenuItem1.Text = "ازالة الصف";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
-            // 
             // frmBonds
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -810,14 +814,14 @@
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.gbTitle.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvBondsList)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvBondsList)).EndInit();
-            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

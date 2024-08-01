@@ -24,7 +24,7 @@ namespace AccountingPR.Journals
         enMdoe _Mode = enMdoe.AddNew;
         private clsJournalDetails _JournalDetails;
 
-        enum enJournalType { General =1 ,Reversed = 2, Circular =3, Closed = 4};
+       public enum enJournalType { General =1 ,Reversed = 2, Circular =3, Closed = 4};
         public frmJournal()
         {
             InitializeComponent();

@@ -87,6 +87,10 @@ public class clsBondDetail
     {
         return await clsBondDetailsData.DeleteBondDetailAsync(this.BondDetailsID);
     }
+     public static  async Task<bool> DeleteAsync(int BondDetailsID)
+    {
+        return await clsBondDetailsData.DeleteBondDetailAsync(BondDetailsID);
+    }
 
     public static async Task<DataTable> GetAllBondDetailsAsync()
     {

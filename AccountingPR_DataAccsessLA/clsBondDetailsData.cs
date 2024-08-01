@@ -118,7 +118,7 @@ public static class clsBondDetailsData
 
         using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
         {
-            using (SqlCommand command = new SqlCommand("SP_DeleteBondDetail", connection))
+            using (SqlCommand command = new SqlCommand("SP_DeleteBondDetails", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@BondDetailsID", bondDetailsID);
